@@ -93,30 +93,28 @@ export default async function DashboardPage() {
 
   return (
     <>
-      <header className="flex items-center justify-between border-b border-primary/5 bg-white px-8 py-3">
-        <div className="flex items-center gap-4">
-          <div className="flex items-center gap-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary/10 text-sm font-semibold text-primary">
-              {userInitial}
-            </div>
-            <div>
-              <p
-                className="text-sm font-semibold text-primary"
-                style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
-              >
-                {profile.full_name}
-              </p>
-              <p
-                className="text-xs text-primary/40"
-                style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
-              >
-                {factory?.name}
-              </p>
-            </div>
+      <header className="flex items-center justify-between border-b border-primary/5 bg-white px-4 py-3 md:px-8">
+        <div className="flex items-center gap-3">
+          <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary/10 text-sm font-semibold text-primary">
+            {userInitial}
+          </div>
+          <div>
+            <p
+              className="text-sm font-semibold text-primary"
+              style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+            >
+              {profile.full_name}
+            </p>
+            <p
+              className="text-xs text-primary/40"
+              style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+            >
+              {factory?.name}
+            </p>
           </div>
         </div>
         <div className="flex items-center gap-4">
-          <div className="relative">
+          <div className="relative hidden sm:block">
             <input
               type="text"
               placeholder="بحث..."
@@ -136,9 +134,10 @@ export default async function DashboardPage() {
         </div>
       </header>
 
-      <main className="flex-1 overflow-y-auto p-8">
+      <main className="flex-1 overflow-y-auto p-4 md:p-8">
           <div className="mx-auto max-w-6xl space-y-6">
-            <div className="grid grid-cols-2 gap-4">
+            {/* Stat Cards */}
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <StatCard
                 title="أوامر العمل النشطة"
                 value={activeOrdersCountValue}
@@ -166,29 +165,28 @@ export default async function DashboardPage() {
               />
             </div>
 
+            {/* Production Status + Activity */}
             <div className="grid grid-cols-1 gap-6 xl:grid-cols-3">
               <div className="xl:col-span-2">
                 <div className="rounded-xl border border-primary/5 bg-white">
-                  <div className="flex items-center justify-between border-b border-primary/5 px-6 py-4">
+                  <div className="flex items-center justify-between border-b border-primary/5 px-4 py-3 md:px-6 md:py-4">
                     <h2
-                      className="text-lg font-bold text-primary"
+                      className="text-base font-bold text-primary md:text-lg"
                       style={{ fontFamily: 'var(--font-heading), var(--font-heading-arabic)' }}
                     >
                       حالة الإنتاج المباشرة
                     </h2>
                     <a
                       href="/work-orders"
-                      className="flex items-center gap-1 text-sm text-primary/50 transition-colors hover:text-primary/70"
+                      className="text-xs text-primary/50 transition-colors hover:text-primary/70 md:text-sm"
                       style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
                     >
                       عرض الكل
-                      <svg className="h-4 w-4 rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-                      </svg>
                     </a>
                   </div>
 
-                  <div className="overflow-x-auto">
+                  {/* Desktop Table */}
+                  <div className="hidden overflow-x-auto md:block">
                     <table className="w-full">
                       <thead>
                         <tr className="border-b border-primary/5 bg-primary/[0.02]">
@@ -268,14 +266,51 @@ export default async function DashboardPage() {
                       </tbody>
                     </table>
                   </div>
+
+                  {/* Mobile Cards */}
+                  <div className="divide-y divide-primary/5 md:hidden">
+                    {(pendingOrders ?? []).length === 0 ? (
+                      <div className="px-4 py-12 text-center text-sm text-primary/30"
+                        style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                      >
+                        لا توجد أوامر عمل قيد الانتظار أو التنفيذ
+                      </div>
+                    ) : (
+                      (pendingOrders ?? []).map((order) => {
+                        const st = statusConfig[order.status] ?? statusConfig.pending;
+                        return (
+                          <div key={order.id} className="px-4 py-3">
+                            <div className="flex items-center justify-between">
+                              <span
+                                className="text-base font-bold text-primary"
+                                style={{ fontFamily: 'var(--font-mono)' }}
+                              >
+                                WO-{order.id.slice(0, 4).toUpperCase()}
+                              </span>
+                              <span className="inline-flex items-center gap-1.5 text-xs" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                                <span className={`h-2 w-2 rounded-full ${st.dot}`} />
+                                <span className={st.color}>{st.label}</span>
+                              </span>
+                            </div>
+                            <p
+                              className="mt-1 text-sm text-ink"
+                              style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                            >
+                              {order.product_name}
+                            </p>
+                          </div>
+                        );
+                      })
+                    )}
+                  </div>
                 </div>
               </div>
 
               <div className="xl:col-span-1">
                 <div className="rounded-xl border border-primary/5 bg-white">
-                  <div className="border-b border-primary/5 px-6 py-4">
+                  <div className="border-b border-primary/5 px-4 py-3 md:px-6 md:py-4">
                     <h2
-                      className="text-lg font-bold text-primary"
+                      className="text-base font-bold text-primary md:text-lg"
                       style={{ fontFamily: 'var(--font-heading), var(--font-heading-arabic)' }}
                     >
                       آخر النشاطات
@@ -287,7 +322,7 @@ export default async function DashboardPage() {
                         ? getTimeAgo(order.planned_start)
                         : 'منذ قليل';
                       return (
-                        <div key={order.id} className="px-6 py-4">
+                        <div key={order.id} className="px-4 py-3 md:px-6 md:py-4">
                           <p
                             className="text-sm font-semibold text-primary"
                             style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
@@ -308,7 +343,7 @@ export default async function DashboardPage() {
                       );
                     })}
                     {(pendingOrders ?? []).length === 0 && (
-                      <div className="px-6 py-8 text-center text-sm text-primary/30"
+                      <div className="px-4 py-8 text-center text-sm text-primary/30 md:px-6"
                         style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
                       >
                         لا يوجد نشاط حديث
@@ -319,27 +354,26 @@ export default async function DashboardPage() {
               </div>
             </div>
 
+            {/* Machine Status */}
             <div className="rounded-xl border border-primary/5 bg-white">
-              <div className="flex items-center justify-between border-b border-primary/5 px-6 py-4">
+              <div className="flex items-center justify-between border-b border-primary/5 px-4 py-3 md:px-6 md:py-4">
                 <h2
-                  className="text-lg font-bold text-primary"
+                  className="text-base font-bold text-primary md:text-lg"
                   style={{ fontFamily: 'var(--font-heading), var(--font-heading-arabic)' }}
                 >
                   حالة التلفت
                 </h2>
                 <a
                   href="/maintenance"
-                  className="flex items-center gap-1 text-sm text-primary/50 transition-colors hover:text-primary/70"
+                  className="text-xs text-primary/50 transition-colors hover:text-primary/70 md:text-sm"
                   style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
                 >
                   عرض الكل
-                  <svg className="h-4 w-4 rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-                  </svg>
                 </a>
               </div>
 
-              <div className="overflow-x-auto">
+              {/* Desktop Table */}
+              <div className="hidden overflow-x-auto md:block">
                 <table className="w-full">
                   <thead>
                     <tr className="border-b border-primary/5 bg-primary/[0.02]">
@@ -416,6 +450,45 @@ export default async function DashboardPage() {
                   </tbody>
                 </table>
               </div>
+
+              {/* Mobile Cards */}
+              <div className="divide-y divide-primary/5 md:hidden">
+                {machinesWithStatus.length === 0 ? (
+                  <div className="px-4 py-12 text-center text-sm text-primary/30"
+                    style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                  >
+                    لا توجد آلات نشطة
+                  </div>
+                ) : (
+                  machinesWithStatus.map((machine) => {
+                    const st = machineStatusConfig[machine.maintenance_status];
+                    return (
+                      <div key={machine.id} className="px-4 py-3">
+                        <div className="flex items-center justify-between">
+                          <span
+                            className="text-sm font-medium text-primary"
+                            style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                          >
+                            {machine.name}
+                          </span>
+                          <span className="inline-flex items-center gap-1.5 text-xs" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                            <span className={`h-2 w-2 rounded-full ${st.dot}`} />
+                            <span className={st.color}>{st.label}</span>
+                          </span>
+                        </div>
+                        <div className="mt-1 flex gap-4 text-xs text-ink/60">
+                          <span style={{ fontFamily: 'var(--font-mono)' }}>
+                            آخر صيانة: {machine.last_maintenance_date ?? '—'}
+                          </span>
+                          <span style={{ fontFamily: 'var(--font-mono)' }}>
+                            القادم: {machine.next_maintenance_date ?? '—'}
+                          </span>
+                        </div>
+                      </div>
+                    );
+                  })
+                )}
+              </div>
             </div>
           </div>
       </main>
@@ -441,23 +514,23 @@ function StatCard({
   iconColor?: string;
 }) {
   return (
-    <div className={`rounded-xl border ${borderColor} bg-white p-6`}>
+    <div className={`rounded-xl border ${borderColor} bg-white p-4 sm:p-6`}>
       <div className="flex items-start justify-between">
         <div>
           <p
-            className="text-sm font-medium text-primary/50"
+            className="text-xs font-medium text-primary/50 sm:text-sm"
             style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
           >
             {title}
           </p>
           <p
-            className={`mt-3 text-5xl font-bold tracking-tight ${valueColor}`}
+            className={`mt-3 text-4xl font-bold tracking-tight sm:text-5xl ${valueColor}`}
             style={{ fontFamily: 'var(--font-mono)' }}
           >
             {String(value).padStart(2, '0')}
           </p>
           <p
-            className="mt-2 text-sm text-primary/40"
+            className="mt-2 text-xs text-primary/40 sm:text-sm"
             style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
           >
             {subtitle}

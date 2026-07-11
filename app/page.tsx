@@ -100,15 +100,17 @@ function HeroSection() {
             progressColor="bg-accent/15"
             barColor="bg-accent"
           />
-          <StatusCard
-            id="FB-8982#"
-            status="تم الانتهاء"
-            statusColor="bg-success"
-            title="لوحة تحكم ذكية"
-            progress={100}
-            progressColor="bg-success/15"
-            barColor="bg-success"
-          />
+          <div className="hidden sm:block">
+            <StatusCard
+              id="FB-8982#"
+              status="تم الانتهاء"
+              statusColor="bg-success"
+              title="لوحة تحكم ذكية"
+              progress={100}
+              progressColor="bg-success/15"
+              barColor="bg-success"
+            />
+          </div>
         </div>
       </div>
     </section>

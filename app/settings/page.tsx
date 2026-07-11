@@ -240,16 +240,15 @@ export default function SettingsPage() {
   }
 
   const industryOptions = getIndustryOptions(locale);
-  const isRtl = locale === 'ar';
 
   if (loading) {
     return (
       <>
-        <header className="flex items-center justify-between border-b border-primary/5 bg-white px-8 py-3">
+        <header className="flex items-center justify-between border-b border-primary/5 bg-white px-4 py-3 md:px-8">
           <div />
         </header>
-        <main className="flex-1 overflow-y-auto p-8">
-          <div className="text-center text-sm text-primary/30" style={{ padding: '80px 0' }}>
+        <main className="flex-1 overflow-y-auto p-4 md:p-8">
+          <div className="py-20 text-center text-sm text-primary/30">
             {t('common.loading', locale)}
           </div>
         </main>
@@ -262,30 +261,28 @@ export default function SettingsPage() {
   return (
     <>
       {/* ── Page Header ─────────────────────────────────────── */}
-      <header className="flex items-center justify-between border-b border-primary/5 bg-white px-8 py-3">
-        <div className="flex items-center gap-4">
-          <div className="flex items-center gap-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary/10 text-sm font-semibold text-primary">
-              {userInitial}
-            </div>
-            <div>
-              <p
-                className="text-sm font-semibold text-primary"
-                style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
-              >
-                {fullName}
-              </p>
-              <p
-                className="text-xs text-primary/40"
-                style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
-              >
-                {factoryName}
-              </p>
-            </div>
+      <header className="flex items-center justify-between border-b border-primary/5 bg-white px-4 py-3 md:px-8">
+        <div className="flex items-center gap-3">
+          <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary/10 text-sm font-semibold text-primary">
+            {userInitial}
+          </div>
+          <div>
+            <p
+              className="text-sm font-semibold text-primary"
+              style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+            >
+              {fullName}
+            </p>
+            <p
+              className="text-xs text-primary/40"
+              style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+            >
+              {factoryName}
+            </p>
           </div>
         </div>
         <div className="flex items-center gap-4">
-          <div className="relative">
+          <div className="relative hidden sm:block">
             <input
               type="text"
               placeholder="بحث..."
@@ -305,73 +302,72 @@ export default function SettingsPage() {
         </div>
       </header>
 
-      <main className="flex-1 overflow-y-auto p-8">
-          {/* ── Tabs ───────────────────────────────────────────── */}
-          <div style={styles.tabsWrapper}>
-        <div style={styles.container}>
+      <main className="flex-1 overflow-y-auto p-4 md:p-8">
+        {/* ── Tabs ───────────────────────────────────────────── */}
+        <div className="sticky top-0 z-10 border-b-2 border-primary/8 bg-background">
+          <div className="mx-auto flex max-w-3xl justify-center">
             <button
               id="tab-account"
               onClick={() => setActiveTab('account')}
-              style={{
-                ...styles.tab,
-                ...(activeTab === 'account' ? styles.tabActive : {}),
-              }}
+              className={`border-b-2 px-5 py-2.5 text-sm font-medium transition-colors ${
+                activeTab === 'account'
+                  ? 'border-primary text-primary font-bold'
+                  : 'border-transparent text-primary/40 hover:text-primary/60'
+              }`}
             >
               الحساب الشخصي
             </button>
             <button
               id="tab-users"
               onClick={() => setActiveTab('users')}
-              style={{
-                ...styles.tab,
-                ...(activeTab === 'users' ? styles.tabActive : {}),
-              }}
+              className={`border-b-2 px-5 py-2.5 text-sm font-medium transition-colors ${
+                activeTab === 'users'
+                  ? 'border-primary text-primary font-bold'
+                  : 'border-transparent text-primary/40 hover:text-primary/60'
+              }`}
             >
-              <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8} style={{ display: 'inline', verticalAlign: 'middle', marginLeft: 5 }}>
+              <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8} className="ml-1 inline-block align-middle">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
               </svg>
               {t('settings.usersManagement.heading', locale)}
             </button>
-            </div>
           </div>
+        </div>
 
-        <div style={{ ...styles.container, marginTop: 20 }}>
-
+        <div className="mx-auto mt-5 max-w-3xl space-y-4">
           {activeTab === 'account' && (
-            <div style={styles.sectionsWrapper}>
-
+            <>
               {/* ── Profile Section ─────────────────────────────── */}
-              <section style={styles.card}>
-                <div style={styles.cardHeader}>
-                  <span style={styles.cardHeaderIcon}>
+              <section className="overflow-hidden rounded-xl border border-primary/7 bg-white">
+                <div className="flex items-center gap-2.5 border-b border-primary/7 bg-[#fafbfc] px-5 py-3.5 flex-row-reverse justify-start">
+                  <span className="text-primary flex items-center">
                     <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
                     </svg>
                   </span>
-                  <h2 style={styles.cardTitle}>{t('settings.profile.heading', locale)}</h2>
+                  <h2 className="text-[15px] font-bold text-primary">{t('settings.profile.heading', locale)}</h2>
                 </div>
 
-                <div style={styles.cardBody}>
-                  {/* Fields row + avatar */}
-                  <div style={{ display: 'flex', gap: 16, alignItems: 'flex-start' }}>
-                    {/* Name + Email fields */}
-                    <div style={{ flex: 1, display: 'flex', gap: 12 }}>
-                      {/* Full Name */}
-                      <div style={{ flex: 1 }}>
-                        <label style={styles.label}>{t('settings.profile.fullName', locale)}</label>
+                <div className="p-5">
+                  {/* Fields + avatar */}
+                  <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
+                    {/* Name + Email */}
+                    <div className="flex flex-1 flex-col gap-3 sm:flex-row">
+                      <div className="flex-1">
+                        <label className="mb-1.5 block text-right text-xs font-medium text-primary/40">{t('settings.profile.fullName', locale)}</label>
                         <input
                           id="profile-fullname"
                           type="text"
                           value={fullName}
                           onChange={(e) => setFullName(e.target.value)}
-                          style={styles.input}
+                          className="w-full rounded-lg border border-primary/12 bg-white px-3 py-2 text-[13px] text-primary outline-none transition-colors focus:border-primary/30"
+                          style={{ textAlign: 'right', direction: 'rtl' }}
                         />
                       </div>
-                      {/* Email */}
-                      <div style={{ flex: 1 }}>
-                        <label style={styles.label}>{t('settings.profile.email', locale)}</label>
-                        <div style={styles.emailWrapper}>
-                          <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="#9aa3ad" strokeWidth={1.8} style={{ flexShrink: 0 }}>
+                      <div className="flex-1">
+                        <label className="mb-1.5 block text-right text-xs font-medium text-primary/40">{t('settings.profile.email', locale)}</label>
+                        <div className="flex items-center gap-2 rounded-lg border border-primary/8 bg-[#f7f8f9] px-3 py-2" style={{ direction: 'rtl' }}>
+                          <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="#9aa3ad" strokeWidth={1.8} className="shrink-0">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
                           </svg>
                           <input
@@ -379,46 +375,47 @@ export default function SettingsPage() {
                             type="email"
                             value={email}
                             readOnly
-                            style={{ ...styles.input, border: 'none', outline: 'none', flex: 1, background: 'transparent', cursor: 'not-allowed', padding: 0 }}
+                            className="flex-1 border-none bg-transparent text-[13px] text-primary/40 outline-none"
+                            style={{ cursor: 'not-allowed', padding: 0 }}
                           />
                         </div>
                       </div>
                     </div>
 
                     {/* Avatar */}
-                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}>
+                    <div className="flex flex-col items-center gap-1.5">
                       <div
-                        style={styles.avatarBox}
+                        className="relative flex h-[72px] w-[72px] cursor-pointer items-center justify-center overflow-hidden rounded-[10px] border-2 border-primary/10 bg-[#e8eaed] transition-colors hover:border-primary/20"
                         onClick={() => fileInputRef.current?.click()}
                         title={t('settings.profile.avatarChange', locale)}
                       >
                         {avatarUrl ? (
-                          <img src={avatarUrl} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 8 }} />
+                          <img src={avatarUrl} alt="" className="h-full w-full rounded-[8px] object-cover" />
                         ) : (
-                          <span style={{ fontSize: 22, fontWeight: 700, color: '#24344a66' }}>
+                          <span className="text-[22px] font-bold" style={{ color: '#24344a66' }}>
                             {fullName.charAt(0) || '?'}
                           </span>
                         )}
                         {avatarUploading && (
-                          <div style={styles.avatarOverlay}>
+                          <div className="absolute inset-0 flex items-center justify-center bg-black/40">
                             <svg className="animate-spin" width="20" height="20" fill="none" viewBox="0 0 24 24">
                               <circle cx="12" cy="12" r="10" stroke="white" strokeWidth="4" opacity="0.25" />
                               <path fill="white" opacity="0.75" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                             </svg>
                           </div>
                         )}
-                        <div style={styles.avatarEditBadge}>
+                        <div className="absolute bottom-1 right-1 flex h-5 w-5 items-center justify-center rounded-full bg-primary">
                           <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="white" strokeWidth={2.5}>
                             <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
                           </svg>
                         </div>
                       </div>
-                      <span style={{ fontSize: 11, color: '#9aa3ad' }}>{t('settings.profile.avatarChange', locale)}</span>
+                      <span className="text-[11px] text-primary/40">{t('settings.profile.avatarChange', locale)}</span>
                       <input
                         ref={fileInputRef}
                         type="file"
                         accept="image/jpeg,image/png,image/webp"
-                        style={{ display: 'none' }}
+                        className="hidden"
                         onChange={(e) => {
                           const file = e.target.files?.[0];
                           if (file) handleAvatarUpload(file);
@@ -429,19 +426,20 @@ export default function SettingsPage() {
                   </div>
 
                   {profileMessage && (
-                    <p style={{ fontSize: 13, color: profileMessage.ok ? '#2F8F80' : '#e53e3e', marginTop: 8 }}>
+                    <p className={`mt-2 text-[13px] ${profileMessage.ok ? 'text-success' : 'text-red-500'}`}>
                       {profileMessage.text}
                     </p>
                   )}
 
-                  <div style={{ marginTop: 20 }}>
+                  <div className="mt-5">
                     <button
                       id="btn-save-profile"
                       onClick={handleProfileSave}
                       disabled={profileSaving}
-                      style={styles.btnPrimary}
+                      className="inline-flex items-center gap-1.5 rounded-lg bg-primary px-5 py-2 text-[13px] font-semibold text-white transition-opacity hover:opacity-90 disabled:opacity-50 sm:w-auto"
+                      style={{ direction: 'rtl' }}
                     >
-                      <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} style={{ display: 'inline', verticalAlign: 'middle', marginLeft: 6 }}>
+                      <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                       </svg>
                       {profileSaving ? t('common.saving', locale) : t('settings.profile.save', locale)}
@@ -451,46 +449,34 @@ export default function SettingsPage() {
               </section>
 
               {/* ── Password Section ─────────────────────────────── */}
-              <section style={styles.card}>
-                <div style={styles.cardHeader}>
-                  <span style={styles.cardHeaderIcon}>
+              <section className="overflow-hidden rounded-xl border border-primary/7 bg-white">
+                <div className="flex items-center gap-2.5 border-b border-primary/7 bg-[#fafbfc] px-5 py-3.5 flex-row-reverse justify-start">
+                  <span className="text-primary flex items-center">
                     <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z" />
                     </svg>
                   </span>
-                  <h2 style={styles.cardTitle}>{t('settings.password.heading', locale)}</h2>
+                  <h2 className="text-[15px] font-bold text-primary">{t('settings.password.heading', locale)}</h2>
                 </div>
 
-                <div style={styles.cardBody}>
-                  {/* Three password fields in one row */}
-                  <div style={{ display: 'flex', gap: 12 }}>
-                    <div style={{ flex: 1 }}>
-                      <label style={styles.label}>{t('settings.password.current', locale)}</label>
-                      <div style={{ position: 'relative' }}>
+                <div className="p-5">
+                  {/* Password fields */}
+                  <div className="flex flex-col gap-3 sm:flex-row">
+                    <div className="flex-1">
+                      <label className="mb-1.5 block text-right text-xs font-medium text-primary/40">{t('settings.password.current', locale)}</label>
+                      <div className="relative">
                         <input
                           id="password-current"
                           type={showCurrentPassword ? 'text' : 'password'}
                           value={currentPassword}
                           onChange={(e) => setCurrentPassword(e.target.value)}
-                          style={{ ...styles.input, paddingLeft: 36 }}
+                          className="w-full rounded-lg border border-primary/12 bg-white py-2 pl-9 pr-3 text-[13px] text-primary outline-none transition-colors focus:border-primary/30"
+                          style={{ textAlign: 'right', direction: 'rtl' }}
                         />
                         <button
                           type="button"
                           onClick={() => setShowCurrentPassword(!showCurrentPassword)}
-                          style={{
-                            position: 'absolute',
-                            left: 10,
-                            top: '50%',
-                            transform: 'translateY(-50%)',
-                            background: 'none',
-                            border: 'none',
-                            cursor: 'pointer',
-                            padding: 0,
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            color: '#9aa3ad',
-                          }}
+                          className="absolute left-2.5 top-1/2 -translate-y-1/2 text-primary/30 transition-colors hover:text-primary/50"
                         >
                           {showCurrentPassword ? (
                             <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
@@ -505,33 +491,21 @@ export default function SettingsPage() {
                         </button>
                       </div>
                     </div>
-                    <div style={{ flex: 1 }}>
-                      <label style={styles.label}>{t('settings.password.new', locale)}</label>
-                      <div style={{ position: 'relative' }}>
+                    <div className="flex-1">
+                      <label className="mb-1.5 block text-right text-xs font-medium text-primary/40">{t('settings.password.new', locale)}</label>
+                      <div className="relative">
                         <input
                           id="password-new"
                           type={showNewPassword ? 'text' : 'password'}
                           value={newPassword}
                           onChange={(e) => setNewPassword(e.target.value)}
-                          style={{ ...styles.input, paddingLeft: 36 }}
+                          className="w-full rounded-lg border border-primary/12 bg-white py-2 pl-9 pr-3 text-[13px] text-primary outline-none transition-colors focus:border-primary/30"
+                          style={{ textAlign: 'right', direction: 'rtl' }}
                         />
                         <button
                           type="button"
                           onClick={() => setShowNewPassword(!showNewPassword)}
-                          style={{
-                            position: 'absolute',
-                            left: 10,
-                            top: '50%',
-                            transform: 'translateY(-50%)',
-                            background: 'none',
-                            border: 'none',
-                            cursor: 'pointer',
-                            padding: 0,
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            color: '#9aa3ad',
-                          }}
+                          className="absolute left-2.5 top-1/2 -translate-y-1/2 text-primary/30 transition-colors hover:text-primary/50"
                         >
                           {showNewPassword ? (
                             <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
@@ -546,33 +520,21 @@ export default function SettingsPage() {
                         </button>
                       </div>
                     </div>
-                    <div style={{ flex: 1 }}>
-                      <label style={styles.label}>{t('settings.password.confirm', locale)}</label>
-                      <div style={{ position: 'relative' }}>
+                    <div className="flex-1">
+                      <label className="mb-1.5 block text-right text-xs font-medium text-primary/40">{t('settings.password.confirm', locale)}</label>
+                      <div className="relative">
                         <input
                           id="password-confirm"
                           type={showConfirmPassword ? 'text' : 'password'}
                           value={confirmPassword}
                           onChange={(e) => setConfirmPassword(e.target.value)}
-                          style={{ ...styles.input, paddingLeft: 36 }}
+                          className="w-full rounded-lg border border-primary/12 bg-white py-2 pl-9 pr-3 text-[13px] text-primary outline-none transition-colors focus:border-primary/30"
+                          style={{ textAlign: 'right', direction: 'rtl' }}
                         />
                         <button
                           type="button"
                           onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                          style={{
-                            position: 'absolute',
-                            left: 10,
-                            top: '50%',
-                            transform: 'translateY(-50%)',
-                            background: 'none',
-                            border: 'none',
-                            cursor: 'pointer',
-                            padding: 0,
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            color: '#9aa3ad',
-                          }}
+                          className="absolute left-2.5 top-1/2 -translate-y-1/2 text-primary/30 transition-colors hover:text-primary/50"
                         >
                           {showConfirmPassword ? (
                             <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
@@ -590,17 +552,18 @@ export default function SettingsPage() {
                   </div>
 
                   {passwordMessage && (
-                    <p style={{ fontSize: 13, color: passwordMessage.ok ? '#2F8F80' : '#e53e3e', marginTop: 8 }}>
+                    <p className={`mt-2 text-[13px] ${passwordMessage.ok ? 'text-success' : 'text-red-500'}`}>
                       {passwordMessage.text}
                     </p>
                   )}
 
-                  <div style={{ marginTop: 20 }}>
+                  <div className="mt-5">
                     <button
                       id="btn-update-password"
                       onClick={handlePasswordChange}
                       disabled={passwordSaving}
-                      style={styles.btnPrimary}
+                      className="rounded-lg bg-primary px-5 py-2 text-[13px] font-semibold text-white transition-opacity hover:opacity-90 disabled:opacity-50"
+                      style={{ direction: 'rtl' }}
                     >
                       {passwordSaving ? t('common.saving', locale) : t('settings.password.change', locale)}
                     </button>
@@ -608,36 +571,37 @@ export default function SettingsPage() {
                 </div>
               </section>
 
-              {/* ── Bottom row: Factory Settings + Language ─────── */}
-              <div style={{ display: 'flex', gap: 16, alignItems: 'flex-start' }}>
-
-                {/* Factory card (left / larger) */}
-                <section style={{ ...styles.card, flex: 1, marginBottom: 0 }}>
-                  <div style={styles.cardHeader}>
-                    <span style={styles.cardHeaderIcon}>
+              {/* ── Bottom row: Factory + Language ─────── */}
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
+                {/* Factory card */}
+                <section className="overflow-hidden rounded-xl border border-primary/7 bg-white sm:flex-1">
+                  <div className="flex items-center gap-2.5 border-b border-primary/7 bg-[#fafbfc] px-5 py-3.5 flex-row-reverse justify-start">
+                    <span className="text-primary flex items-center">
                       <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21" />
                       </svg>
                     </span>
-                    <h2 style={styles.cardTitle}>{t('settings.factory.heading', locale)}</h2>
+                    <h2 className="text-[15px] font-bold text-primary">{t('settings.factory.heading', locale)}</h2>
                   </div>
-                  <div style={styles.cardBody}>
-                    <div style={{ display: 'flex', gap: 12, marginBottom: 12 }}>
-                      <div style={{ flex: 1 }}>
-                        <label style={styles.label}>{t('settings.factory.name', locale)}</label>
+                  <div className="p-5">
+                    <div className="flex flex-col gap-3 sm:flex-row">
+                      <div className="flex-1">
+                        <label className="mb-1.5 block text-right text-xs font-medium text-primary/40">{t('settings.factory.name', locale)}</label>
                         <input
                           type="text"
                           value={factoryName}
                           readOnly
-                          style={{ ...styles.input, cursor: 'not-allowed', background: '#f4f5f7', color: '#9aa3ad' }}
+                          className="w-full cursor-not-allowed rounded-lg border border-primary/12 bg-[#f4f5f7] px-3 py-2 text-[13px] text-primary/40 outline-none"
+                          style={{ textAlign: 'right', direction: 'rtl' }}
                         />
                       </div>
-                      <div style={{ flex: 1 }}>
-                        <label style={styles.label}>{t('settings.factory.industry', locale)}</label>
+                      <div className="flex-1">
+                        <label className="mb-1.5 block text-right text-xs font-medium text-primary/40">{t('settings.factory.industry', locale)}</label>
                         <select
                           value={industryType}
                           onChange={(e) => setIndustryType(e.target.value)}
-                          style={{ ...styles.input, cursor: 'pointer' }}
+                          className="w-full cursor-pointer rounded-lg border border-primary/12 bg-white px-3 py-2 text-[13px] text-primary outline-none transition-colors focus:border-primary/30"
+                          style={{ textAlign: 'right', direction: 'rtl' }}
                         >
                           <option value="" disabled>{t('settings.factory.industryPlaceholder', locale)}</option>
                           {industryOptions.map((opt) => (
@@ -646,26 +610,28 @@ export default function SettingsPage() {
                         </select>
                       </div>
                     </div>
-                    <div style={{ marginBottom: 12 }}>
-                      <label style={styles.label}>{t('settings.factory.address', locale)}</label>
+                    <div className="mt-3">
+                      <label className="mb-1.5 block text-right text-xs font-medium text-primary/40">{t('settings.factory.address', locale)}</label>
                       <input
                         type="text"
                         value={address}
                         onChange={(e) => setAddress(e.target.value)}
-                        style={styles.input}
+                        className="w-full rounded-lg border border-primary/12 bg-white px-3 py-2 text-[13px] text-primary outline-none transition-colors focus:border-primary/30"
+                        style={{ textAlign: 'right', direction: 'rtl' }}
                       />
                     </div>
-                    <div style={{ marginBottom: 12 }}>
-                      <label style={styles.label}>{t('settings.factory.contact', locale)}</label>
+                    <div className="mt-3">
+                      <label className="mb-1.5 block text-right text-xs font-medium text-primary/40">{t('settings.factory.contact', locale)}</label>
                       <input
                         type="text"
                         value={contactInfo}
                         onChange={(e) => setContactInfo(e.target.value)}
-                        style={styles.input}
+                        className="w-full rounded-lg border border-primary/12 bg-white px-3 py-2 text-[13px] text-primary outline-none transition-colors focus:border-primary/30"
+                        style={{ textAlign: 'right', direction: 'rtl' }}
                       />
                     </div>
                     {factoryMessage && (
-                      <p style={{ fontSize: 13, color: factoryMessage.ok ? '#2F8F80' : '#e53e3e', marginBottom: 8 }}>
+                      <p className={`mt-2 text-[13px] ${factoryMessage.ok ? 'text-success' : 'text-red-500'}`}>
                         {factoryMessage.text}
                       </p>
                     )}
@@ -673,26 +639,27 @@ export default function SettingsPage() {
                       id="btn-save-factory"
                       onClick={handleFactorySave}
                       disabled={factorySaving}
-                      style={styles.btnPrimary}
+                      className="mt-4 rounded-lg bg-primary px-5 py-2 text-[13px] font-semibold text-white transition-opacity hover:opacity-90 disabled:opacity-50"
+                      style={{ direction: 'rtl' }}
                     >
                       {factorySaving ? t('common.saving', locale) : t('settings.factory.save', locale)}
                     </button>
                   </div>
                 </section>
 
-                {/* Language card (right / smaller) */}
-                <section style={{ ...styles.card, width: 220, flexShrink: 0, marginBottom: 0 }}>
-                  <div style={styles.cardHeader}>
-                    <span style={styles.cardHeaderIcon}>
+                {/* Language card */}
+                <section className="overflow-hidden rounded-xl border border-primary/7 bg-white sm:w-[220px] sm:shrink-0">
+                  <div className="flex items-center gap-2.5 border-b border-primary/7 bg-[#fafbfc] px-5 py-3.5 flex-row-reverse justify-start">
+                    <span className="text-primary flex items-center">
                       <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 21l5.25-11.25L21 21m-9-3h7.5M3 5.621a48.474 48.474 0 016-.371m0 0c1.12 0 2.233.038 3.334.114M9 5.25V3m3.334 2.364C11.176 10.658 7.69 15.08 3 17.502m9.334-12.138c.896.061 1.785.147 2.666.257m-4.589 8.495a18.023 18.023 0 01-3.827-5.802" />
                       </svg>
                     </span>
-                    <h2 style={styles.cardTitle}>{t('settings.language.heading', locale)}</h2>
+                    <h2 className="text-[15px] font-bold text-primary">{t('settings.language.heading', locale)}</h2>
                   </div>
-                  <div style={styles.cardBody}>
-                    <label style={styles.label}>لغة الواجهة</label>
-                    <div style={{ display: 'flex', gap: 8, marginTop: 6 }}>
+                  <div className="p-5">
+                    <label className="mb-1.5 block text-right text-xs font-medium text-primary/40">لغة الواجهة</label>
+                    <div className="mt-1.5 flex gap-2">
                       {locales.map((code) => {
                         const config = localeConfig[code];
                         const isActive = locale === code;
@@ -702,10 +669,11 @@ export default function SettingsPage() {
                             id={`lang-${code}`}
                             onClick={() => handleLanguageChange(code)}
                             disabled={languageSaving}
-                            style={{
-                              ...styles.langBtn,
-                              ...(isActive ? styles.langBtnActive : {}),
-                            }}
+                            className={`flex-1 rounded-lg border px-3 py-2 text-[13px] font-medium transition-all ${
+                              isActive
+                                ? 'border-primary/20 bg-[#e8eaed] font-bold text-primary'
+                                : 'border-primary/12 bg-white text-primary/40 hover:bg-[#f4f5f7]'
+                            }`}
                           >
                             {config.label}
                           </button>
@@ -713,246 +681,33 @@ export default function SettingsPage() {
                       })}
                     </div>
                     {languageMessage && (
-                      <p style={{ fontSize: 12, color: '#2F8F80', marginTop: 8 }}>
+                      <p className="mt-2 text-xs text-success">
                         {languageMessage.text}
                       </p>
                     )}
                   </div>
                 </section>
               </div>
-
-            </div>
+            </>
           )}
 
           {activeTab === 'users' && (
-            <div style={styles.sectionsWrapper}>
-              <section style={styles.card}>
-                <div style={styles.cardHeader}>
-                  <span style={styles.cardHeaderIcon}>
-                    <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
-                    </svg>
-                  </span>
-                  <h2 style={styles.cardTitle}>{t('settings.usersManagement.heading', locale)}</h2>
-                </div>
-                <div style={styles.cardBody}>
-                  <p style={{ color: '#9aa3ad', fontSize: 14 }}>{t('settings.usersManagement.description', locale)}</p>
-                </div>
-              </section>
-            </div>
+            <section className="overflow-hidden rounded-xl border border-primary/7 bg-white">
+              <div className="flex items-center gap-2.5 border-b border-primary/7 bg-[#fafbfc] px-5 py-3.5 flex-row-reverse justify-start">
+                <span className="text-primary flex items-center">
+                  <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
+                  </svg>
+                </span>
+                <h2 className="text-[15px] font-bold text-primary">{t('settings.usersManagement.heading', locale)}</h2>
+              </div>
+              <div className="p-5">
+                <p className="text-sm text-primary/40">{t('settings.usersManagement.description', locale)}</p>
+              </div>
+            </section>
           )}
-
         </div>
       </main>
     </>
   );
 }
-
-// ── Inline Styles ────────────────────────────────────────────────────
-const styles: Record<string, React.CSSProperties> = {
-  pageHeader: {
-    background: 'white',
-    borderBottom: '1px solid rgba(36,52,74,0.08)',
-    padding: '20px 32px',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-  },
-  pageTitle: {
-    fontSize: 22,
-    fontWeight: 700,
-    color: '#24344A',
-    margin: 0,
-    textAlign: 'right',
-  },
-  pageSubtitle: {
-    fontSize: 13,
-    color: '#9aa3ad',
-    margin: '4px 0 0',
-    textAlign: 'right',
-  },
-  main: {
-    flex: 1,
-    overflowY: 'auto',
-    padding: '24px 32px',
-    background: '#EDEFF2',
-  },
-  container: {
-    maxWidth: 820,
-    margin: '0 auto',
-  },
-  tabsWrapper: {
-    display: 'flex',
-    justifyContent: 'center',
-    borderBottom: '2px solid rgba(36,52,74,0.08)',
-    marginBottom: 0,
-    position: 'sticky',
-    top: 0,
-    background: '#EDEFF2',
-    zIndex: 10,
-    padding: '0 32px',
-  },
-  tab: {
-    padding: '10px 20px',
-    fontSize: 14,
-    fontWeight: 500,
-    color: '#9aa3ad',
-    background: 'transparent',
-    border: 'none',
-    borderBottom: '2px solid transparent',
-    marginBottom: -2,
-    cursor: 'pointer',
-    transition: 'color 0.15s, border-color 0.15s',
-  },
-  tabActive: {
-    color: '#24344A',
-    borderBottom: '2px solid #24344A',
-    fontWeight: 700,
-  },
-  sectionsWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: 16,
-  },
-  card: {
-    background: 'white',
-    borderRadius: 12,
-    border: '1px solid rgba(36,52,74,0.07)',
-    overflow: 'hidden',
-    marginBottom: 0,
-  },
-  cardHeader: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 10,
-    padding: '14px 20px',
-    borderBottom: '1px solid rgba(36,52,74,0.07)',
-    background: '#fafbfc',
-    flexDirection: 'row-reverse',
-    justifyContent: 'flex-start',
-  },
-  cardHeaderIcon: {
-    color: '#24344A',
-    display: 'flex',
-    alignItems: 'center',
-  },
-  cardTitle: {
-    fontSize: 15,
-    fontWeight: 700,
-    color: '#24344A',
-    margin: 0,
-  },
-  cardBody: {
-    padding: '20px',
-  },
-  label: {
-    display: 'block',
-    fontSize: 12,
-    fontWeight: 500,
-    color: '#9aa3ad',
-    marginBottom: 6,
-    textAlign: 'right',
-  },
-  input: {
-    width: '100%',
-    padding: '9px 12px',
-    fontSize: 13,
-    border: '1px solid rgba(36,52,74,0.12)',
-    borderRadius: 8,
-    background: 'white',
-    color: '#24344A',
-    outline: 'none',
-    boxSizing: 'border-box',
-    textAlign: 'right',
-    direction: 'rtl',
-    transition: 'border-color 0.15s',
-  },
-  emailWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 8,
-    padding: '9px 12px',
-    fontSize: 13,
-    border: '1px solid rgba(36,52,74,0.08)',
-    borderRadius: 8,
-    background: '#f7f8f9',
-    color: '#9aa3ad',
-    direction: 'rtl',
-  },
-  avatarBox: {
-    width: 72,
-    height: 72,
-    borderRadius: 10,
-    background: '#e8eaed',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    cursor: 'pointer',
-    position: 'relative',
-    overflow: 'hidden',
-    border: '2px solid rgba(36,52,74,0.1)',
-    transition: 'border-color 0.15s',
-  },
-  avatarOverlay: {
-    position: 'absolute',
-    inset: 0,
-    background: 'rgba(0,0,0,0.4)',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  avatarEditBadge: {
-    position: 'absolute',
-    bottom: 4,
-    right: 4,
-    width: 20,
-    height: 20,
-    borderRadius: '50%',
-    background: '#24344A',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  btnPrimary: {
-    padding: '9px 20px',
-    fontSize: 13,
-    fontWeight: 600,
-    color: 'white',
-    background: '#24344A',
-    border: 'none',
-    borderRadius: 8,
-    cursor: 'pointer',
-    transition: 'opacity 0.15s',
-    direction: 'rtl',
-  },
-  langBtn: {
-    flex: 1,
-    padding: '8px 12px',
-    fontSize: 13,
-    fontWeight: 500,
-    color: '#9aa3ad',
-    background: 'white',
-    border: '1.5px solid rgba(36,52,74,0.12)',
-    borderRadius: 8,
-    cursor: 'pointer',
-    transition: 'all 0.15s',
-  },
-  langBtnActive: {
-    background: '#e8eaed',
-    color: '#24344A',
-    fontWeight: 700,
-    border: '1.5px solid rgba(36,52,74,0.2)',
-  },
-  btnLogout: {
-    padding: '9px 18px',
-    fontSize: 13,
-    fontWeight: 600,
-    color: '#e53e3e',
-    background: 'white',
-    border: '1.5px solid #e53e3e',
-    borderRadius: 8,
-    cursor: 'pointer',
-    transition: 'all 0.15s',
-    direction: 'rtl',
-  },
-};

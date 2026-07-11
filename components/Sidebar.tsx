@@ -21,9 +21,10 @@ interface SidebarProps {
   userName?: string;
   userRole?: string;
   userAvatar?: string;
+  onClose?: () => void;
 }
 
-export default function Sidebar({ userName = 'أحمد المحمدي', userRole = 'مدير الإنتاج', userAvatar }: SidebarProps) {
+export default function Sidebar({ userName = 'أحمد المحمدي', userRole = 'مدير الإنتاج', userAvatar, onClose }: SidebarProps) {
   const pathname = usePathname();
   const [expandedItems, setExpandedItems] = useState<string[]>(['/planning']);
 
@@ -132,20 +133,33 @@ export default function Sidebar({ userName = 'أحمد المحمدي', userRole
   }, []);
 
   return (
-    <aside className="flex h-screen w-64 flex-col bg-[#1A2332] text-white">
+    <aside className="flex h-full w-64 flex-col bg-[#1A2332] text-white">
       {/* Logo */}
-      <div className="flex items-center gap-3 px-6 py-5">
-        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-accent">
-          <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125" />
-          </svg>
+      <div className="flex items-center justify-between px-6 py-5">
+        <div className="flex items-center gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-accent">
+            <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125" />
+            </svg>
+          </div>
+          <span
+            className="text-xl font-bold tracking-tight"
+            style={{ fontFamily: 'var(--font-heading), var(--font-heading-arabic)' }}
+          >
+            قنص
+          </span>
         </div>
-        <span
-          className="text-xl font-bold tracking-tight"
-          style={{ fontFamily: 'var(--font-heading), var(--font-heading-arabic)' }}
-        >
-          قنص
-        </span>
+        {/* Close button - mobile only */}
+        {onClose && (
+          <button
+            onClick={onClose}
+            className="flex h-8 w-8 items-center justify-center rounded-lg text-white/50 transition-colors hover:bg-white/10 hover:text-white md:hidden"
+          >
+            <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        )}
       </div>
 
       {/* User Profile */}
@@ -214,9 +228,10 @@ export default function Sidebar({ userName = 'أحمد المحمدي', userRole
                           const subActive = pathname === subItem.href;
                           return (
                             <li key={subItem.href}>
-                              <Link
-                                href={subItem.href}
-                                className={`block rounded-lg px-4 py-2 text-sm transition-colors ${
+                  <Link
+                    href={subItem.href}
+                    onClick={onClose}
+                    className={`block rounded-lg px-4 py-2 text-sm transition-colors ${
                                   subActive
                                     ? 'bg-white/10 text-white'
                                     : 'text-white/50 hover:bg-white/5 hover:text-white/70'
@@ -234,6 +249,7 @@ export default function Sidebar({ userName = 'أحمد المحمدي', userRole
                 ) : (
                   <Link
                     href={item.href}
+                    onClick={onClose}
                     className={`flex items-center gap-3 rounded-lg px-4 py-2.5 text-sm font-medium transition-colors ${
                       active
                         ? 'bg-white/10 text-white'
