@@ -1,9 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { usePathname } from 'next/navigation';
+import { createClient } from '@/lib/supabase/client';
 
 interface NavSubItem {
   label: string;
@@ -124,6 +124,12 @@ export default function Sidebar({ userName = 'أحمد المحمدي', userRole
   ];
 
   const isActive = (href: string) => pathname === href || pathname.startsWith(href + '/');
+
+  const handleLogout = useCallback(async () => {
+    const supabase = createClient();
+    await supabase.auth.signOut();
+    window.location.href = '/login';
+  }, []);
 
   return (
     <aside className="flex h-screen w-64 flex-col bg-[#1A2332] text-white">
@@ -261,16 +267,16 @@ export default function Sidebar({ userName = 'أحمد المحمدي', userRole
             </a>
           </li>
           <li>
-            <Link
-              href="/login"
-              className="flex items-center gap-3 rounded-lg px-4 py-2.5 text-sm font-medium text-white/60 transition-colors hover:bg-white/5 hover:text-white/80"
+            <button
+              onClick={handleLogout}
+              className="flex w-full items-center gap-3 rounded-lg px-4 py-2.5 text-sm font-medium text-white/60 transition-colors hover:bg-white/5 hover:text-white/80"
               style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
             >
               <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
               </svg>
               <span>خروج</span>
-            </Link>
+            </button>
           </li>
         </ul>
       </div>

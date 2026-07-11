@@ -1,8 +1,13 @@
 export type UserRole = 'owner' | 'worker';
 
+export type LocaleCode = 'ar' | 'fr';
+
 export interface Factory {
   id: string;
   name: string;
+  industry_type: string | null;
+  address: string | null;
+  contact_info: string | null;
   created_at: string;
 }
 
@@ -11,6 +16,8 @@ export interface UserProfile {
   factory_id: string;
   role: UserRole;
   full_name: string;
+  avatar_url: string | null;
+  locale?: LocaleCode;
 }
 
 export interface Machine {

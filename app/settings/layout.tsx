@@ -2,7 +2,7 @@ import { cookies } from 'next/headers';
 import AuthShell from '@/components/AuthShell';
 import { COOKIE_NAME, DEFAULT_LOCALE, isValidLocale } from '@/lib/i18n/config';
 
-export default async function DashboardLayout({
+export default async function SettingsLayout({
   children,
 }: {
   children: React.ReactNode;
