@@ -3,6 +3,7 @@
 import { useState, useCallback } from 'react';
 import Sidebar from '@/components/Sidebar';
 import { LocaleProvider, useLocale } from '@/lib/i18n/context';
+import { isValidLocale, DEFAULT_LOCALE } from '@/lib/i18n/config';
 import type { LocaleCode } from '@/types';
 
 function ShellContent({ children }: { children: React.ReactNode }) {
@@ -66,7 +67,7 @@ export default function AuthShell({
   children: React.ReactNode;
 }) {
   return (
-    <LocaleProvider initialLocale={initialLocale as LocaleCode}>
+    <LocaleProvider initialLocale={isValidLocale(initialLocale) ? initialLocale : DEFAULT_LOCALE}>
       <ShellContent>{children}</ShellContent>
     </LocaleProvider>
   );
