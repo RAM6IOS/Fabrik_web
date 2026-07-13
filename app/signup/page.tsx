@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { useLocale } from '@/lib/i18n/context';
+import { t } from '@/lib/i18n/translations';
 
 export default function SignupPage() {
   const [factoryName, setFactoryName] = useState('');
@@ -13,6 +15,7 @@ export default function SignupPage() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
+  const { locale } = useLocale();
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -30,12 +33,12 @@ export default function SignupPage() {
 
       const data = await res.json();
       if (!res.ok) {
-        throw new Error(data.error || 'فشلت عملية التسجيل');
+        throw new Error(data.error || t('signup.errors.registrationFailed', locale));
       }
 
-      setMessage('تم إنشاء الحساب بنجاح! يمكنك تسجيل الدخول الآن.');
+      setMessage(t('signup.success', locale));
     } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : 'حدث خطأ أثناء الاتصال بالخادم');
+      setError(err instanceof Error ? err.message : t('signup.errors.serverError', locale));
     }
     setLoading(false);
   };
@@ -49,13 +52,13 @@ export default function SignupPage() {
               className="text-2xl font-bold text-primary"
               style={{ fontFamily: 'var(--font-heading), var(--font-heading-arabic)' }}
             >
-              فابريك
+              {t('signup.brand', locale)}
             </h1>
           </div>
 
           <div className="rounded-xl border border-primary/5 bg-white p-6 shadow-sm">
             <h2 className="mb-4 text-center text-lg font-bold text-primary">
-              إنشاء حساب جديد
+              {t('signup.title', locale)}
             </h2>
 
             <div className="mb-6 flex items-center justify-center gap-1">
@@ -71,35 +74,35 @@ export default function SignupPage() {
             <form onSubmit={handleSignUp} className="space-y-4">
               <div>
                 <label className="mb-1 block text-sm font-medium text-primary/70">
-                  اسم المصنع
+                  {t('signup.factoryName', locale)}
                 </label>
                 <input
                   type="text"
                   value={factoryName}
                   onChange={(e) => setFactoryName(e.target.value)}
                   className="w-full rounded-lg border border-primary/10 bg-background px-4 py-2.5 text-sm text-ink outline-none transition-colors focus:border-primary/30 focus:ring-2 focus:ring-primary/5"
-                  placeholder="مثلاً: فابريك الجزائر للصلب"
+                  placeholder={t('signup.factoryPlaceholder', locale)}
                   required
                 />
               </div>
 
               <div>
                 <label className="mb-1 block text-sm font-medium text-primary/70">
-                  الاسم الكامل
+                  {t('signup.fullName', locale)}
                 </label>
                 <input
                   type="text"
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
                   className="w-full rounded-lg border border-primary/10 bg-background px-4 py-2.5 text-sm text-ink outline-none transition-colors focus:border-primary/30 focus:ring-2 focus:ring-primary/5"
-                  placeholder="أدخل اسمك الكامل"
+                  placeholder={t('signup.fullNamePlaceholder', locale)}
                   required
                 />
               </div>
 
               <div>
                 <label className="mb-1 block text-sm font-medium text-primary/70">
-                  البريد الإلكتروني
+                  {t('signup.email', locale)}
                 </label>
                 <input
                   type="email"
@@ -113,7 +116,7 @@ export default function SignupPage() {
 
               <div>
                 <label className="mb-1 block text-sm font-medium text-primary/70">
-                  كلمة المرور
+                  {t('signup.password', locale)}
                 </label>
                 <div className="relative">
                   <input
@@ -160,14 +163,14 @@ export default function SignupPage() {
                 disabled={loading}
                 className="flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-primary/90 disabled:opacity-50"
               >
-                {loading ? 'جاري...' : 'إنشاء الحساب'}
+                {loading ? t('signup.loading', locale) : t('signup.submit', locale)}
               </button>
             </form>
 
             <p className="mt-4 text-center text-xs text-primary/50">
-              لديك حساب بالفعل؟{' '}
+              {t('signup.hasAccount', locale)}{' '}
               <Link href="/login" className="font-semibold text-primary underline">
-                تسجيل الدخول
+                {t('signup.login', locale)}
               </Link>
             </p>
           </div>
@@ -177,11 +180,11 @@ export default function SignupPage() {
       <footer className="border-t border-primary/5 bg-white px-4 py-4">
         <div className="mx-auto flex max-w-sm items-center justify-between text-xs text-primary/40">
           <div className="flex gap-4">
-            <a href="#" className="transition-colors hover:text-primary/60">الشروط والأحكام</a>
-            <a href="#" className="transition-colors hover:text-primary/60">سياسة الخصوصية</a>
-            <a href="#" className="transition-colors hover:text-primary/60">اتصل بنا</a>
+            <a href="#" className="transition-colors hover:text-primary/60">{t('signup.terms', locale)}</a>
+            <a href="#" className="transition-colors hover:text-primary/60">{t('signup.privacy', locale)}</a>
+            <a href="#" className="transition-colors hover:text-primary/60">{t('signup.support', locale)}</a>
           </div>
-          <span>© 2024 فابريك الجزائر - حلول صناعية متكاملة</span>
+          <span>{t('signup.footerCopyright', locale)}</span>
         </div>
       </footer>
     </div>

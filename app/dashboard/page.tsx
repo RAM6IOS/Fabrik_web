@@ -1,7 +1,15 @@
 import { createClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
+import { cookies } from 'next/headers';
+import { COOKIE_NAME, DEFAULT_LOCALE, isValidLocale } from '@/lib/i18n/config';
+import { t, tRaw } from '@/lib/i18n/translations';
+import type { LocaleCode } from '@/types';
 
 export default async function DashboardPage() {
+  const cookieStore = await cookies();
+  const localeCookie = cookieStore.get(COOKIE_NAME)?.value;
+  const locale: LocaleCode = localeCookie && isValidLocale(localeCookie) ? localeCookie : DEFAULT_LOCALE;
+
   const supabase = await createClient();
 
   const {
@@ -77,16 +85,16 @@ export default async function DashboardPage() {
   });
 
   const statusConfig: Record<string, { label: string; color: string; dot: string }> = {
-    pending: { label: 'قيد الانتظار', color: 'text-yellow-700', dot: 'bg-yellow-500' },
-    in_progress: { label: 'قيد التنفيذ', color: 'text-orange-700', dot: 'bg-accent' },
-    completed: { label: 'مكتمل', color: 'text-success', dot: 'bg-success' },
-    cancelled: { label: 'ملغي', color: 'text-gray-500', dot: 'bg-gray-400' },
+    pending: { label: t('dashboard.status.pending', locale), color: 'text-yellow-700', dot: 'bg-yellow-500' },
+    in_progress: { label: t('dashboard.status.inProgress', locale), color: 'text-orange-700', dot: 'bg-accent' },
+    completed: { label: t('dashboard.status.completed', locale), color: 'text-success', dot: 'bg-success' },
+    cancelled: { label: t('dashboard.status.cancelled', locale), color: 'text-gray-500', dot: 'bg-gray-400' },
   };
 
   const machineStatusConfig: Record<string, { label: string; color: string; dot: string }> = {
-    overdue: { label: 'متأخر', color: 'text-red-600', dot: 'bg-red-500' },
-    due_soon: { label: 'قريب', color: 'text-accent', dot: 'bg-accent' },
-    ok: { label: 'جيد', color: 'text-success', dot: 'bg-success' },
+    overdue: { label: t('dashboard.due.overdue', locale), color: 'text-red-600', dot: 'bg-red-500' },
+    due_soon: { label: t('dashboard.due.upcoming', locale), color: 'text-accent', dot: 'bg-accent' },
+    ok: { label: t('dashboard.due.onTrack', locale), color: 'text-success', dot: 'bg-success' },
   };
 
   const userInitial = profile.full_name?.charAt(0) ?? 'م';
@@ -117,7 +125,7 @@ export default async function DashboardPage() {
           <div className="relative hidden sm:block">
             <input
               type="text"
-              placeholder="بحث..."
+              placeholder={t('dashboard.searchPlaceholder', locale)}
               className="w-64 rounded-lg border border-primary/10 bg-background px-4 py-2 pr-10 text-sm text-primary placeholder:text-primary/30 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/30"
               style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
             />
@@ -139,9 +147,9 @@ export default async function DashboardPage() {
             {/* Stat Cards */}
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <StatCard
-                title="أوامر العمل النشطة"
+                title={t('dashboard.activeWorkOrders.title', locale)}
                 value={activeOrdersCountValue}
-                subtitle={`${activeOrdersCountValue > 0 ? 'تطلب متابعة' : 'لا يوجد أوامر نشطة حالياً'}`}
+                subtitle={t(activeOrdersCountValue > 0 ? 'dashboard.activeWorkOrders.needsAttention' : 'dashboard.activeWorkOrders.noOrders', locale)}
                 icon={
                   <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -151,9 +159,9 @@ export default async function DashboardPage() {
                 borderColor="border-primary/10"
               />
               <StatCard
-                title="تنبيهات الصيانة"
+                title={t('dashboard.maintenanceAlerts.title', locale)}
                 value={overdueCount}
-                subtitle={overdueCount > 0 ? 'تطلب إجراء فوراً' : 'الآلات في حالة جيدة'}
+                subtitle={overdueCount > 0 ? t('dashboard.maintenanceAlerts.needsAction', locale) : t('dashboard.maintenanceAlerts.allGood', locale)}
                 icon={
                   <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
@@ -174,14 +182,14 @@ export default async function DashboardPage() {
                       className="text-base font-bold text-primary md:text-lg"
                       style={{ fontFamily: 'var(--font-heading), var(--font-heading-arabic)' }}
                     >
-                      حالة الإنتاج المباشرة
+                      {t('dashboard.productionLive.title', locale)}
                     </h2>
                     <a
                       href="/work-orders"
                       className="text-xs text-primary/50 transition-colors hover:text-primary/70 md:text-sm"
                       style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
                     >
-                      عرض الكل
+                      {t('dashboard.productionLive.showAll', locale)}
                     </a>
                   </div>
 
@@ -194,25 +202,25 @@ export default async function DashboardPage() {
                             className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-primary/50"
                             style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
                           >
-                            معرّف الطلب
+                            {t('dashboard.productionLive.orderId', locale)}
                           </th>
                           <th
                             className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-primary/50"
                             style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
                           >
-                            اسم المنتج
+                            {t('dashboard.productionLive.product', locale)}
                           </th>
                           <th
                             className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-primary/50"
                             style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
                           >
-                            الحالة
+                            {t('dashboard.productionLive.status', locale)}
                           </th>
                           <th
                             className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-primary/50"
                             style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
                           >
-                            الإجراءات
+                            {t('dashboard.productionLive.actions', locale)}
                           </th>
                         </tr>
                       </thead>
@@ -224,7 +232,7 @@ export default async function DashboardPage() {
                               className="px-6 py-12 text-center text-sm text-primary/30"
                               style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
                             >
-                              لا توجد أوامر عمل قيد الانتظار أو التنفيذ
+                              {t('dashboard.productionLive.empty', locale)}
                             </td>
                           </tr>
                         ) : (
@@ -273,7 +281,7 @@ export default async function DashboardPage() {
                       <div className="px-4 py-12 text-center text-sm text-primary/30"
                         style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
                       >
-                        لا توجد أوامر عمل قيد الانتظار أو التنفيذ
+                        {t('dashboard.productionLive.empty', locale)}
                       </div>
                     ) : (
                       (pendingOrders ?? []).map((order) => {
@@ -313,14 +321,14 @@ export default async function DashboardPage() {
                       className="text-base font-bold text-primary md:text-lg"
                       style={{ fontFamily: 'var(--font-heading), var(--font-heading-arabic)' }}
                     >
-                      آخر النشاطات
+                      {t('dashboard.recentActivity.title', locale)}
                     </h2>
                   </div>
                   <div className="divide-y divide-primary/5">
                     {(pendingOrders ?? []).slice(0, 4).map((order) => {
                       const timeAgo = order.planned_start
-                        ? getTimeAgo(order.planned_start)
-                        : 'منذ قليل';
+                        ? getTimeAgo(order.planned_start, locale)
+                        : t('dashboard.recentActivity.justNow', locale);
                       return (
                         <div key={order.id} className="px-4 py-3 md:px-6 md:py-4">
                           <p
@@ -328,10 +336,10 @@ export default async function DashboardPage() {
                             style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
                           >
                             {order.status === 'completed'
-                              ? `أكتمل طلب العمل WO-${order.id.slice(0, 4).toUpperCase()}`
+                              ? `${t('dashboard.recentActivity.completedOrder', locale)} WO-${order.id.slice(0, 4).toUpperCase()}`
                               : order.status === 'in_progress'
-                                ? `طلب العمل WO-${order.id.slice(0, 4).toUpperCase()} قيد التنفيذ`
-                                : `طلب عمل جديد WO-${order.id.slice(0, 4).toUpperCase()}`}
+                                ? `${t('dashboard.recentActivity.inProgressOrder', locale)} WO-${order.id.slice(0, 4).toUpperCase()}`
+                                : `${t('dashboard.recentActivity.newOrder', locale)} WO-${order.id.slice(0, 4).toUpperCase()}`}
                           </p>
                           <p
                             className="mt-1 text-xs text-primary/40"
@@ -346,7 +354,7 @@ export default async function DashboardPage() {
                       <div className="px-4 py-8 text-center text-sm text-primary/30 md:px-6"
                         style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
                       >
-                        لا يوجد نشاط حديث
+                        {t('dashboard.recentActivity.empty', locale)}
                       </div>
                     )}
                   </div>
@@ -361,14 +369,14 @@ export default async function DashboardPage() {
                   className="text-base font-bold text-primary md:text-lg"
                   style={{ fontFamily: 'var(--font-heading), var(--font-heading-arabic)' }}
                 >
-                  حالة التلفت
+                  {t('dashboard.machines.title', locale)}
                 </h2>
                 <a
                   href="/maintenance"
                   className="text-xs text-primary/50 transition-colors hover:text-primary/70 md:text-sm"
                   style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
                 >
-                  عرض الكل
+                  {t('dashboard.machines.showAll', locale)}
                 </a>
               </div>
 
@@ -381,25 +389,25 @@ export default async function DashboardPage() {
                         className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-primary/50"
                         style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
                       >
-                        اسم الآلة
+                        {t('dashboard.machines.name', locale)}
                       </th>
                       <th
                         className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-primary/50"
                         style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
                       >
-                        تاريخ آخر صيانة
+                        {t('dashboard.machines.lastMaintenance', locale)}
                       </th>
                       <th
                         className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-primary/50"
                         style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
                       >
-                        موعد الصيانة القادم
+                        {t('dashboard.machines.nextMaintenance', locale)}
                       </th>
                       <th
                         className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-primary/50"
                         style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
                       >
-                        الحالة
+                        {t('dashboard.machines.status', locale)}
                       </th>
                     </tr>
                   </thead>
@@ -411,7 +419,7 @@ export default async function DashboardPage() {
                           className="px-6 py-12 text-center text-sm text-primary/30"
                           style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
                         >
-                          لا توجد آلات نشطة
+                          {t('dashboard.machines.empty', locale)}
                         </td>
                       </tr>
                     ) : (
@@ -457,7 +465,7 @@ export default async function DashboardPage() {
                   <div className="px-4 py-12 text-center text-sm text-primary/30"
                     style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
                   >
-                    لا توجد آلات نشطة
+                    {t('dashboard.machines.empty', locale)}
                   </div>
                 ) : (
                   machinesWithStatus.map((machine) => {
@@ -478,10 +486,10 @@ export default async function DashboardPage() {
                         </div>
                         <div className="mt-1 flex gap-4 text-xs text-ink/60">
                           <span style={{ fontFamily: 'var(--font-mono)' }}>
-                            آخر صيانة: {machine.last_maintenance_date ?? '—'}
+                            {t('dashboard.machines.lastLabel', locale)} {machine.last_maintenance_date ?? '—'}
                           </span>
                           <span style={{ fontFamily: 'var(--font-mono)' }}>
-                            القادم: {machine.next_maintenance_date ?? '—'}
+                            {t('dashboard.machines.nextLabel', locale)} {machine.next_maintenance_date ?? '—'}
                           </span>
                         </div>
                       </div>
@@ -542,16 +550,16 @@ function StatCard({
   );
 }
 
-function getTimeAgo(dateStr: string): string {
+function getTimeAgo(dateStr: string, locale: LocaleCode): string {
   const now = new Date();
   const date = new Date(dateStr);
   const diffMs = now.getTime() - date.getTime();
   const diffMin = Math.floor(diffMs / 60000);
 
-  if (diffMin < 1) return 'الآن';
-  if (diffMin < 60) return `منذ ${diffMin} دقيقة`;
+  if (diffMin < 1) return t('dashboard.time.now', locale);
+  if (diffMin < 60) return tRaw('dashboard.time.minutesAgo', locale, { n: diffMin });
   const diffH = Math.floor(diffMin / 60);
-  if (diffH < 24) return `منذ ${diffH} ساعة`;
+  if (diffH < 24) return tRaw('dashboard.time.hoursAgo', locale, { n: diffH });
   const diffD = Math.floor(diffH / 24);
-  return `منذ ${diffD} يوم`;
+  return tRaw('dashboard.time.daysAgo', locale, { n: diffD });
 }

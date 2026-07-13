@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import Link from 'next/link';
+import { useLocale } from '@/lib/i18n/context';
+import { t } from '@/lib/i18n/translations';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -11,6 +13,7 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
+  const { locale } = useLocale();
 
   const supabase = createClient();
   const router = useRouter();
@@ -28,12 +31,11 @@ export default function LoginPage() {
       });
 
       if (signInError) {
-        // Translate common Supabase errors to Arabic
         const errorMap: Record<string, string> = {
-          'Invalid login credentials': 'البريد الإلكتروني أو كلمة المرور غير صحيحة',
-          'Email not confirmed': 'يرجى تأكيد بريدك الإلكتروني أولاً',
-          'Too many requests': 'محاولات كثيرة، يرجى الانتظار قليلاً',
-          'User not found': 'المستخدم غير موجود',
+          'Invalid login credentials': t('login.errors.invalidCredentials', locale),
+          'Email not confirmed': t('login.errors.emailNotConfirmed', locale),
+          'Too many requests': t('login.errors.tooManyRequests', locale),
+          'User not found': t('login.errors.userNotFound', locale),
         };
         const arabicError = errorMap[signInError.message] || signInError.message;
         setError(arabicError);
@@ -45,11 +47,11 @@ export default function LoginPage() {
         // Use window.location for a hard redirect to ensure session is picked up
         window.location.href = '/dashboard';
       } else {
-        setError('فشل تسجيل الدخول، يرجى المحاولة مرة أخرى');
+        setError(t('login.errors.loginFailed', locale));
         setLoading(false);
       }
     } catch (err) {
-      setError('حدث خطأ غير متوقع، يرجى المحاولة مرة أخرى');
+      setError(t('login.errors.unexpected', locale));
       setLoading(false);
     }
   };
@@ -63,9 +65,9 @@ export default function LoginPage() {
               className="text-2xl font-bold text-primary"
               style={{ fontFamily: 'var(--font-heading), var(--font-heading-arabic)' }}
             >
-              فابريك
+              {t('login.brand', locale)}
             </h1>
-            <p className="mt-1 text-sm text-primary/50">نظام إدارة المصانع الذكي</p>
+            <p className="mt-1 text-sm text-primary/50">{t('login.subtitle', locale)}</p>
           </div>
 
           <div className="rounded-xl border border-primary/5 bg-white shadow-sm">
@@ -79,7 +81,7 @@ export default function LoginPage() {
               <form onSubmit={handleSignIn} className="space-y-4">
                 <div>
                   <label className="mb-1 block text-sm font-medium text-primary/70">
-                    البريد الإلكتروني
+                    {t('login.email', locale)}
                   </label>
                   <input
                     type="email"
@@ -93,7 +95,7 @@ export default function LoginPage() {
 
                 <div>
                   <label className="mb-1 block text-sm font-medium text-primary/70">
-                    كلمة المرور
+                    {t('login.password', locale)}
                   </label>
                   <input
                     type="password"
@@ -110,7 +112,7 @@ export default function LoginPage() {
                     href="/forgot-password"
                     className="text-xs text-primary/50 underline transition-colors hover:text-primary/70"
                   >
-                    نسيت كلمة المرور؟
+                    {t('login.forgotPassword', locale)}
                   </Link>
                 </div>
 
@@ -131,7 +133,7 @@ export default function LoginPage() {
                   disabled={loading}
                   className="flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-primary/90 disabled:opacity-50"
                 >
-                  {loading ? 'جاري...' : 'تسجيل الدخول'}
+                  {loading ? t('login.loading', locale) : t('login.submit', locale)}
                   <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
                   </svg>
@@ -147,14 +149,14 @@ export default function LoginPage() {
           </div>
 
           <p className="mt-4 text-center text-xs text-primary/50">
-            ليس لديك حساب؟{' '}
+            {t('login.noAccount', locale)}{' '}
             <Link href="/signup" className="font-semibold text-primary underline">
-              إنشاء حساب
+              {t('login.createAccount', locale)}
             </Link>
           </p>
 
           <p className="mt-4 text-center text-xs text-primary/30">
-            © 2024 فابريك لإدارة المصانع. جميع الحقوق محفوظة.
+            {t('login.footerCopyright', locale)}
           </p>
         </div>
       </main>
@@ -162,11 +164,11 @@ export default function LoginPage() {
       <footer className="border-t border-primary/5 bg-white px-4 py-4">
         <div className="mx-auto flex max-w-sm items-center justify-between text-xs text-primary/40">
           <div className="flex gap-4">
-            <a href="#" className="transition-colors hover:text-primary/60">الشروط والأحكام</a>
-            <a href="#" className="transition-colors hover:text-primary/60">سياسة الخصوصية</a>
-            <a href="#" className="transition-colors hover:text-primary/60">الدعم الفني</a>
+            <a href="#" className="transition-colors hover:text-primary/60">{t('login.terms', locale)}</a>
+            <a href="#" className="transition-colors hover:text-primary/60">{t('login.privacy', locale)}</a>
+            <a href="#" className="transition-colors hover:text-primary/60">{t('login.support', locale)}</a>
           </div>
-          <span className="font-semibold text-primary/60">فابريك</span>
+          <span className="font-semibold text-primary/60">{t('login.brand', locale)}</span>
         </div>
       </footer>
     </div>

@@ -3,12 +3,15 @@
 import { useState } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import Link from 'next/link';
+import { useLocale } from '@/lib/i18n/context';
+import { t } from '@/lib/i18n/translations';
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
+  const { locale } = useLocale();
 
   const supabase = createClient();
 
@@ -25,9 +28,9 @@ export default function ForgotPasswordPage() {
 
       if (resetError) {
         const errorMap: Record<string, string> = {
-          'Invalid email': 'البريد الإلكتروني غير صالح',
-          'User not found': 'لا يوجد حساب مرتبط بهذا البريد الإلكتروني',
-          'Too many requests': 'محاولات كثيرة، يرجى الانتظار قليلاً',
+          'Invalid email': t('forgotPassword.errors.invalidEmail', locale),
+          'User not found': t('forgotPassword.errors.noAccount', locale),
+          'Too many requests': t('forgotPassword.errors.tooManyRequests', locale),
         };
         const arabicError = errorMap[resetError.message] || resetError.message;
         setError(arabicError);
@@ -35,10 +38,10 @@ export default function ForgotPasswordPage() {
         return;
       }
 
-      setMessage('تم إرسال رابط إعادة تعيين كلمة المرور إلى بريدك الإلكتروني');
+      setMessage(t('forgotPassword.success', locale));
       setLoading(false);
     } catch (err) {
-      setError('حدث خطأ غير متوقع، يرجى المحاولة مرة أخرى');
+      setError(t('forgotPassword.errors.unexpected', locale));
       setLoading(false);
     }
   };
@@ -56,10 +59,10 @@ export default function ForgotPasswordPage() {
             className="text-lg font-bold text-primary"
             style={{ fontFamily: 'var(--font-heading), var(--font-heading-arabic)' }}
           >
-            فابريك
+            {t('forgotPassword.brand', locale)}
           </span>
         </div>
-        <span className="text-sm text-primary/40">إدارة المصانع الحديثة</span>
+        <span className="text-sm text-primary/40">{t('forgotPassword.subtitle', locale)}</span>
       </header>
 
       <main className="flex flex-1 items-center justify-center px-4 py-12">
@@ -71,17 +74,17 @@ export default function ForgotPasswordPage() {
                   className="text-xl font-bold text-primary"
                   style={{ fontFamily: 'var(--font-heading), var(--font-heading-arabic)' }}
                 >
-                  استعادة كلمة المرور
+                  {t('forgotPassword.title', locale)}
                 </h1>
               </div>
               <p className="mb-6 text-right text-sm text-primary/50">
-                أدخل بريدك الإلكتروني وسنرسل لك رابطاً لإعادة تعيين كلمة المرور
+                {t('forgotPassword.description', locale)}
               </p>
 
               <form onSubmit={handleResetRequest} className="space-y-4">
                 <div>
                   <label className="mb-1 block text-right text-sm font-medium text-primary/70">
-                    البريد الإلكتروني
+                    {t('forgotPassword.email', locale)}
                   </label>
                   <input
                     type="email"
@@ -110,7 +113,7 @@ export default function ForgotPasswordPage() {
                   disabled={loading}
                   className="flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-primary/90 disabled:opacity-50"
                 >
-                  {loading ? 'جاري...' : 'إرسال رابط الاستعادة'}
+                  {loading ? t('forgotPassword.loading', locale) : t('forgotPassword.submit', locale)}
                   <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                   </svg>
@@ -125,7 +128,7 @@ export default function ForgotPasswordPage() {
                   <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
                   </svg>
-                  العودة لصفحة تسجيل الدخول
+                  {t('forgotPassword.backToLogin', locale)}
                 </Link>
               </div>
             </div>
@@ -142,11 +145,11 @@ export default function ForgotPasswordPage() {
       <footer className="border-t border-primary/5 bg-white px-6 py-4">
         <div className="flex items-center justify-between text-xs text-primary/40">
           <div className="flex gap-4">
-            <a href="#" className="transition-colors hover:text-primary/60">الشروط والأحكام</a>
-            <a href="#" className="transition-colors hover:text-primary/60">سياسة الخصوصية</a>
-            <a href="#" className="transition-colors hover:text-primary/60">الدعم الفني</a>
+            <a href="#" className="transition-colors hover:text-primary/60">{t('forgotPassword.terms', locale)}</a>
+            <a href="#" className="transition-colors hover:text-primary/60">{t('forgotPassword.privacy', locale)}</a>
+            <a href="#" className="transition-colors hover:text-primary/60">{t('forgotPassword.support', locale)}</a>
           </div>
-          <span>© 2024 فابريك لإدارة المصانع. جميع الحقوق محفوظة.</span>
+          <span>{t('forgotPassword.footerCopyright', locale)}</span>
         </div>
       </footer>
     </div>

@@ -48,3 +48,16 @@ export interface MaintenanceLog {
   date: string;
   note: string | null;
 }
+
+export interface Supplier {
+  id: string;
+  factory_id: string;
+  name: string;
+  contact_name: string | null;
+  email: string | null;
+  phone: string | null;
+  lead_time_days: number | null;
+  minimum_order: number | null;
+  is_active: boolean;
+  created_at: string;
+}

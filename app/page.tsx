@@ -1,17 +1,26 @@
-export default function Home() {
+import { cookies } from 'next/headers';
+import { COOKIE_NAME, DEFAULT_LOCALE, isValidLocale } from '@/lib/i18n/config';
+import { t } from '@/lib/i18n/translations';
+import type { LocaleCode } from '@/types';
+
+export default async function Home() {
+  const cookieStore = await cookies();
+  const localeCookie = cookieStore.get(COOKIE_NAME)?.value;
+  const locale: LocaleCode = localeCookie && isValidLocale(localeCookie) ? localeCookie : DEFAULT_LOCALE;
+
   return (
     <div className="flex min-h-screen flex-col bg-background">
-      <Header />
-      <HeroSection />
-      <FeaturesSection />
-      <OfflineSection />
-      <CTASection />
-      <Footer />
+      <Header locale={locale} />
+      <HeroSection locale={locale} />
+      <FeaturesSection locale={locale} />
+      <OfflineSection locale={locale} />
+      <CTASection locale={locale} />
+      <Footer locale={locale} />
     </div>
   );
 }
 
-function Header() {
+function Header({ locale }: { locale: LocaleCode }) {
   return (
     <header className="sticky top-0 z-50 border-b border-primary/5 bg-white/95 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
@@ -19,17 +28,17 @@ function Header() {
           className="text-xl font-bold text-primary"
           style={{ fontFamily: 'var(--font-heading), var(--font-heading-arabic)' }}
         >
-          فابريك
+          {t('landing.brand', locale)}
         </div>
 
         <nav className="hidden items-center gap-8 sm:flex">
           {[
-            { label: 'عن فابريك', href: '#', active: true },
-            { label: 'المميزات', href: '#features', active: false },
-            { label: 'الأسعار', href: '#', active: false },
+            { key: 'landing.nav.about' as const, href: '#', active: true },
+            { key: 'landing.nav.features' as const, href: '#features', active: false },
+            { key: 'landing.nav.pricing' as const, href: '#', active: false },
           ].map((link) => (
             <a
-              key={link.label}
+              key={link.key}
               href={link.href}
               className={`relative text-sm font-medium transition-colors ${
                 link.active
@@ -37,7 +46,7 @@ function Header() {
                   : 'text-primary/60 hover:text-primary'
               }`}
             >
-              {link.label}
+              {t(link.key, locale)}
               {link.active && (
                 <span className="absolute -bottom-1 left-0 right-0 h-0.5 rounded-full bg-accent" />
               )}
@@ -50,13 +59,13 @@ function Header() {
             href="/login"
             className="text-sm font-medium text-primary/60 transition-colors hover:text-primary"
           >
-            تسجيل الدخول
+            {t('landing.nav.login', locale)}
           </a>
           <a
             href="/signup"
             className="rounded-xl bg-primary px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-primary/90"
           >
-            ابدأ الآن
+            {t('landing.nav.startNow', locale)}
           </a>
         </div>
       </div>
@@ -64,7 +73,7 @@ function Header() {
   );
 }
 
-function HeroSection() {
+function HeroSection({ locale }: { locale: LocaleCode }) {
   return (
     <section className="relative overflow-hidden px-4 pt-16 pb-20 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-6xl">
@@ -73,39 +82,42 @@ function HeroSection() {
             className="text-4xl font-bold tracking-tight text-primary sm:text-5xl lg:text-6xl"
             style={{ fontFamily: 'var(--font-heading), var(--font-heading-arabic)' }}
           >
-            فابريك: إدارة إنتاجك بذكاء وصلابة
+            {t('landing.hero.headline', locale)}
           </h1>
           <p className="mt-4 text-lg leading-relaxed text-primary/60 sm:text-xl">
-            نظام رقمي بسيط لإدارة خطوط الإنتاج، تتبع الطلبيات، وصيانة الآلات.
-            صُمم خصيصاً ليناسب بيئة العمل الصناعية الجزائرية.
+            {t('landing.hero.desc1', locale)}{' '}
+            {t('landing.hero.desc2', locale)}
           </p>
         </div>
 
         <div className="mt-14 grid gap-5 sm:grid-cols-3">
           <StatusCard
+            locale={locale}
             id="FB-9821#"
-            status="قيد الانتظار"
+            status={t('landing.hero.statusPending', locale)}
             statusColor="bg-gray-400"
-            title="محرك كهربائي 5kW"
+            title={t('landing.hero.order1Title', locale)}
             progress={0}
             progressColor="bg-gray-200"
             barColor="bg-gray-300"
           />
           <StatusCard
+            locale={locale}
             id="FB-9045#"
-            status="قيد التنفيذ"
+            status={t('landing.hero.statusInProgress', locale)}
             statusColor="bg-accent"
-            title="علبة تروس هيدروليكية"
+            title={t('landing.hero.order2Title', locale)}
             progress={65}
             progressColor="bg-accent/15"
             barColor="bg-accent"
           />
           <div className="hidden sm:block">
             <StatusCard
+              locale={locale}
               id="FB-8982#"
-              status="تم الانتهاء"
+              status={t('landing.hero.statusCompleted', locale)}
               statusColor="bg-success"
-              title="لوحة تحكم ذكية"
+              title={t('landing.hero.order3Title', locale)}
               progress={100}
               progressColor="bg-success/15"
               barColor="bg-success"
@@ -118,6 +130,7 @@ function HeroSection() {
 }
 
 function StatusCard({
+  locale,
   id,
   status,
   statusColor,
@@ -126,6 +139,7 @@ function StatusCard({
   progressColor,
   barColor,
 }: {
+  locale: LocaleCode;
   id: string;
   status: string;
   statusColor: string;
@@ -149,7 +163,7 @@ function StatusCard({
         </div>
       </div>
       <h3 className="mb-3 text-sm font-semibold text-primary">{title}</h3>
-      <div className="text-xs text-primary/40">التقدم: {progress}%</div>
+      <div className="text-xs text-primary/40">{t('landing.hero.progressLabel', locale)}: {progress}%</div>
       <div className={`mt-1.5 h-1.5 w-full rounded-full ${progressColor}`}>
         <div
           className={`h-full rounded-full ${barColor} transition-all`}
@@ -160,11 +174,11 @@ function StatusCard({
   );
 }
 
-function FeaturesSection() {
+function FeaturesSection({ locale }: { locale: LocaleCode }) {
   const features = [
     {
-      title: 'تخطيط الإنتاج',
-      desc: 'تنظيم جداول العمل اليومية والأسبوعية بدقة متناهية لضمان استمرارية التشغيل وتوزيع المهام بكفاءة.',
+      titleKey: 'landing.features.planning.title' as const,
+      descKey: 'landing.features.planning.desc' as const,
       icon: (
         <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
           <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
@@ -172,8 +186,8 @@ function FeaturesSection() {
       ),
     },
     {
-      title: 'تتبع الطلبيات',
-      desc: 'مراقبة حية لكل قطعة من لحظة دخول المواد الخام إلى المستودع وحتى خروج المنتج النهائي للشحن.',
+      titleKey: 'landing.features.tracking.title' as const,
+      descKey: 'landing.features.tracking.desc' as const,
       icon: (
         <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
           <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25zM6.75 12h.008v.008H6.75V12zm0 3h.008v.008H6.75V15zm0 3h.008v.008H6.75V18z" />
@@ -181,8 +195,8 @@ function FeaturesSection() {
       ),
     },
     {
-      title: 'الصيانة الوقائية',
-      desc: 'تقليل فترات توقف الآلات المفاجئ عبر جدولة التنبيهات الدورية وعمليات الفحص التقني التلقائية.',
+      titleKey: 'landing.features.maintenance.title' as const,
+      descKey: 'landing.features.maintenance.desc' as const,
       icon: (
         <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
           <path strokeLinecap="round" strokeLinejoin="round" d="M11.42 15.17l-5.49 5.49a1.5 1.5 0 01-2.12 0l-.87-.87a1.5 1.5 0 010-2.12l5.49-5.49m5.66-5.66L11.42 15.17m5.66-5.66a4.5 4.5 0 10-6.36 6.36l6.36-6.36z" />
@@ -198,20 +212,20 @@ function FeaturesSection() {
           className="mb-14 text-center text-3xl font-bold text-primary sm:text-4xl"
           style={{ fontFamily: 'var(--font-heading), var(--font-heading-arabic)' }}
         >
-          لماذا تختار فابريك لمصنعك؟
+          {t('landing.why.title', locale)}
         </h2>
 
         <div className="grid gap-6 sm:grid-cols-3">
           {features.map((f) => (
             <div
-              key={f.title}
+              key={f.titleKey}
               className="rounded-2xl border border-primary/5 bg-white p-6 transition-shadow hover:shadow-md"
             >
               <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary text-white">
                 {f.icon}
               </div>
-              <h3 className="mb-2 text-lg font-bold text-primary">{f.title}</h3>
-              <p className="leading-relaxed text-primary/60">{f.desc}</p>
+              <h3 className="mb-2 text-lg font-bold text-primary">{t(f.titleKey, locale)}</h3>
+              <p className="leading-relaxed text-primary/60">{t(f.descKey, locale)}</p>
             </div>
           ))}
         </div>
@@ -220,7 +234,7 @@ function FeaturesSection() {
   );
 }
 
-function OfflineSection() {
+function OfflineSection({ locale }: { locale: LocaleCode }) {
   return (
     <section className="bg-primary px-4 py-20 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-6xl">
@@ -234,16 +248,14 @@ function OfflineSection() {
                 className="text-3xl font-bold text-white sm:text-4xl"
                 style={{ fontFamily: 'var(--font-heading), var(--font-heading-arabic)' }}
               >
-                يعمل بلا إنترنت
+                {t('landing.offline.title', locale)}
               </h2>
             </div>
             <p className="mb-6 leading-relaxed text-white/70">
-              ندرك تحديات البنية التحتية في المناطق الصناعية الجزائرية، صُمم &quot;فابريك&quot; ليعمل بكفاءة
-              كاملة حتى في حال انقطاع الإنترنت. يتم مزامنة البيانات تلقائياً فور عودة الاتصال، مما يضمن
-              عدم ضياع أي ثانية من بيانات الإنتاج.
+              {t('landing.offline.desc', locale)}
             </p>
             <ul className="space-y-3">
-              {['قاعدة بيانات محلية مؤمنة', 'مزامنة ذكية ثنائية الاتجاه'].map((item) => (
+              {([t('landing.offline.bullet1', locale), t('landing.offline.bullet2', locale)]).map((item) => (
                 <li key={item} className="flex items-center gap-2 text-white">
                   <svg className="h-5 w-5 shrink-0 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
@@ -265,7 +277,7 @@ function OfflineSection() {
   );
 }
 
-function CTASection() {
+function CTASection({ locale }: { locale: LocaleCode }) {
   return (
     <section className="bg-background px-4 py-20 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-6xl">
@@ -274,23 +286,23 @@ function CTASection() {
             className="mb-3 text-3xl font-bold text-primary sm:text-4xl"
             style={{ fontFamily: 'var(--font-heading), var(--font-heading-arabic)' }}
           >
-            هل أنت مستعد لرقمنة إنتاجك؟
+            {t('landing.cta.title', locale)}
           </h2>
           <p className="mb-8 text-lg text-primary/60">
-            انضم إلى عشرات المصانع الصغيرة التي بدأت رحلة التحول الرقمي مع فابريك.
+            {t('landing.cta.desc', locale)}
           </p>
           <div className="flex flex-col justify-center gap-4 sm:flex-row">
             <a
               href="/signup"
               className="rounded-xl bg-accent px-8 py-3 font-semibold text-primary transition-colors hover:bg-accent/90"
             >
-              اطلب عرضاً تجريبياً
+              {t('landing.cta.demo', locale)}
             </a>
             <a
               href="#"
               className="rounded-xl border-2 border-accent bg-white px-8 py-3 font-semibold text-primary transition-colors hover:bg-accent/5"
             >
-              تحدث مع خبير
+              {t('landing.cta.expert', locale)}
             </a>
           </div>
         </div>
@@ -299,7 +311,7 @@ function CTASection() {
   );
 }
 
-function Footer() {
+function Footer({ locale }: { locale: LocaleCode }) {
   return (
     <footer className="border-t border-primary/5 bg-white px-4 py-8 sm:px-6 lg:px-8">
       <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 sm:flex-row">
@@ -308,16 +320,16 @@ function Footer() {
             className="text-lg font-bold text-primary"
             style={{ fontFamily: 'var(--font-heading), var(--font-heading-arabic)' }}
           >
-            فابريك
+            {t('landing.footer.brand', locale)}
           </span>
           <span className="text-xs text-primary/40">
-            © 2024 فابريك لإدارة الإنتاج الصناعي. جميع الحقوق محفوظة.
+            {t('landing.footer.copyright', locale)}
           </span>
         </div>
         <div className="flex gap-6 text-sm text-primary/60">
-          <a href="#" className="transition-colors hover:text-primary">اتصل بنا</a>
-          <a href="#" className="transition-colors hover:text-primary">الشروط والأحكام</a>
-          <a href="#" className="transition-colors hover:text-primary">سياسة الخصوصية</a>
+          <a href="#" className="transition-colors hover:text-primary">{t('landing.footer.contact', locale)}</a>
+          <a href="#" className="transition-colors hover:text-primary">{t('landing.footer.terms', locale)}</a>
+          <a href="#" className="transition-colors hover:text-primary">{t('landing.footer.privacy', locale)}</a>
         </div>
       </div>
     </footer>

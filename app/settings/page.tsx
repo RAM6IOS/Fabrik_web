@@ -99,11 +99,11 @@ export default function SettingsPage() {
     if (!file) return;
     const allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
     if (!allowedTypes.includes(file.type)) {
-      setProfileMessage({ ok: false, text: 'يُسمح فقط بملفات JPG و PNG و WebP' });
+      setProfileMessage({ ok: false, text: t('settings.errors.fileType', locale) });
       return;
     }
     if (file.size > 2 * 1024 * 1024) {
-      setProfileMessage({ ok: false, text: 'حجم الصورة يجب أن لا يتجاوز 2 ميغابايت' });
+      setProfileMessage({ ok: false, text: t('settings.errors.fileSize', locale) });
       return;
     }
 
@@ -285,7 +285,7 @@ export default function SettingsPage() {
           <div className="relative hidden sm:block">
             <input
               type="text"
-              placeholder="بحث..."
+              placeholder={t('common.searchPlaceholder', locale)}
               className="w-64 rounded-lg border border-primary/10 bg-background px-4 py-2 pr-10 text-sm text-primary placeholder:text-primary/30 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/30"
               style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
             />
@@ -315,7 +315,7 @@ export default function SettingsPage() {
                   : 'border-transparent text-primary/40 hover:text-primary/60'
               }`}
             >
-              الحساب الشخصي
+              {t('settings.personalAccount', locale)}
             </button>
             <button
               id="tab-users"
@@ -658,7 +658,7 @@ export default function SettingsPage() {
                     <h2 className="text-[15px] font-bold text-primary">{t('settings.language.heading', locale)}</h2>
                   </div>
                   <div className="p-5">
-                    <label className="mb-1.5 block text-right text-xs font-medium text-primary/40">لغة الواجهة</label>
+                    <label className="mb-1.5 block text-right text-xs font-medium text-primary/40">{t('settings.interfaceLanguage', locale)}</label>
                     <div className="mt-1.5 flex gap-2">
                       {locales.map((code) => {
                         const config = localeConfig[code];

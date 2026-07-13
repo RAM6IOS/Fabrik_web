@@ -4,6 +4,8 @@ import { useState, useCallback } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
+import { useLocale } from '@/lib/i18n/context';
+import { t } from '@/lib/i18n/translations';
 
 interface NavSubItem {
   label: string;
@@ -26,6 +28,7 @@ interface SidebarProps {
 
 export default function Sidebar({ userName = 'أحمد المحمدي', userRole = 'مدير الإنتاج', userAvatar, onClose }: SidebarProps) {
   const pathname = usePathname();
+  const { locale } = useLocale();
   const [expandedItems, setExpandedItems] = useState<string[]>(['/planning']);
 
   const toggleExpand = (href: string) => {
@@ -36,7 +39,7 @@ export default function Sidebar({ userName = 'أحمد المحمدي', userRole
 
   const navItems: NavItem[] = [
     {
-      label: 'لوحة التحكم',
+      label: t('sidebar.dashboard', locale),
       href: '/dashboard',
       icon: (
         <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
@@ -45,7 +48,7 @@ export default function Sidebar({ userName = 'أحمد المحمدي', userRole
       ),
     },
     {
-      label: 'تخطيط الإنتاج',
+      label: t('sidebar.productionPlanning', locale),
       href: '/planning',
       icon: (
         <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
@@ -53,13 +56,15 @@ export default function Sidebar({ userName = 'أحمد المحمدي', userRole
         </svg>
       ),
       subItems: [
-        { label: 'الطلبات', href: '/planning/orders' },
-        { label: 'المنتجات والمواد', href: '/planning/products' },
-        { label: 'الجدولة', href: '/planning/schedule' },
+        { label: t('sidebar.suppliers', locale), href: '/planning/suppliers' },
+        { label: t('sidebar.rawMaterials', locale), href: '/planning/materials' },
+        { label: t('sidebar.products', locale), href: '/planning/products' },
+        { label: t('sidebar.orders', locale), href: '/planning/orders' },
+        { label: t('sidebar.schedule', locale), href: '/planning/schedule' },
       ],
     },
     {
-      label: 'تتبع الإنتاج',
+      label: t('sidebar.productionTracking', locale),
       href: '/tracking',
       icon: (
         <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
@@ -68,16 +73,7 @@ export default function Sidebar({ userName = 'أحمد المحمدي', userRole
       ),
     },
     {
-      label: 'مراقبة الجودة',
-      href: '/quality',
-      icon: (
-        <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
-        </svg>
-      ),
-    },
-    {
-      label: 'صيانة الألات',
+      label: t('sidebar.machineMaintenance', locale),
       href: '/maintenance',
       icon: (
         <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
@@ -86,8 +82,8 @@ export default function Sidebar({ userName = 'أحمد المحمدي', userRole
       ),
     },
     {
-      label: 'الموارد البشرية',
-      href: '/hr',
+      label: t('sidebar.userManagement', locale),
+      href: '/users',
       icon: (
         <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
           <path strokeLinecap="round" strokeLinejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
@@ -95,25 +91,7 @@ export default function Sidebar({ userName = 'أحمد المحمدي', userRole
       ),
     },
     {
-      label: 'التحليلات',
-      href: '/analytics',
-      icon: (
-        <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
-        </svg>
-      ),
-    },
-    {
-      label: 'إدارة العملاء',
-      href: '/customers',
-      icon: (
-        <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
-        </svg>
-      ),
-    },
-    {
-      label: 'الإعدادات',
+      label: t('sidebar.settings', locale),
       href: '/settings',
       icon: (
         <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
@@ -146,7 +124,7 @@ export default function Sidebar({ userName = 'أحمد المحمدي', userRole
             className="text-xl font-bold tracking-tight"
             style={{ fontFamily: 'var(--font-heading), var(--font-heading-arabic)' }}
           >
-            قنص
+            {t('sidebar.brand', locale)}
           </span>
         </div>
         {/* Close button - mobile only */}
@@ -279,7 +257,7 @@ export default function Sidebar({ userName = 'أحمد المحمدي', userRole
               <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
               </svg>
-              <span>الدعم الفني</span>
+              <span>{t('sidebar.technicalSupport', locale)}</span>
             </a>
           </li>
           <li>
@@ -291,7 +269,7 @@ export default function Sidebar({ userName = 'أحمد المحمدي', userRole
               <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
               </svg>
-              <span>خروج</span>
+              <span>{t('sidebar.logout', locale)}</span>
             </button>
           </li>
         </ul>

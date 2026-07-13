@@ -3,6 +3,8 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
+import { useLocale } from '@/lib/i18n/context';
+import { t } from '@/lib/i18n/translations';
 
 export default function ResetPasswordPage() {
   const [password, setPassword] = useState('');
@@ -14,6 +16,7 @@ export default function ResetPasswordPage() {
   const [message, setMessage] = useState('');
   const [expired, setExpired] = useState(false);
   const [countdown, setCountdown] = useState(14 * 60);
+  const { locale } = useLocale();
 
   const supabase = createClient();
   const router = useRouter();
@@ -40,11 +43,11 @@ export default function ResetPasswordPage() {
 
   const getPasswordStrength = (pw: string) => {
     if (pw.length === 0) return { level: 0, label: '', color: '' };
-    if (pw.length < 6) return { level: 1, label: 'ضعيفة', color: 'bg-red-400' };
-    if (pw.length < 8) return { level: 2, label: 'متوسطة', color: 'bg-yellow-400' };
+    if (pw.length < 6) return { level: 1, label: t('resetPassword.strength.weak', locale), color: 'bg-red-400' };
+    if (pw.length < 8) return { level: 2, label: t('resetPassword.strength.medium', locale), color: 'bg-yellow-400' };
     if (/[A-Z]/.test(pw) && /[0-9]/.test(pw) && pw.length >= 8)
-      return { level: 4, label: 'قوية', color: 'bg-success' };
-    return { level: 3, label: 'جيد', color: 'bg-accent' };
+      return { level: 4, label: t('resetPassword.strength.strong', locale), color: 'bg-success' };
+    return { level: 3, label: t('resetPassword.strength.good', locale), color: 'bg-accent' };
   };
 
   const strength = getPasswordStrength(password);
@@ -56,13 +59,13 @@ export default function ResetPasswordPage() {
     setError('');
 
     if (password !== confirmPassword) {
-      setError('كلمتا المرور غير متطابقتين');
+      setError(t('resetPassword.errors.passwordsMismatch', locale));
       setLoading(false);
       return;
     }
 
     if (password.length < 6) {
-      setError('يجب أن تكون كلمة المرور 6 أحرف على الأقل');
+      setError(t('resetPassword.errors.tooShort', locale));
       setLoading(false);
       return;
     }
@@ -74,8 +77,8 @@ export default function ResetPasswordPage() {
 
       if (updateError) {
         const errorMap: Record<string, string> = {
-          'New password should be different from the old password': 'كلمة المرور الجديدة يجب أن تختلف عن القديمة',
-          'Password should be at least 6 characters': 'يجب أن تكون كلمة المرور 6 أحرف على الأقل',
+          'New password should be different from the old password': t('resetPassword.errors.sameAsOld', locale),
+          'Password should be at least 6 characters': t('resetPassword.errors.tooShort', locale),
         };
         const arabicError = errorMap[updateError.message] || updateError.message;
         setError(arabicError);
@@ -83,13 +86,13 @@ export default function ResetPasswordPage() {
         return;
       }
 
-      setMessage('تم تحديث كلمة المرور بنجاح');
+      setMessage(t('resetPassword.success', locale));
       setLoading(false);
       setTimeout(() => {
         window.location.href = '/dashboard';
       }, 2000);
     } catch (err) {
-      setError('حدث خطأ غير متوقع، يرجى المحاولة مرة أخرى');
+      setError(t('resetPassword.errors.unexpected', locale));
       setLoading(false);
     }
   };
@@ -103,16 +106,16 @@ export default function ResetPasswordPage() {
               className="text-xl font-bold text-primary"
               style={{ fontFamily: 'var(--font-heading), var(--font-heading-arabic)' }}
             >
-              انتهت صلاحية الرابط
+              {t('resetPassword.linkExpired', locale)}
             </h2>
             <p className="mt-2 text-sm text-primary/50">
-              صلاحية رابط إعادة تعيين كلمة المرور انتهت. يرجى طلب رابط جديد.
+              {t('resetPassword.linkExpiredDescription', locale)}
             </p>
             <button
               onClick={() => window.location.href = '/forgot-password'}
               className="mt-4 rounded-lg bg-primary px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-primary/90"
             >
-              طلب رابط جديد
+              {t('resetPassword.newLink', locale)}
             </button>
           </div>
         </div>
@@ -136,17 +139,17 @@ export default function ResetPasswordPage() {
                 className="text-xl font-bold text-primary"
                 style={{ fontFamily: 'var(--font-heading), var(--font-heading-arabic)' }}
               >
-                تعيين كلمة المرور
+                {t('resetPassword.title', locale)}
               </h1>
               <p className="mt-1 text-sm text-primary/50">
-                الرجاء إدخال كلمة مرور قوية لتأمين حسابك في فابريك.
+                {t('resetPassword.description', locale)}
               </p>
             </div>
 
             <form onSubmit={handleResetPassword} className="space-y-4">
               <div>
                 <label className="mb-1 block text-right text-sm font-medium text-primary/70">
-                  كلمة المرور الجديدة
+                  {t('resetPassword.newPassword', locale)}
                 </label>
                 <div className="relative">
                   <input
@@ -195,7 +198,7 @@ export default function ResetPasswordPage() {
 
               <div>
                 <label className="mb-1 block text-right text-sm font-medium text-primary/70">
-                  تأكيد كلمة المرور
+                  {t('resetPassword.confirmPassword', locale)}
                 </label>
                 <div className="relative">
                   <input
@@ -242,7 +245,7 @@ export default function ResetPasswordPage() {
                 disabled={loading}
                 className="flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-primary/90 disabled:opacity-50"
               >
-                {loading ? 'جاري...' : 'تحديث كلمة المرور'}
+                {loading ? t('resetPassword.submitLoading', locale) : t('resetPassword.submit', locale)}
                 <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
                 </svg>
