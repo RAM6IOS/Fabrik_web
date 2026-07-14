@@ -381,6 +381,21 @@ type TranslationKey =
   | 'units.meter'
   | 'units.kilogram'
   | 'units.liter'
+  // ── Tracking ─────────────────────────────────────
+  | 'tracking.title'
+  | 'tracking.subtitle'
+  | 'tracking.table.product'
+  | 'tracking.table.quantity'
+  | 'tracking.table.status'
+  | 'tracking.table.plannedStart'
+  | 'tracking.table.plannedEnd'
+  | 'tracking.table.orderNumber'
+  | 'tracking.status.pending'
+  | 'tracking.status.inProgress'
+  | 'tracking.status.completed'
+  | 'tracking.empty'
+  | 'tracking.errors.updateFailed'
+  | 'tracking.errors.alreadyCompleted'
   // ── Landing page status labels ────────────────────
   | 'landing.hero.progressLabel'
   | 'landing.hero.orderIdSuffix';
@@ -799,6 +814,21 @@ const dictionaries: Record<LocaleCode, Record<TranslationKey, string>> = {
     'units.meter': 'متر',
     'units.kilogram': 'كيلوغرام',
     'units.liter': 'لتر',
+    // ── Tracking ──────────────────────────────────
+    'tracking.title': 'تتبع الإنتاج',
+    'tracking.subtitle': 'مراقبة سير العمليات التصنيعية والتحكم في حالات أوامر العمل القائمة.',
+    'tracking.table.product': 'اسم المنتج',
+    'tracking.table.quantity': 'الكمية',
+    'tracking.table.status': 'الحالة',
+    'tracking.table.plannedStart': 'بداية المخطط',
+    'tracking.table.plannedEnd': 'نهاية المخطط',
+    'tracking.table.orderNumber': 'رقم الطلبية الأصلية',
+    'tracking.status.pending': 'انتظار',
+    'tracking.status.inProgress': 'تنفيذ',
+    'tracking.status.completed': 'منتهية',
+    'tracking.empty': 'لا توجد أوامر عمل حالياً',
+    'tracking.errors.updateFailed': 'حدث خطأ أثناء تحديث الحالة',
+    'tracking.errors.alreadyCompleted': 'تم إتمام أمر العمل مسبقاً',
   },
   fr: {
     // ── Settings ──────────────────────────────────
@@ -1183,6 +1213,21 @@ const dictionaries: Record<LocaleCode, Record<TranslationKey, string>> = {
     'units.meter': 'Mètre',
     'units.kilogram': 'Kilogramme',
     'units.liter': 'Litre',
+    // ── Tracking ──────────────────────────────────
+    'tracking.title': 'Suivi production',
+    'tracking.subtitle': 'Surveillance des processus de fabrication et contrôle des statuts des ordres de travail.',
+    'tracking.table.product': 'Nom du produit',
+    'tracking.table.quantity': 'Quantité',
+    'tracking.table.status': 'Statut',
+    'tracking.table.plannedStart': 'Début prévu',
+    'tracking.table.plannedEnd': 'Fin prévue',
+    'tracking.table.orderNumber': 'N° commande',
+    'tracking.status.pending': 'En attente',
+    'tracking.status.inProgress': 'En cours',
+    'tracking.status.completed': 'Terminée',
+    'tracking.empty': "Aucun ordre de travail pour le moment",
+    'tracking.errors.updateFailed': 'Erreur lors de la mise à jour du statut',
+    'tracking.errors.alreadyCompleted': 'Ordre de travail déjà terminé',
   },
 };
 
