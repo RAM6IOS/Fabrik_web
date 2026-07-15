@@ -5,6 +5,7 @@ import { createClient } from '@/lib/supabase/client';
 import { useLocale } from '@/lib/i18n/context';
 import { t } from '@/lib/i18n/translations';
 import Alert from '@/components/Alert';
+import ConfirmDialog from '@/components/ConfirmDialog';
 
 interface Order {
   id: string;
@@ -53,6 +54,8 @@ export default function OrdersClient({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [movingOrderId, setMovingOrderId] = useState<string | null>(null);
+  const [deleteTarget, setDeleteTarget] = useState<Order | null>(null);
+  const [deleting, setDeleting] = useState(false);
   const { locale } = useLocale();
 
   const isOwner = userRole === 'owner';
@@ -183,6 +186,18 @@ export default function OrdersClient({
     const supabase = createClient();
     setMovingOrderId(orderId);
 
+    // Client-side duplicate check
+    const { data: existingWO } = await supabase
+      .from('work_orders')
+      .select('id')
+      .eq('order_id', orderId)
+      .limit(1);
+
+    if (existingWO && existingWO.length > 0) {
+      setMovingOrderId(null);
+      return;
+    }
+
     const { error } = await supabase.rpc('move_order_to_production', {
       p_order_id: orderId,
     });
@@ -195,6 +210,37 @@ export default function OrdersClient({
 
     setMovingOrderId(null);
   };
+
+  const deleteOrder = useCallback((order: Order) => {
+    if (isFrozen(order.status)) {
+      setError(t('orders.errors.cannotDelete', locale));
+      return;
+    }
+    setDeleteTarget(order);
+  }, [locale]);
+
+  const confirmDelete = useCallback(async () => {
+    if (!deleteTarget) return;
+    setDeleting(true);
+
+    const res = await fetch('/api/orders', {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ orderId: deleteTarget.id }),
+    });
+
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}));
+      setError(data.error || t('orders.errors.deleteFailed', locale));
+      setDeleting(false);
+      setDeleteTarget(null);
+      return;
+    }
+
+    setOrders((prev) => prev.filter((o) => o.id !== deleteTarget.id));
+    setDeleting(false);
+    setDeleteTarget(null);
+  }, [deleteTarget, locale]);
 
   const formatDate = (dateStr: string | null) => {
     if (!dateStr) return '—';
@@ -342,6 +388,14 @@ export default function OrdersClient({
                             <button onClick={() => openEditForm(order)} className="flex-1 rounded-lg border border-primary/10 px-3 py-2 text-sm font-medium text-primary/60 transition-colors hover:bg-primary/5" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
                               {t('common.edit', locale)}
                             </button>
+                            <button
+                              onClick={() => deleteOrder(order)}
+                              className="flex-1 rounded-lg border border-red-100 px-3 py-2 text-sm font-medium text-red-500 transition-colors hover:bg-red-50"
+                              style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                              title={t('orders.deleteTooltip', locale)}
+                            >
+                              {t('common.delete', locale)}
+                            </button>
                             {order.status === 'confirmed' && (
                               <button
                                 onClick={() => moveToProduction(order.id)}
@@ -436,6 +490,15 @@ export default function OrdersClient({
                                       <button onClick={() => openEditForm(order)} className="text-primary/30 transition-colors hover:text-primary/60" title={t('common.edit', locale)}>
                                         <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                                           <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                                        </svg>
+                                      </button>
+                                      <button
+                                        onClick={() => deleteOrder(order)}
+                                        className="text-red-300 transition-colors hover:text-red-500"
+                                        title={t('orders.deleteTooltip', locale)}
+                                      >
+                                        <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                                          <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
                                         </svg>
                                       </button>
                                       {order.status === 'confirmed' && (
@@ -536,6 +599,16 @@ export default function OrdersClient({
           )}
         </div>
       </main>
+      <ConfirmDialog
+        open={deleteTarget !== null}
+        title={t('common.delete', locale)}
+        message={t('orders.deleteConfirm', locale)}
+        confirmLabel={t('common.delete', locale)}
+        cancelLabel={t('common.cancel', locale)}
+        onConfirm={confirmDelete}
+        onCancel={() => { setDeleteTarget(null); setDeleting(false); }}
+        loading={deleting}
+      />
     </>
   );
 }

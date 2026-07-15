@@ -64,7 +64,7 @@ export default function TrackingClient({
 
   const getAvailableStatuses = (currentStatus: string): StatusFilter[] => {
     if (currentStatus === 'completed') return ['completed'];
-    return ['pending', 'in_progress'];
+    return ['pending', 'in_progress', 'completed'];
   };
 
   const filteredWorkOrders = activeFilter === 'all'

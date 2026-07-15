@@ -250,6 +250,11 @@ type TranslationKey =
   | 'orders.errors.required'
   | 'orders.errors.updateFailed'
   | 'orders.errors.addFailed'
+  | 'orders.deleteTooltip'
+  | 'orders.deleteConfirm'
+  | 'orders.deleteDescription'
+  | 'orders.errors.deleteFailed'
+  | 'orders.errors.cannotDelete'
   | 'orders.status.draft'
   | 'orders.status.processing'
   | 'orders.status.confirmed'
@@ -687,6 +692,11 @@ const dictionaries: Record<LocaleCode, Record<TranslationKey, string>> = {
     'orders.errors.required': 'المنتج، الكمية، واسم العميل مطلوبة',
     'orders.errors.updateFailed': 'حدث خطأ أثناء تحديث الطلبية',
     'orders.errors.addFailed': 'حدث خطأ أثناء إضافة الطلبية',
+    'orders.deleteTooltip': 'حذف الطلبية',
+    'orders.deleteConfirm': 'هل أنت متأكد من حذف هذه الطلبية؟',
+    'orders.deleteDescription': 'لا يمكن التراجع عن هذا الإجراء',
+    'orders.errors.deleteFailed': 'حدث خطأ أثناء حذف الطلبية',
+    'orders.errors.cannotDelete': 'لا يمكن حذف الطلبية قيد المعالجة أو المكتملة',
     'orders.status.draft': 'مسودة',
     'orders.status.processing': 'قيد المعالجة',
     'orders.status.confirmed': 'مؤكدة',
@@ -1090,6 +1100,11 @@ const dictionaries: Record<LocaleCode, Record<TranslationKey, string>> = {
     'orders.errors.required': 'Le produit, la quantité et le nom du client sont requis',
     'orders.errors.updateFailed': 'Erreur lors de la mise à jour de la commande',
     'orders.errors.addFailed': 'Erreur lors de l\'ajout de la commande',
+    'orders.deleteTooltip': 'Supprimer la commande',
+    'orders.deleteConfirm': 'Êtes-vous sûr de vouloir supprimer cette commande ?',
+    'orders.deleteDescription': 'Cette action est irréversible',
+    'orders.errors.deleteFailed': 'Erreur lors de la suppression de la commande',
+    'orders.errors.cannotDelete': 'Impossible de supprimer une commande en traitement ou terminée',
     'orders.status.draft': 'Brouillon',
     'orders.status.processing': 'En traitement',
     'orders.status.confirmed': 'Confirmée',
