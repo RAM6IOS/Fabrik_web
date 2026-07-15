@@ -4,6 +4,8 @@ import { useState, useCallback } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { useLocale } from '@/lib/i18n/context';
 import { t } from '@/lib/i18n/translations';
+import Alert from '@/components/Alert';
+import ConfirmDialog from '@/components/ConfirmDialog';
 
 interface Material {
   id: string;
@@ -14,6 +16,7 @@ interface Material {
   reorder_point: number;
   default_supplier_id: string | null;
   supplier_name: string | null;
+  bom_count: number;
 }
 
 interface Supplier {
@@ -53,6 +56,8 @@ export default function MaterialsClient({
   const [form, setForm] = useState(emptyForm);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [deleteTarget, setDeleteTarget] = useState<Material | null>(null);
+  const [deleting, setDeleting] = useState(false);
 
   const isOwner = userRole === 'owner';
 
@@ -88,6 +93,37 @@ export default function MaterialsClient({
     setForm(emptyForm);
     setError(null);
   }, []);
+
+  const deleteMaterial = useCallback((material: Material) => {
+    if (material.bom_count > 0) {
+      setError(t('materials.errors.cannotDelete', locale));
+      return;
+    }
+    setDeleteTarget(material);
+  }, [locale]);
+
+  const confirmDelete = useCallback(async () => {
+    if (!deleteTarget) return;
+    setDeleting(true);
+
+    const res = await fetch('/api/materials', {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ materialId: deleteTarget.id }),
+    });
+
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}));
+      setError(data.error || t('materials.errors.deleteFailed', locale));
+      setDeleting(false);
+      setDeleteTarget(null);
+      return;
+    }
+
+    setMaterials((prev) => prev.filter((m) => m.id !== deleteTarget.id));
+    setDeleting(false);
+    setDeleteTarget(null);
+  }, [deleteTarget, locale]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -218,11 +254,11 @@ export default function MaterialsClient({
                 </button>
               </div>
               <form onSubmit={handleSubmit} className="flex-1 overflow-y-auto p-4 space-y-3">
-                {error && (
-                  <div className="rounded-lg bg-red-50 p-3 text-sm text-red-600" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
-                    {error}
-                  </div>
-                )}
+{error && (
+  <Alert type="error">
+    {error}
+  </Alert>
+)}
 
                 <div>
                   <label className="mb-1 block text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>{t('materials.name', locale)}</label>
@@ -309,6 +345,15 @@ export default function MaterialsClient({
                         <button onClick={() => openEditForm(material)} className="flex-1 rounded-lg border border-primary/10 px-3 py-2 text-sm font-medium text-primary/60 transition-colors hover:bg-primary/5" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
                           {t('common.edit', locale)}
                         </button>
+                        <button
+                          onClick={() => deleteMaterial(material)}
+                          disabled={material.bom_count > 0}
+                          className="flex-1 rounded-lg border border-red-100 px-3 py-2 text-sm font-medium text-red-500 transition-colors hover:bg-red-50 disabled:opacity-30 disabled:cursor-not-allowed"
+                          style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                          title={material.bom_count > 0 ? t('materials.errors.cannotDelete', locale) : t('materials.deleteTooltip', locale)}
+                        >
+                          {t('common.delete', locale)}
+                        </button>
                       </div>
                     )}
                   </div>
@@ -374,11 +419,23 @@ export default function MaterialsClient({
                             </td>
                             {isOwner && (
                               <td className="px-6 py-3.5">
-                                <button onClick={() => openEditForm(material)} className="text-primary/30 transition-colors hover:text-primary/60" title={t('materials.editTooltip', locale)}>
-                                  <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
-                                  </svg>
-                                </button>
+                                <div className="flex items-center gap-2">
+                                  <button onClick={() => openEditForm(material)} className="text-primary/30 transition-colors hover:text-primary/60" title={t('materials.editTooltip', locale)}>
+                                    <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                                      <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                                    </svg>
+                                  </button>
+                                  <button
+                                    onClick={() => deleteMaterial(material)}
+                                    disabled={material.bom_count > 0}
+                                    className="text-red-300 transition-colors hover:text-red-500 disabled:opacity-30 disabled:cursor-not-allowed"
+                                    title={material.bom_count > 0 ? t('materials.errors.cannotDelete', locale) : t('materials.deleteTooltip', locale)}
+                                  >
+                                    <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                                      <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                                    </svg>
+                                  </button>
+                                </div>
                               </td>
                             )}
                           </tr>
@@ -457,6 +514,17 @@ export default function MaterialsClient({
           )}
         </div>
       </main>
+
+      <ConfirmDialog
+        open={deleteTarget !== null}
+        title={t('common.delete', locale)}
+        message={t('materials.deleteConfirm', locale)}
+        confirmLabel={t('common.delete', locale)}
+        cancelLabel={t('common.cancel', locale)}
+        onConfirm={confirmDelete}
+        onCancel={() => { setDeleteTarget(null); setDeleting(false); }}
+        loading={deleting}
+      />
     </>
   );
 }

@@ -4,6 +4,7 @@ import { useState, useCallback } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { useLocale } from '@/lib/i18n/context';
 import { t, getUnitOptions } from '@/lib/i18n/translations';
+import Alert from '@/components/Alert';
 
 interface Product {
   id: string;
@@ -304,11 +305,11 @@ export default function ProductsClient({
               </div>
 
               <form onSubmit={handleSubmit} className="flex-1 overflow-y-auto p-4 space-y-4">
-                {error && (
-                  <div className="rounded-lg bg-red-50 p-3 text-sm text-red-600" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
-                    {error}
-                  </div>
-                )}
+{error && (
+  <Alert type="error">
+    {error}
+  </Alert>
+)}
 
                 {/* {t('products.basicInfo', locale)} */}
                 <div className="space-y-3">

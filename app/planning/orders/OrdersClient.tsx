@@ -4,6 +4,7 @@ import { useState, useCallback } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { useLocale } from '@/lib/i18n/context';
 import { t } from '@/lib/i18n/translations';
+import Alert from '@/components/Alert';
 
 interface Order {
   id: string;
@@ -55,6 +56,9 @@ export default function OrdersClient({
   const { locale } = useLocale();
 
   const isOwner = userRole === 'owner';
+
+  const frozenStatuses = ['processing', 'completed'];
+  const isFrozen = (status: string) => frozenStatuses.includes(status);
 
   const statusConfig: Record<string, { label: string; color: string; dot: string }> = {
     'draft': { label: t('orders.status.draft', locale), color: 'text-yellow-600', dot: 'bg-yellow-500' },
@@ -257,11 +261,11 @@ export default function OrdersClient({
               </div>
 
               <form onSubmit={handleSubmit} className="flex-1 overflow-y-auto p-4 space-y-3">
-                {error && (
-                  <div className="rounded-lg bg-red-50 p-3 text-sm text-red-600" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
-                    {error}
-                  </div>
-                )}
+{error && (
+  <Alert type="error">
+    {error}
+  </Alert>
+)}
 
                 <div>
                   <label className="mb-1 block text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>{t('orders.product', locale)}</label>
@@ -333,29 +337,38 @@ export default function OrdersClient({
                     </div>
                     {isOwner && (
                       <div className="mt-3 flex gap-2 border-t border-primary/5 pt-3">
-                        <button onClick={() => openEditForm(order)} className="flex-1 rounded-lg border border-primary/10 px-3 py-2 text-sm font-medium text-primary/60 transition-colors hover:bg-primary/5" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
-                          {t('common.edit', locale)}
-                        </button>
-                        {order.status === 'confirmed' && (
-                          <button
-                            onClick={() => moveToProduction(order.id)}
-                            disabled={movingOrderId === order.id}
-                            className="flex-1 rounded-lg bg-emerald-600 px-3 py-2 text-sm font-medium text-white transition-colors hover:bg-emerald-700 disabled:opacity-50"
-                            style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
-                          >
-                            {movingOrderId === order.id ? t('orders.moving', locale) : t('orders.moveToProduction', locale)}
-                          </button>
+                        {!isFrozen(order.status) && (
+                          <>
+                            <button onClick={() => openEditForm(order)} className="flex-1 rounded-lg border border-primary/10 px-3 py-2 text-sm font-medium text-primary/60 transition-colors hover:bg-primary/5" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                              {t('common.edit', locale)}
+                            </button>
+                            {order.status === 'confirmed' && (
+                              <button
+                                onClick={() => moveToProduction(order.id)}
+                                disabled={movingOrderId === order.id}
+                                className="flex-1 rounded-lg bg-emerald-600 px-3 py-2 text-sm font-medium text-white transition-colors hover:bg-emerald-700 disabled:opacity-50"
+                                style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                              >
+                                {movingOrderId === order.id ? t('orders.moving', locale) : t('orders.moveToProduction', locale)}
+                              </button>
+                            )}
+                            <select
+                              value={order.status}
+                              onChange={(e) => updateStatus(order, e.target.value)}
+                              className="flex-1 rounded-lg border border-primary/10 bg-background px-2 py-1.5 text-xs text-primary focus:border-accent focus:outline-none"
+                              style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                            >
+                              {Object.entries(editableStatuses).map(([value, config]) => (
+                                <option key={value} value={value}>{config.label}</option>
+                              ))}
+                            </select>
+                          </>
                         )}
-                        <select
-                          value={order.status}
-                          onChange={(e) => updateStatus(order, e.target.value)}
-                          className="flex-1 rounded-lg border border-primary/10 bg-background px-2 py-1.5 text-xs text-primary focus:border-accent focus:outline-none"
-                          style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
-                        >
-                          {Object.entries(editableStatuses).map(([value, config]) => (
-                            <option key={value} value={value}>{config.label}</option>
-                          ))}
-                        </select>
+                        {isFrozen(order.status) && (
+                          <span className="flex-1 flex items-center justify-center text-xs text-primary/40" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                            {st.label}
+                          </span>
+                        )}
                       </div>
                     )}
                   </div>
@@ -418,32 +431,41 @@ export default function OrdersClient({
                             {isOwner && (
                               <td className="px-6 py-3.5">
                                 <div className="flex items-center gap-2">
-                                  <button onClick={() => openEditForm(order)} className="text-primary/30 transition-colors hover:text-primary/60" title={t('common.edit', locale)}>
-                                    <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                                      <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
-                                    </svg>
-                                  </button>
-                                  {order.status === 'confirmed' && (
-                                    <button
-                                      onClick={() => moveToProduction(order.id)}
-                                      disabled={movingOrderId === order.id}
-                                      className="rounded-lg bg-emerald-600 px-3 py-1.5 text-xs font-medium text-white transition-colors hover:bg-emerald-700 disabled:opacity-50"
-                                      style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
-                                      title={t('orders.moveToProduction', locale)}
-                                    >
-                                      {movingOrderId === order.id ? '...' : t('orders.moveToProduction', locale)}
-                                    </button>
+                                  {!isFrozen(order.status) && (
+                                    <>
+                                      <button onClick={() => openEditForm(order)} className="text-primary/30 transition-colors hover:text-primary/60" title={t('common.edit', locale)}>
+                                        <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                                          <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                                        </svg>
+                                      </button>
+                                      {order.status === 'confirmed' && (
+                                        <button
+                                          onClick={() => moveToProduction(order.id)}
+                                          disabled={movingOrderId === order.id}
+                                          className="rounded-lg bg-emerald-600 px-3 py-1.5 text-xs font-medium text-white transition-colors hover:bg-emerald-700 disabled:opacity-50"
+                                          style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                                          title={t('orders.moveToProduction', locale)}
+                                        >
+                                          {movingOrderId === order.id ? '...' : t('orders.moveToProduction', locale)}
+                                        </button>
+                                      )}
+                                      <select
+                                        value={order.status}
+                                        onChange={(e) => updateStatus(order, e.target.value)}
+                                        className="rounded-lg border border-primary/10 bg-background px-2 py-1 text-xs text-primary focus:border-accent focus:outline-none"
+                                        style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                                      >
+                                        {Object.entries(editableStatuses).map(([value, config]) => (
+                                          <option key={value} value={value}>{config.label}</option>
+                                        ))}
+                                      </select>
+                                    </>
                                   )}
-                                  <select
-                                    value={order.status}
-                                    onChange={(e) => updateStatus(order, e.target.value)}
-                                    className="rounded-lg border border-primary/10 bg-background px-2 py-1 text-xs text-primary focus:border-accent focus:outline-none"
-                                    style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
-                                  >
-                                    {Object.entries(editableStatuses).map(([value, config]) => (
-                                      <option key={value} value={value}>{config.label}</option>
-                                    ))}
-                                  </select>
+                                  {isFrozen(order.status) && (
+                                    <span className="text-xs text-primary/40" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                                      {st.label}
+                                    </span>
+                                  )}
                                 </div>
                               </td>
                             )}

@@ -357,6 +357,10 @@ type TranslationKey =
   | 'materials.errors.required'
   | 'materials.errors.updateFailed'
   | 'materials.errors.addFailed'
+  | 'materials.errors.deleteFailed'
+  | 'materials.errors.cannotDelete'
+  | 'materials.deleteTooltip'
+  | 'materials.deleteConfirm'
   // ── Schedule ──────────────────────────────────────
   | 'schedule.title'
   | 'schedule.suggestedOrders'
@@ -790,6 +794,10 @@ const dictionaries: Record<LocaleCode, Record<TranslationKey, string>> = {
     'materials.errors.required': 'الاسم، الرمز، والوحدة مطلوبة',
     'materials.errors.updateFailed': 'حدث خطأ أثناء تحديث المادة',
     'materials.errors.addFailed': 'حدث خطأ أثناء إضافة المادة',
+    'materials.errors.deleteFailed': 'حدث خطأ أثناء حذف المادة',
+    'materials.errors.cannotDelete': 'لا يمكن حذف المادة لأنها مستخدمة في وصفات المنتجات',
+    'materials.deleteTooltip': 'حذف',
+    'materials.deleteConfirm': 'هل أنت متأكد من حذف هذه المادة؟',
     // ── Schedule ──────────────────────────────────
     'schedule.title': 'جدولة الإنتاج',
     'schedule.suggestedOrders': 'أوامر شراء مقترحة',
@@ -1189,6 +1197,10 @@ const dictionaries: Record<LocaleCode, Record<TranslationKey, string>> = {
     'materials.errors.required': 'Le nom, le code et l\'unité sont requis',
     'materials.errors.updateFailed': 'Erreur lors de la mise à jour',
     'materials.errors.addFailed': 'Erreur lors de l\'ajout',
+    'materials.errors.deleteFailed': 'Erreur lors de la suppression',
+    'materials.errors.cannotDelete': 'Impossible de supprimer car le matériau est utilisé dans des fiches techniques',
+    'materials.deleteTooltip': 'Supprimer',
+    'materials.deleteConfirm': 'Êtes-vous sûr de vouloir supprimer ce matériau ?',
     // ── Schedule ──────────────────────────────────
     'schedule.title': 'Planification de production',
     'schedule.suggestedOrders': 'Commandes d\'achat suggérées',

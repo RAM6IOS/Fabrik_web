@@ -4,6 +4,7 @@ import { useState, useCallback } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { useLocale } from '@/lib/i18n/context';
 import { t } from '@/lib/i18n/translations';
+import Alert from '@/components/Alert';
 
 interface Supplier {
   id: string;
@@ -232,11 +233,11 @@ export default function SuppliersClient({
                 </button>
               </div>
               <form onSubmit={handleSubmit} className="flex-1 overflow-y-auto p-4 space-y-3">
-                {error && (
-                  <div className="rounded-lg bg-red-50 p-3 text-sm text-red-600" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
-                    {error}
-                  </div>
-                )}
+{error && (
+  <Alert type="error">
+    {error}
+  </Alert>
+)}
 
                 <div>
                   <label className="mb-1 block text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>

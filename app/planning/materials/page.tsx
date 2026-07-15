@@ -30,6 +30,17 @@ export default async function MaterialsPage() {
     .eq('is_active', true)
     .order('name', { ascending: true });
 
+  const materialIds = (materials ?? []).map((m) => m.id);
+  const { data: bomItems } = await supabase
+    .from('bom_items')
+    .select('raw_material_id')
+    .in('raw_material_id', materialIds);
+
+  const bomCounts: Record<string, number> = {};
+  (bomItems ?? []).forEach((item) => {
+    bomCounts[item.raw_material_id] = (bomCounts[item.raw_material_id] || 0) + 1;
+  });
+
   const formattedMaterials = (materials ?? []).map((m) => {
     const supplierName = (suppliers ?? []).find((s) => s.id === m.default_supplier_id)?.name ?? null;
     return {
@@ -41,6 +52,7 @@ export default async function MaterialsPage() {
       reorder_point: Number(m.reorder_point),
       default_supplier_id: m.default_supplier_id,
       supplier_name: supplierName,
+      bom_count: bomCounts[m.id] || 0,
     };
   });
 

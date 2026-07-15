@@ -4,6 +4,7 @@ import { useState, useCallback } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { useLocale } from '@/lib/i18n/context';
 import { t } from '@/lib/i18n/translations';
+import Alert from '@/components/Alert';
 
 interface WorkOrder {
   id: string;
@@ -61,6 +62,11 @@ export default function TrackingClient({
 
   const editableStatuses: StatusFilter[] = ['pending', 'in_progress', 'completed'];
 
+  const getAvailableStatuses = (currentStatus: string): StatusFilter[] => {
+    if (currentStatus === 'completed') return ['completed'];
+    return ['pending', 'in_progress'];
+  };
+
   const filteredWorkOrders = activeFilter === 'all'
     ? workOrders
     : workOrders.filter((wo) => wo.status === activeFilter);
@@ -70,6 +76,13 @@ export default function TrackingClient({
     setError(null);
 
     const supabase = createClient();
+
+    const currentWo = workOrders.find((wo) => wo.id === id);
+    if (currentWo?.status === 'completed') {
+      setError(t('tracking.errors.updateFailed', locale));
+      setUpdatingId(null);
+      return;
+    }
 
     // Use RPC for completed status (handles inventory deduction)
     // Use direct update for other status changes
@@ -100,7 +113,7 @@ export default function TrackingClient({
       prev.map((wo) => (wo.id === id ? { ...wo, status: newStatus } : wo))
     );
     setUpdatingId(null);
-  }, [locale]);
+  }, [locale, workOrders]);
 
   const formatDate = (dateStr: string | null) => {
     if (!dateStr) return '—';
@@ -175,12 +188,12 @@ export default function TrackingClient({
             })}
           </div>
 
-          {/* Error Message */}
-          {error && (
-            <div className="rounded-lg bg-red-50 p-3 text-sm text-red-600" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
-              {error}
-            </div>
-          )}
+{/* Error Message */}
+{error && (
+  <Alert type="error">
+    {error}
+  </Alert>
+)}
 
           {/* Mobile Cards */}
           <div className="space-y-3 md:hidden">
@@ -216,11 +229,11 @@ export default function TrackingClient({
                       <select
                         value={wo.status}
                         onChange={(e) => updateStatus(wo.id, e.target.value)}
-                        disabled={updatingId === wo.id}
+                        disabled={updatingId === wo.id || wo.status === 'completed'}
                         className="w-full rounded-lg border border-primary/10 bg-background px-3 py-2 text-sm text-primary focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/30 disabled:opacity-50"
                         style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
                       >
-                        {editableStatuses.map((status) => {
+                        {getAvailableStatuses(wo.status).map((status) => {
                           const config = statusConfig[status];
                           return (
                             <option key={status} value={status}>{config.label}</option>
@@ -268,11 +281,11 @@ export default function TrackingClient({
                               <select
                                 value={wo.status}
                                 onChange={(e) => updateStatus(wo.id, e.target.value)}
-                                disabled={updatingId === wo.id}
+                                disabled={updatingId === wo.id || wo.status === 'completed'}
                                 className="rounded-lg border border-primary/10 bg-background px-2 py-1.5 text-sm text-primary focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/30 disabled:opacity-50"
                                 style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
                               >
-                                {editableStatuses.map((status) => {
+                                {getAvailableStatuses(wo.status).map((status) => {
                                   const config = statusConfig[status];
                                   return (
                                     <option key={status} value={status}>{config.label}</option>

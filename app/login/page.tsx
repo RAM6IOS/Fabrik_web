@@ -6,6 +6,7 @@ import { createClient } from '@/lib/supabase/client';
 import Link from 'next/link';
 import { useLocale } from '@/lib/i18n/context';
 import { t } from '@/lib/i18n/translations';
+import Alert from '@/components/Alert';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -116,17 +117,17 @@ export default function LoginPage() {
                   </Link>
                 </div>
 
-                {error && (
-                  <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-2.5 text-center text-xs text-red-600">
-                    {error}
-                  </div>
-                )}
+{error && (
+  <Alert type="error" className="text-center">
+    {error}
+  </Alert>
+)}
 
-                {message && (
-                  <div className="rounded-lg border border-success/20 bg-success/5 px-4 py-2.5 text-center text-xs text-success">
-                    {message}
-                  </div>
-                )}
+{message && (
+  <Alert type="success" className="text-center">
+    {message}
+  </Alert>
+)}
 
                 <button
                   type="submit"
