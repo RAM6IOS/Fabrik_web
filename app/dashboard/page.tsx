@@ -51,6 +51,11 @@ export default async function DashboardPage() {
     .order('last_maintenance_date', { ascending: true, nullsFirst: true })
     .limit(10);
 
+  const { count: stoppedMachinesCount } = await supabase
+    .from('machines')
+    .select('id', { count: 'exact', head: true })
+    .eq('is_active', false);
+
   const overdueCount = activeMachines?.filter((m) => {
     if (!m.last_maintenance_date) return false;
     const next = new Date(m.last_maintenance_date);
@@ -59,6 +64,7 @@ export default async function DashboardPage() {
   }).length ?? 0;
 
   const activeOrdersCountValue = activeOrdersCount ?? 0;
+  const stoppedMachinesCountValue = stoppedMachinesCount ?? 0;
 
   const machinesWithStatus = (activeMachines ?? []).map((m) => {
     let nextDate: Date | null = null;
@@ -145,7 +151,7 @@ export default async function DashboardPage() {
       <main className="flex-1 overflow-y-auto p-4 md:p-8">
           <div className="mx-auto max-w-6xl space-y-6">
             {/* Stat Cards */}
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
               <StatCard
                 title={t('dashboard.activeWorkOrders.title', locale)}
                 value={activeOrdersCountValue}
@@ -170,6 +176,19 @@ export default async function DashboardPage() {
                 valueColor="text-accent"
                 borderColor="border-accent/20"
                 iconColor="text-accent"
+              />
+              <StatCard
+                title={t('dashboard.stoppedMachines.title', locale)}
+                value={stoppedMachinesCountValue}
+                subtitle={stoppedMachinesCountValue > 0 ? t('dashboard.stoppedMachines.some', locale) : t('dashboard.stoppedMachines.none', locale)}
+                icon={
+                  <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M5.25 7.5A2.25 2.25 0 017.5 5.25h9a2.25 2.25 0 012.25 2.25v9a2.25 2.25 0 01-2.25 2.25h-9a2.25 2.25 0 01-2.25-2.25v-9z" />
+                  </svg>
+                }
+                valueColor="text-red-600"
+                borderColor="border-red-200"
+                iconColor="text-red-400"
               />
             </div>
 

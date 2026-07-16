@@ -25,6 +25,7 @@ export interface Machine {
   factory_id: string;
   name: string;
   location: string | null;
+  notes: string | null;
   maintenance_interval_days: number;
   last_maintenance_date: string | null;
   is_active: boolean;

@@ -195,6 +195,9 @@ type TranslationKey =
   | 'dashboard.maintenanceAlerts.title'
   | 'dashboard.maintenanceAlerts.needsAction'
   | 'dashboard.maintenanceAlerts.allGood'
+  | 'dashboard.stoppedMachines.title'
+  | 'dashboard.stoppedMachines.none'
+  | 'dashboard.stoppedMachines.some'
   | 'dashboard.productionLive.title'
   | 'dashboard.productionLive.showAll'
   | 'dashboard.productionLive.orderId'
@@ -366,6 +369,55 @@ type TranslationKey =
   | 'materials.errors.cannotDelete'
   | 'materials.deleteTooltip'
   | 'materials.deleteConfirm'
+  // ── Machines ──────────────────────────────────────
+  | 'machines.title'
+  | 'machines.addMachine'
+  | 'machines.add'
+  | 'machines.editMachine'
+  | 'machines.machineData'
+  | 'machines.machineId'
+  | 'machines.name'
+  | 'machines.location'
+  | 'machines.notes'
+  | 'machines.lastMaintenance'
+  | 'machines.nextScheduled'
+  | 'machines.status'
+  | 'machines.maintenanceInterval'
+  | 'machines.submitSaving'
+  | 'machines.submitSave'
+  | 'machines.empty'
+  | 'machines.searchPlaceholder'
+  | 'machines.filterAll'
+  | 'machines.filterGood'
+  | 'machines.filterUnderMaintenance'
+  | 'machines.filterStopped'
+  | 'machines.status.good'
+  | 'machines.status.underMaintenance'
+  | 'machines.status.stopped'
+  | 'machines.table.machineId'
+  | 'machines.table.name'
+  | 'machines.table.location'
+  | 'machines.table.lastMaintenance'
+  | 'machines.table.nextScheduled'
+  | 'machines.table.status'
+  | 'machines.table.actions'
+  | 'machines.basicInfo'
+  | 'machines.maintenanceInfo'
+  | 'machines.action.details'
+  | 'machines.action.logMaintenance'
+  | 'machines.action.edit'
+  | 'machines.action.logMaintenanceNow'
+  | 'machines.errors.nameRequired'
+  | 'machines.errors.updateFailed'
+  | 'machines.errors.addFailed'
+  | 'machines.errors.maintenanceLogFailed'
+  | 'machines.errors.deleteFailed'
+  | 'machines.deleteSuccess'
+  | 'machines.deleteConfirm'
+  | 'machines.maintenanceDate'
+  | 'machines.maintenanceNote'
+  | 'machines.maintenanceLogTitle'
+  | 'machines.maintenanceLogSuccess'
   // ── Schedule ──────────────────────────────────────
   | 'schedule.title'
   | 'schedule.suggestedOrders'
@@ -637,6 +689,9 @@ const dictionaries: Record<LocaleCode, Record<TranslationKey, string>> = {
     'dashboard.maintenanceAlerts.title': 'تنبيهات الصيانة',
     'dashboard.maintenanceAlerts.needsAction': 'تطلب إجراء فوراً',
     'dashboard.maintenanceAlerts.allGood': 'الآلات في حالة جيدة',
+    'dashboard.stoppedMachines.title': 'آلات متوقفة الآن',
+    'dashboard.stoppedMachines.none': 'لا توجد آلات متوقفة',
+    'dashboard.stoppedMachines.some': 'تتطلب انتباهاً',
     'dashboard.productionLive.title': 'حالة الإنتاج المباشرة',
     'dashboard.productionLive.showAll': 'عرض الكل',
     'dashboard.productionLive.orderId': 'معرّف الطلب',
@@ -650,7 +705,7 @@ const dictionaries: Record<LocaleCode, Record<TranslationKey, string>> = {
     'dashboard.recentActivity.inProgressOrder': 'طلب العمل قيد التنفيذ',
     'dashboard.recentActivity.newOrder': 'طلب عمل جديد',
     'dashboard.recentActivity.empty': 'لا يوجد نشاط حديث',
-    'dashboard.machines.title': 'حالة التلفت',
+    'dashboard.machines.title': 'حالة الآلات',
     'dashboard.machines.showAll': 'عرض الكل',
     'dashboard.machines.name': 'اسم الآلة',
     'dashboard.machines.lastMaintenance': 'تاريخ آخر صيانة',
@@ -808,6 +863,55 @@ const dictionaries: Record<LocaleCode, Record<TranslationKey, string>> = {
     'materials.errors.cannotDelete': 'لا يمكن حذف المادة لأنها مستخدمة في وصفات المنتجات',
     'materials.deleteTooltip': 'حذف',
     'materials.deleteConfirm': 'هل أنت متأكد من حذف هذه المادة؟',
+    // ── Machines ──────────────────────────────────
+    'machines.title': 'إدارة الآلات',
+    'machines.addMachine': 'إضافة آلة جديدة',
+    'machines.add': 'إضافة',
+    'machines.editMachine': 'تعديل الآلة',
+    'machines.machineData': 'بيانات الآلة',
+    'machines.machineId': 'رقم الآلة',
+    'machines.name': 'اسم الآلة',
+    'machines.location': 'الموقع',
+    'machines.notes': 'ملاحظات',
+    'machines.lastMaintenance': 'آخر صيانة',
+    'machines.nextScheduled': 'التالي المقرر',
+    'machines.status': 'الحالة',
+    'machines.maintenanceInterval': 'مدة الصيانة (أيام)',
+    'machines.submitSaving': 'جاري الحفظ...',
+    'machines.submitSave': 'حفظ البيانات',
+    'machines.empty': 'لا توجد آلات مسجلة بعد',
+    'machines.searchPlaceholder': 'بحث باسم الآلة أو الموقع...',
+    'machines.filterAll': 'الكل',
+    'machines.filterGood': 'جيدة',
+    'machines.filterUnderMaintenance': 'تحت الصيانة',
+    'machines.filterStopped': 'متوقفة',
+    'machines.status.good': 'جيدة',
+    'machines.status.underMaintenance': 'تحت الصيانة',
+    'machines.status.stopped': 'متوقفة',
+    'machines.table.machineId': 'رقم الآلة',
+    'machines.table.name': 'اسم الآلة',
+    'machines.table.location': 'الموقع',
+    'machines.table.lastMaintenance': 'آخر صيانة',
+    'machines.table.nextScheduled': 'التالي المقرر',
+    'machines.table.status': 'الحالة',
+    'machines.table.actions': 'الإجراءات',
+    'machines.basicInfo': 'معلومات أساسية',
+    'machines.maintenanceInfo': 'معلومات الصيانة',
+    'machines.action.details': 'تفاصيل',
+    'machines.action.logMaintenance': 'تسجيل صيانة',
+    'machines.action.edit': 'تعديل',
+    'machines.action.logMaintenanceNow': 'تسجيل صيانة',
+    'machines.errors.nameRequired': 'اسم الآلة مطلوب',
+    'machines.errors.updateFailed': 'حدث خطأ أثناء تحديث الآلة',
+    'machines.errors.addFailed': 'حدث خطأ أثناء إضافة الآلة',
+    'machines.errors.maintenanceLogFailed': 'حدث خطأ أثناء تسجيل الصيانة',
+    'machines.errors.deleteFailed': 'حدث خطأ أثناء حذف الآلة',
+    'machines.deleteSuccess': 'تم حذف الآلة بنجاح',
+    'machines.deleteConfirm': 'هل أنت متأكد من حذف هذه الآلة؟',
+    'machines.maintenanceDate': 'تاريخ الصيانة *',
+    'machines.maintenanceNote': 'ملاحظات',
+    'machines.maintenanceLogTitle': 'تسجيل صيانة',
+    'machines.maintenanceLogSuccess': 'تم تسجيل الصيانة بنجاح',
     // ── Schedule ──────────────────────────────────
     'schedule.title': 'جدولة الإنتاج',
     'schedule.suggestedOrders': 'أوامر شراء مقترحة',
@@ -1045,6 +1149,9 @@ const dictionaries: Record<LocaleCode, Record<TranslationKey, string>> = {
     'dashboard.maintenanceAlerts.title': 'Alertes de maintenance',
     'dashboard.maintenanceAlerts.needsAction': 'Action requise',
     'dashboard.maintenanceAlerts.allGood': 'Machines en bon état',
+    'dashboard.stoppedMachines.title': 'Machines arrêtées',
+    'dashboard.stoppedMachines.none': 'Aucune machine arrêtée',
+    'dashboard.stoppedMachines.some': 'Nécessite une attention',
     'dashboard.productionLive.title': 'État de production en direct',
     'dashboard.productionLive.showAll': 'Tout afficher',
     'dashboard.productionLive.orderId': 'ID commande',
@@ -1216,6 +1323,55 @@ const dictionaries: Record<LocaleCode, Record<TranslationKey, string>> = {
     'materials.errors.cannotDelete': 'Impossible de supprimer car le matériau est utilisé dans des fiches techniques',
     'materials.deleteTooltip': 'Supprimer',
     'materials.deleteConfirm': 'Êtes-vous sûr de vouloir supprimer ce matériau ?',
+    // ── Machines ──────────────────────────────────
+    'machines.title': 'Gestion des machines',
+    'machines.addMachine': 'Ajouter une machine',
+    'machines.add': 'Ajouter',
+    'machines.editMachine': 'Modifier la machine',
+    'machines.machineData': 'Données de la machine',
+    'machines.machineId': 'N° machine',
+    'machines.name': 'Nom de la machine',
+    'machines.location': 'Emplacement',
+    'machines.notes': 'Notes',
+    'machines.lastMaintenance': 'Dernière maintenance',
+    'machines.nextScheduled': 'Prochaine prévue',
+    'machines.status': 'Statut',
+    'machines.maintenanceInterval': 'Intervalle (jours)',
+    'machines.submitSaving': 'Enregistrement...',
+    'machines.submitSave': 'Enregistrer',
+    'machines.empty': 'Aucune machine enregistrée',
+    'machines.searchPlaceholder': 'Rechercher par nom ou emplacement...',
+    'machines.filterAll': 'Toutes',
+    'machines.filterGood': 'Bon état',
+    'machines.filterUnderMaintenance': 'En maintenance',
+    'machines.filterStopped': 'Arrêtée',
+    'machines.status.good': 'Bon état',
+    'machines.status.underMaintenance': 'En maintenance',
+    'machines.status.stopped': 'Arrêtée',
+    'machines.table.machineId': 'N° machine',
+    'machines.table.name': 'Nom',
+    'machines.table.location': 'Emplacement',
+    'machines.table.lastMaintenance': 'Dernière maintenance',
+    'machines.table.nextScheduled': 'Prochaine prévue',
+    'machines.table.status': 'Statut',
+    'machines.table.actions': 'Actions',
+    'machines.basicInfo': 'Informations de base',
+    'machines.maintenanceInfo': 'Informations de maintenance',
+    'machines.action.details': 'Détails',
+    'machines.action.logMaintenance': 'Enregistrer maintenance',
+    'machines.action.edit': 'Modifier',
+    'machines.action.logMaintenanceNow': 'Enregistrer maintenance',
+    'machines.errors.nameRequired': 'Le nom de la machine est requis',
+    'machines.errors.updateFailed': 'Erreur lors de la mise à jour',
+    'machines.errors.addFailed': "Erreur lors de l'ajout",
+    'machines.errors.maintenanceLogFailed': "Erreur lors de l'enregistrement de la maintenance",
+    'machines.errors.deleteFailed': "Erreur lors de la suppression",
+    'machines.deleteSuccess': 'Machine supprimée avec succès',
+    'machines.deleteConfirm': 'Êtes-vous sûr de vouloir supprimer cette machine ?',
+    'machines.maintenanceDate': 'Date de maintenance *',
+    'machines.maintenanceNote': 'Notes',
+    'machines.maintenanceLogTitle': 'Enregistrer maintenance',
+    'machines.maintenanceLogSuccess': 'Maintenance enregistrée avec succès',
     // ── Schedule ──────────────────────────────────
     'schedule.title': 'Planification de production',
     'schedule.suggestedOrders': 'Commandes d\'achat suggérées',
