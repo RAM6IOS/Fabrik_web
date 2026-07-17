@@ -2,6 +2,10 @@ import { createClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
 import TrackingClient from './TrackingClient';
 
+export const metadata = {
+  title: 'تتبع الإنتاج - منصة إدارة الإنتاج',
+};
+
 export default async function TrackingPage() {
   const supabase = await createClient();
 

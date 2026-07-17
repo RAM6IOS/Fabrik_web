@@ -4,6 +4,10 @@ import OrdersClient from './OrdersClient';
 
 export const dynamic = 'force-dynamic';
 
+export const metadata = {
+  title: 'الطلبيات - منصة إدارة الإنتاج',
+};
+
 export default async function OrdersPage() {
   const supabase = await createClient();
 

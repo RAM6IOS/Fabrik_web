@@ -204,7 +204,7 @@ export default async function DashboardPage() {
                       {t('dashboard.productionLive.title', locale)}
                     </h2>
                     <a
-                      href="/work-orders"
+                      href="/planning/orders"
                       className="text-xs text-primary/50 transition-colors hover:text-primary/70 md:text-sm"
                       style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
                     >

@@ -421,6 +421,9 @@ export default function ProductsClient({
                       <div className="mt-2 space-y-1 text-sm text-ink/60" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
                         <p>{t('products.unitLabel', locale)} {product.unit}</p>
                         <p>{t('products.materialsCount', locale)} {product.bom_count}</p>
+                        <p>{t('products.table.productionTime', locale)}: {product.standard_production_time_hours != null
+                          ? `${product.standard_production_time_hours} ${locale === 'fr' ? 'h' : 'ساعة'}`
+                          : '-'}</p>
                         <p>{t('products.costNotCalculated', locale)}</p>
                       </div>
                     </div>
@@ -451,6 +454,7 @@ export default function ProductsClient({
                       <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>{t('products.table.unit', locale)}</th>
                       <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>{t('products.table.materialsCount', locale)}</th>
                       <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>{t('products.table.totalCost', locale)}</th>
+                      <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>{t('products.table.productionTime', locale)}</th>
                       {isOwner && (
                         <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>{t('products.table.actions', locale)}</th>
                       )}
@@ -459,7 +463,7 @@ export default function ProductsClient({
                   <tbody className="divide-y divide-primary/5">
                     {products.length === 0 ? (
                       <tr>
-                        <td colSpan={isOwner ? 5 : 4} className="px-6 py-12 text-center text-sm text-primary/30" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                        <td colSpan={isOwner ? 6 : 5} className="px-6 py-12 text-center text-sm text-primary/30" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
                           {t('products.empty', locale)}
                         </td>
                       </tr>
@@ -477,6 +481,11 @@ export default function ProductsClient({
                           </td>
                           <td className="px-6 py-3.5 text-sm text-ink/40" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
                             {t('products.costNotCalculated', locale)}
+                          </td>
+                          <td className="px-6 py-3.5 text-sm text-ink/60" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                            {product.standard_production_time_hours != null
+                              ? `${product.standard_production_time_hours} ${locale === 'fr' ? 'h' : 'ساعة'}`
+                              : '-'}
                           </td>
                           {isOwner && (
                             <td className="px-6 py-3.5">

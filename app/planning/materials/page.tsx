@@ -2,6 +2,10 @@ import { createClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
 import MaterialsClient from './MaterialsClient';
 
+export const metadata = {
+  title: 'المواد الأولية - منصة إدارة الإنتاج',
+};
+
 export default async function MaterialsPage() {
   const supabase = await createClient();
 

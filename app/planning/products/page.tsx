@@ -2,6 +2,10 @@ import { createClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
 import ProductsClient from './ProductsClient';
 
+export const metadata = {
+  title: 'المنتجات - منصة إدارة الإنتاج',
+};
+
 export default async function ProductsPage() {
   const supabase = await createClient();
 

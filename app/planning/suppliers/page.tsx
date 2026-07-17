@@ -2,6 +2,10 @@ import { createClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
 import SuppliersClient from './SuppliersClient';
 
+export const metadata = {
+  title: 'الموردون - منصة إدارة الإنتاج',
+};
+
 export default async function SuppliersPage() {
   const supabase = await createClient();
 

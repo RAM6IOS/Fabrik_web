@@ -316,6 +316,7 @@ type TranslationKey =
   | 'products.table.unit'
   | 'products.table.materialsCount'
   | 'products.table.totalCost'
+  | 'products.table.productionTime'
   | 'products.table.actions'
   | 'products.deleteConfirm'
   | 'products.deleteMessage'
@@ -904,6 +905,7 @@ const dictionaries: Record<LocaleCode, Record<TranslationKey, string>> = {
     'products.table.unit': 'وحدة القياس',
     'products.table.materialsCount': 'عدد المواد',
     'products.table.totalCost': 'التكلفة الإجمالية',
+    'products.table.productionTime': 'وقت التصنيع',
     'products.table.actions': 'الإجراءات',
     'products.deleteConfirm': 'تأكيد الحذف',
     'products.deleteMessage': 'هل أنت متأكد من حذف المنتج "<strong>{name}</strong>"؟',
@@ -1411,6 +1413,7 @@ const dictionaries: Record<LocaleCode, Record<TranslationKey, string>> = {
     'products.table.unit': 'Unité',
     'products.table.materialsCount': 'Nb matériaux',
     'products.table.totalCost': 'Coût total',
+    'products.table.productionTime': 'Temps fabrication',
     'products.table.actions': 'Actions',
     'products.deleteConfirm': 'Confirmer la suppression',
     'products.deleteMessage': 'Êtes-vous sûr de supprimer le produit "<strong>{name}</strong>" ?',
