@@ -62,3 +62,27 @@ export interface Supplier {
   is_active: boolean;
   created_at: string;
 }
+
+export interface Customer {
+  id: string;
+  factory_id: string;
+  full_name: string;
+  phone: string | null;
+  email: string | null;
+  address: string | null;
+  notes: string | null;
+  created_at: string;
+}
+
+export interface Order {
+  id: string;
+  factory_id: string;
+  customer_id: string | null;
+  customer_name: string;
+  product_id: string;
+  quantity: number;
+  due_date: string | null;
+  status: string;
+  total_amount: number;
+  created_at: string;
+}

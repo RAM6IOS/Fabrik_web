@@ -63,6 +63,7 @@ type TranslationKey =
   | 'sidebar.userManagement'
   | 'sidebar.settings'
   | 'sidebar.brand'
+  | 'sidebar.customers'
   | 'sidebar.technicalSupport'
   | 'sidebar.logout'
   // ── Login ─────────────────────────────────────────
@@ -457,6 +458,53 @@ type TranslationKey =
   | 'tracking.empty'
   | 'tracking.errors.updateFailed'
   | 'tracking.errors.alreadyCompleted'
+  // ── Customers ────────────────────────────────────
+  | 'customers.title'
+  | 'customers.addCustomer'
+  | 'customers.add'
+  | 'customers.editCustomer'
+  | 'customers.customerData'
+  | 'customers.customerDetails'
+  | 'customers.fullName'
+  | 'customers.phone'
+  | 'customers.email'
+  | 'customers.address'
+  | 'customers.notes'
+  | 'customers.submitSaving'
+  | 'customers.submitSave'
+  | 'customers.empty'
+  | 'customers.noResults'
+  | 'customers.searchPlaceholder'
+  | 'customers.details'
+  | 'customers.orders'
+  | 'customers.registeredOn'
+  | 'customers.contactInfo'
+  | 'customers.notesLabel'
+  | 'customers.ordersSummary'
+  | 'customers.totalOrders'
+  | 'customers.table.name'
+  | 'customers.table.phone'
+  | 'customers.table.email'
+  | 'customers.table.orders'
+  | 'customers.table.registered'
+  | 'customers.table.actions'
+  | 'customers.deleteConfirm'
+  | 'customers.deleteDescription'
+  | 'customers.errors.nameRequired'
+  | 'customers.errors.updateFailed'
+  | 'customers.errors.addFailed'
+  | 'customers.customerOrders'
+  | 'customers.noOrders'
+  | 'customers.orderId'
+  | 'customers.orderProduct'
+  | 'customers.orderQuantity'
+  | 'customers.orderStatus'
+  | 'customers.orderDueDate'
+  // ── Orders (customer dropdown) ──────────────────────
+  | 'orders.customerPlaceholder'
+  | 'orders.addNewCustomer'
+  | 'orders.selectCustomer'
+  | 'orders.newCustomer'
   // ── Landing page status labels ────────────────────
   | 'landing.hero.progressLabel'
   | 'landing.hero.orderIdSuffix';
@@ -784,6 +832,53 @@ const dictionaries: Record<LocaleCode, Record<TranslationKey, string>> = {
     'suppliers.errors.nameRequired': 'اسم المورد مطلوب',
     'suppliers.errors.updateFailed': 'حدث خطأ أثناء تحديث المورد',
     'suppliers.errors.addFailed': 'حدث خطأ أثناء إضافة المورد',
+    // ── Customers ─────────────────────────────────
+    'customers.title': 'إدارة العملاء',
+    'customers.addCustomer': 'إضافة عميل جديد',
+    'customers.add': 'إضافة',
+    'customers.editCustomer': 'تعديل بيانات العميل',
+    'customers.customerData': 'بيانات العميل',
+    'customers.customerDetails': 'تفاصيل العميل',
+    'customers.fullName': 'الاسم الكامل *',
+    'customers.phone': 'رقم الهاتف',
+    'customers.email': 'البريد الإلكتروني',
+    'customers.address': 'العنوان',
+    'customers.notes': 'ملاحظات',
+    'customers.submitSaving': 'جاري الحفظ...',
+    'customers.submitSave': 'حفظ البيانات',
+    'customers.empty': 'لا يوجد عملاء مسجلون بعد',
+    'customers.noResults': 'لا توجد نتائج مطابقة',
+    'customers.searchPlaceholder': 'بحث بالاسم أو الهاتف أو البريد...',
+    'customers.details': 'تفاصيل',
+    'customers.orders': 'طلبيات',
+    'customers.registeredOn': 'تاريخ التسجيل:',
+    'customers.contactInfo': 'معلومات الاتصال',
+    'customers.notesLabel': 'ملاحظات',
+    'customers.ordersSummary': 'ملخص الطلبيات',
+    'customers.totalOrders': 'إجمالي الطلبيات',
+    'customers.table.name': 'الاسم',
+    'customers.table.phone': 'رقم الهاتف',
+    'customers.table.email': 'البريد الإلكتروني',
+    'customers.table.orders': 'عدد الطلبيات',
+    'customers.table.registered': 'تاريخ التسجيل',
+    'customers.table.actions': 'الإجراءات',
+    'customers.deleteConfirm': 'هل أنت متأكد من حذف هذا العميل؟',
+    'customers.deleteDescription': 'لا يمكن التراجع عن هذا الإجراء',
+    'customers.errors.nameRequired': 'اسم العميل مطلوب',
+    'customers.errors.updateFailed': 'حدث خطأ أثناء تحديث بيانات العميل',
+    'customers.errors.addFailed': 'حدث خطأ أثناء إضافة العميل',
+    'customers.customerOrders': 'طلبيات العميل',
+    'customers.noOrders': 'لا توجد طلبيات لهذا العميل',
+    'customers.orderId': 'رقم الطلبية',
+    'customers.orderProduct': 'المنتج',
+    'customers.orderQuantity': 'الكمية',
+    'customers.orderStatus': 'الحالة',
+    'customers.orderDueDate': 'الاستحقاق',
+    'orders.customerPlaceholder': 'اختر عميلاً أو اكتب اسماً جديداً',
+    'orders.addNewCustomer': '+ إضافة عميل جديد',
+    'orders.selectCustomer': 'اختر عميل',
+    'orders.newCustomer': 'عميل جديد',
+    'sidebar.customers': 'العملاء',
     // ── Products ──────────────────────────────────
     'products.title': 'المنتجات',
     'products.addProduct': 'إضافة منتج',
@@ -1244,6 +1339,53 @@ const dictionaries: Record<LocaleCode, Record<TranslationKey, string>> = {
     'suppliers.errors.nameRequired': 'Le nom du fournisseur est requis',
     'suppliers.errors.updateFailed': 'Erreur lors de la mise à jour',
     'suppliers.errors.addFailed': 'Erreur lors de l\'ajout',
+    // ── Customers ─────────────────────────────────
+    'customers.title': 'Gestion des clients',
+    'customers.addCustomer': 'Ajouter un client',
+    'customers.add': 'Ajouter',
+    'customers.editCustomer': 'Modifier le client',
+    'customers.customerData': 'Données du client',
+    'customers.customerDetails': 'Détails du client',
+    'customers.fullName': 'Nom complet *',
+    'customers.phone': 'Téléphone',
+    'customers.email': 'Email',
+    'customers.address': 'Adresse',
+    'customers.notes': 'Notes',
+    'customers.submitSaving': 'Enregistrement...',
+    'customers.submitSave': 'Enregistrer',
+    'customers.empty': 'Aucun client enregistré',
+    'customers.noResults': 'Aucun résultat trouvé',
+    'customers.searchPlaceholder': 'Rechercher par nom, téléphone ou email...',
+    'customers.details': 'Détails',
+    'customers.orders': 'commandes',
+    'customers.registeredOn': 'Inscrit le :',
+    'customers.contactInfo': 'Informations de contact',
+    'customers.notesLabel': 'Notes',
+    'customers.ordersSummary': 'Résumé des commandes',
+    'customers.totalOrders': 'Total des commandes',
+    'customers.table.name': 'Nom',
+    'customers.table.phone': 'Téléphone',
+    'customers.table.email': 'Email',
+    'customers.table.orders': 'Commandes',
+    'customers.table.registered': 'Inscrit le',
+    'customers.table.actions': 'Actions',
+    'customers.deleteConfirm': 'Êtes-vous sûr de vouloir supprimer ce client ?',
+    'customers.deleteDescription': 'Cette action est irréversible',
+    'customers.errors.nameRequired': 'Le nom du client est requis',
+    'customers.errors.updateFailed': 'Erreur lors de la mise à jour',
+    'customers.errors.addFailed': 'Erreur lors de l\'ajout',
+    'customers.customerOrders': 'Commandes du client',
+    'customers.noOrders': 'Aucune commande pour ce client',
+    'customers.orderId': 'N° commande',
+    'customers.orderProduct': 'Produit',
+    'customers.orderQuantity': 'Quantité',
+    'customers.orderStatus': 'Statut',
+    'customers.orderDueDate': 'Échéance',
+    'orders.customerPlaceholder': 'Choisir un client ou taper un nouveau nom',
+    'orders.addNewCustomer': '+ Ajouter un nouveau client',
+    'orders.selectCustomer': 'Choisir un client',
+    'orders.newCustomer': 'Nouveau client',
+    'sidebar.customers': 'Clients',
     // ── Products ──────────────────────────────────
     'products.title': 'Produits',
     'products.addProduct': 'Ajouter un produit',

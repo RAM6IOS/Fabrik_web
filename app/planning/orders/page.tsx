@@ -24,7 +24,7 @@ export default async function OrdersPage() {
   // جلب الطلبيات
   const { data: orders, error: ordersError } = await supabase
     .from('orders')
-    .select('id, customer_name, due_date, status, total_amount, quantity, product_id')
+    .select('id, customer_id, customer_name, due_date, status, total_amount, quantity, product_id')
     .order('created_at', { ascending: false });
 
   if (ordersError) {
@@ -37,11 +37,18 @@ export default async function OrdersPage() {
     .select('id, name')
     .order('name', { ascending: true });
 
+  // جلب العملاء
+  const { data: customers } = await supabase
+    .from('customers')
+    .select('id, full_name')
+    .order('full_name', { ascending: true });
+
   // إنشاء map للمنتجات
   const productMap = new Map((products ?? []).map((p) => [p.id, p.name]));
 
   const formattedOrders = (orders ?? []).map((o) => ({
     id: o.id,
+    customer_id: o.customer_id ?? null,
     customer_name: o.customer_name,
     due_date: o.due_date,
     status: o.status,
@@ -55,6 +62,7 @@ export default async function OrdersPage() {
     <OrdersClient
       initialOrders={formattedOrders}
       products={products ?? []}
+      customers={customers ?? []}
       userRole={profile.role}
       userName={profile.full_name}
       factoryId={profile.factory_id}

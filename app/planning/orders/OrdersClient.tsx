@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { useLocale } from '@/lib/i18n/context';
 import { t } from '@/lib/i18n/translations';
@@ -9,6 +9,7 @@ import ConfirmDialog from '@/components/ConfirmDialog';
 
 interface Order {
   id: string;
+  customer_id: string | null;
   customer_name: string;
   due_date: string | null;
   status: string;
@@ -23,9 +24,15 @@ interface Product {
   name: string;
 }
 
+interface Customer {
+  id: string;
+  full_name: string;
+}
+
 interface OrdersClientProps {
   initialOrders: Order[];
   products: Product[];
+  customers: Customer[];
   userRole: string;
   userName: string;
   factoryId: string;
@@ -35,6 +42,7 @@ const emptyForm = {
   product_id: '',
   quantity: '',
   due_date: '',
+  customer_id: '',
   customer_name: '',
 };
 
@@ -43,11 +51,13 @@ const defaultStatus = 'draft';
 export default function OrdersClient({
   initialOrders,
   products,
+  customers,
   userRole,
   userName,
   factoryId,
 }: OrdersClientProps) {
   const [orders, setOrders] = useState<Order[]>(initialOrders);
+  const [allCustomers, setAllCustomers] = useState<Customer[]>(customers);
   const [showForm, setShowForm] = useState(false);
   const [editingOrder, setEditingOrder] = useState<Order | null>(null);
   const [form, setForm] = useState(emptyForm);
@@ -56,12 +66,50 @@ export default function OrdersClient({
   const [movingOrderId, setMovingOrderId] = useState<string | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<Order | null>(null);
   const [deleting, setDeleting] = useState(false);
+  const [customerSearch, setCustomerSearch] = useState('');
+  const [showCustomerDropdown, setShowCustomerDropdown] = useState(false);
+  const [isNewCustomer, setIsNewCustomer] = useState(false);
+  const customerDropdownRef = useRef<HTMLDivElement>(null);
   const { locale } = useLocale();
 
   const isOwner = userRole === 'owner';
 
   const frozenStatuses = ['processing', 'completed'];
   const isFrozen = (status: string) => frozenStatuses.includes(status);
+
+  // Customer search/filter
+  const filteredCustomers = allCustomers.filter((c) =>
+    c.full_name.toLowerCase().includes(customerSearch.toLowerCase())
+  );
+
+  // Click outside to close dropdown
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (customerDropdownRef.current && !customerDropdownRef.current.contains(e.target as Node)) {
+        setShowCustomerDropdown(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const handleCustomerSelect = (customer: Customer) => {
+    setForm((prev) => ({ ...prev, customer_id: customer.id, customer_name: customer.full_name }));
+    setCustomerSearch(customer.full_name);
+    setIsNewCustomer(false);
+    setShowCustomerDropdown(false);
+  };
+
+  const handleCustomerSearchChange = (value: string) => {
+    setCustomerSearch(value);
+    setForm((prev) => ({ ...prev, customer_id: '', customer_name: value }));
+    setIsNewCustomer(value.trim().length > 0 && !allCustomers.some((c) => c.full_name.toLowerCase() === value.toLowerCase()));
+    setShowCustomerDropdown(true);
+  };
+
+  const handleCustomerInputFocus = () => {
+    setShowCustomerDropdown(true);
+  };
 
   const statusConfig: Record<string, { label: string; color: string; dot: string }> = {
     'draft': { label: t('orders.status.draft', locale), color: 'text-yellow-600', dot: 'bg-yellow-500' },
@@ -92,8 +140,11 @@ export default function OrdersClient({
       product_id: order.product_id,
       quantity: order.quantity.toString(),
       due_date: order.due_date ?? '',
+      customer_id: order.customer_id ?? '',
       customer_name: order.customer_name,
     });
+    setCustomerSearch(order.customer_name);
+    setIsNewCustomer(!order.customer_id);
     setShowForm(true);
     setError(null);
   }, []);
@@ -102,6 +153,9 @@ export default function OrdersClient({
     setShowForm(false);
     setEditingOrder(null);
     setForm(emptyForm);
+    setCustomerSearch('');
+    setIsNewCustomer(false);
+    setShowCustomerDropdown(false);
     setError(null);
   }, []);
 
@@ -117,12 +171,35 @@ export default function OrdersClient({
     }
 
     const supabase = createClient();
+    let customerId = form.customer_id || null;
+
+    // If new customer, create them first
+    if (isNewCustomer && form.customer_name.trim()) {
+      const { data: newCustomer, error: customerError } = await supabase
+        .from('customers')
+        .insert({
+          factory_id: factoryId,
+          full_name: form.customer_name.trim(),
+        })
+        .select('id, full_name')
+        .single();
+
+      if (customerError) {
+        setError(t('customers.errors.addFailed', locale));
+        setLoading(false);
+        return;
+      }
+
+      customerId = newCustomer.id;
+      setAllCustomers((prev) => [...prev, newCustomer].sort((a, b) => a.full_name.localeCompare(b.full_name)));
+    }
 
     const payload = {
       factory_id: factoryId,
       product_id: form.product_id,
       quantity: parseInt(form.quantity, 10),
       due_date: form.due_date || null,
+      customer_id: customerId,
       customer_name: form.customer_name.trim(),
       status: editingOrder?.status ?? defaultStatus,
       total_amount: editingOrder?.total_amount ?? 0,
@@ -334,9 +411,53 @@ export default function OrdersClient({
                   </div>
                 </div>
 
-                <div>
+                <div ref={customerDropdownRef} className="relative">
                   <label className="mb-1 block text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>{t('orders.customerName', locale)}</label>
-                  <input type="text" name="customer_name" value={form.customer_name} onChange={handleChange} required className="w-full rounded-lg border border-primary/10 bg-background px-3 py-2 text-sm text-primary placeholder:text-primary/30 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/30" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }} />
+                  <input
+                    type="text"
+                    value={customerSearch}
+                    onChange={(e) => handleCustomerSearchChange(e.target.value)}
+                    onFocus={handleCustomerInputFocus}
+                    placeholder={t('orders.customerPlaceholder', locale)}
+                    required
+                    className="w-full rounded-lg border border-primary/10 bg-background px-3 py-2 text-sm text-primary placeholder:text-primary/30 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/30"
+                    style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                  />
+                  {showCustomerDropdown && (
+                    <div className="absolute z-50 mt-1 max-h-48 w-full overflow-y-auto rounded-lg border border-primary/10 bg-white shadow-lg">
+                      {filteredCustomers.length > 0 && (
+                        <div className="p-1">
+                          {filteredCustomers.map((customer) => (
+                            <button
+                              key={customer.id}
+                              type="button"
+                              onClick={() => handleCustomerSelect(customer)}
+                              className="w-full px-3 py-2 text-right text-sm text-primary hover:bg-primary/5 rounded-md"
+                              style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                            >
+                              {customer.full_name}
+                            </button>
+                          ))}
+                        </div>
+                      )}
+                      {isNewCustomer && customerSearch.trim() && (
+                        <div className="border-t border-primary/5 p-2">
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setForm((prev) => ({ ...prev, customer_id: '', customer_name: customerSearch.trim() }));
+                              setIsNewCustomer(true);
+                              setShowCustomerDropdown(false);
+                            }}
+                            className="w-full rounded-md bg-primary/5 px-3 py-2 text-right text-sm font-medium text-primary hover:bg-primary/10"
+                            style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                          >
+                            {t('orders.addNewCustomer', locale)}
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  )}
                 </div>
 
                 <div className="flex gap-3 pt-2">
@@ -376,7 +497,9 @@ export default function OrdersClient({
                         <div className="mt-2 space-y-1 text-sm text-ink/60" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
                           <p>{t('orders.productLabel', locale)} {order.product_name ?? '—'}</p>
                           <p>{t('orders.quantityLabel', locale)} {order.quantity}</p>
-                          <p>{t('orders.customerLabel', locale)} {order.customer_name}</p>
+                          <p>{t('orders.customerLabel', locale)} {order.customer_id ? (
+                            <a href="/customers" className="text-accent hover:underline">{order.customer_name}</a>
+                          ) : order.customer_name}</p>
                           {order.due_date && <p>{t('orders.dueDateLabel', locale)} {formatDate(order.due_date)}</p>}
                         </div>
                       </div>
@@ -474,7 +597,9 @@ export default function OrdersClient({
                               {formatDate(order.due_date)}
                             </td>
                             <td className="px-6 py-3.5 text-sm text-ink/60" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
-                              {order.customer_name}
+                              {order.customer_id ? (
+                                <a href="/customers" className="text-accent hover:underline">{order.customer_name}</a>
+                              ) : order.customer_name}
                             </td>
                             <td className="px-6 py-3.5">
                               <span className="inline-flex items-center gap-2 text-sm" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
@@ -580,9 +705,53 @@ export default function OrdersClient({
                     <input type="date" name="due_date" value={form.due_date} onChange={handleChange} className="w-full rounded-lg border border-primary/10 bg-background px-3 py-2 text-sm text-primary focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/30" style={{ fontFamily: 'var(--font-mono)' }} />
                   </div>
 
-                  <div>
-                  <label className="mb-1 block text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>{t('orders.customerName', locale)}</label>
-                    <input type="text" name="customer_name" value={form.customer_name} onChange={handleChange} required className="w-full rounded-lg border border-primary/10 bg-background px-3 py-2 text-sm text-primary placeholder:text-primary/30 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/30" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }} />
+                  <div ref={customerDropdownRef} className="relative">
+                    <label className="mb-1 block text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>{t('orders.customerName', locale)}</label>
+                    <input
+                      type="text"
+                      value={customerSearch}
+                      onChange={(e) => handleCustomerSearchChange(e.target.value)}
+                      onFocus={handleCustomerInputFocus}
+                      placeholder={t('orders.customerPlaceholder', locale)}
+                      required
+                      className="w-full rounded-lg border border-primary/10 bg-background px-3 py-2 text-sm text-primary placeholder:text-primary/30 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/30"
+                      style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                    />
+                    {showCustomerDropdown && (
+                      <div className="absolute z-50 mt-1 max-h-48 w-full overflow-y-auto rounded-lg border border-primary/10 bg-white shadow-lg">
+                        {filteredCustomers.length > 0 && (
+                          <div className="p-1">
+                            {filteredCustomers.map((customer) => (
+                              <button
+                                key={customer.id}
+                                type="button"
+                                onClick={() => handleCustomerSelect(customer)}
+                                className="w-full px-3 py-2 text-right text-sm text-primary hover:bg-primary/5 rounded-md"
+                                style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                              >
+                                {customer.full_name}
+                              </button>
+                            ))}
+                          </div>
+                        )}
+                        {isNewCustomer && customerSearch.trim() && (
+                          <div className="border-t border-primary/5 p-2">
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setForm((prev) => ({ ...prev, customer_id: '', customer_name: customerSearch.trim() }));
+                                setIsNewCustomer(true);
+                                setShowCustomerDropdown(false);
+                              }}
+                              className="w-full rounded-md bg-primary/5 px-3 py-2 text-right text-sm font-medium text-primary hover:bg-primary/10"
+                              style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                            >
+                              {t('orders.addNewCustomer', locale)}
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                    )}
                   </div>
 
                   <div className="flex gap-3 pt-2">
