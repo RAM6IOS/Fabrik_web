@@ -27,26 +27,28 @@ export async function proxy(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  // Public routes that don't require authentication
+  const pathname = request.nextUrl.pathname;
+
+  // Skip auth for public routes and static assets
   const isPublicRoute =
-    request.nextUrl.pathname === '/login' ||
-    request.nextUrl.pathname === '/signup' ||
-    request.nextUrl.pathname === '/forgot-password' ||
-    request.nextUrl.pathname === '/reset-password' ||
-    request.nextUrl.pathname.startsWith('/api/');
+    pathname === '/login' ||
+    pathname === '/signup' ||
+    pathname === '/forgot-password' ||
+    pathname === '/reset-password' ||
+    pathname.startsWith('/api/');
 
   // Redirect unauthenticated users to login
   if (!user && !isPublicRoute) {
     const url = request.nextUrl.clone();
     url.pathname = '/login';
-    return NextResponse.rewrite(url);
+    return NextResponse.redirect(url);
   }
 
   // Redirect authenticated users away from public routes
-  if (user && isPublicRoute && !request.nextUrl.pathname.startsWith('/api/')) {
+  if (user && isPublicRoute && !pathname.startsWith('/api/')) {
     const url = request.nextUrl.clone();
     url.pathname = '/dashboard';
-    return NextResponse.rewrite(url);
+    return NextResponse.redirect(url);
   }
 
   return supabaseResponse;

@@ -51,7 +51,7 @@ export default function SignupPage() {
           <div className="mb-8 text-center">
             <h1
               className="text-2xl font-bold text-primary"
-              style={{ fontFamily: 'var(--font-heading), var(--font-heading-arabic)' }}
+              style={{ fontFamily: 'var(--font-heading)' }}
             >
               {t('signup.brand', locale)}
             </h1>

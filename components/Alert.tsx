@@ -57,7 +57,7 @@ export default function Alert({ type, children, className = '' }: AlertProps) {
   return (
     <div
       className={`flex items-center gap-3 rounded-lg border ${styles.bg} ${styles.border} px-4 py-3 text-sm ${styles.text} ${className}`}
-      style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+      style={{ fontFamily: 'var(--font-body)' }}
     >
       {styles.icon}
       <span>{children}</span>

@@ -105,7 +105,7 @@ export default function ResetPasswordPage() {
           <div className="rounded-xl border border-primary/5 bg-white p-8 shadow-sm">
             <h2
               className="text-xl font-bold text-primary"
-              style={{ fontFamily: 'var(--font-heading), var(--font-heading-arabic)' }}
+              style={{ fontFamily: 'var(--font-heading)' }}
             >
               {t('resetPassword.linkExpired', locale)}
             </h2>
@@ -138,7 +138,7 @@ export default function ResetPasswordPage() {
             <div className="mb-5 text-center">
               <h1
                 className="text-xl font-bold text-primary"
-                style={{ fontFamily: 'var(--font-heading), var(--font-heading-arabic)' }}
+                style={{ fontFamily: 'var(--font-heading)' }}
               >
                 {t('resetPassword.title', locale)}
               </h1>

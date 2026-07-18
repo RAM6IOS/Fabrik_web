@@ -115,13 +115,13 @@ export default async function DashboardPage() {
           <div>
             <p
               className="text-sm font-semibold text-primary"
-              style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+              style={{ fontFamily: 'var(--font-body)' }}
             >
               {profile.full_name}
             </p>
             <p
               className="text-xs text-primary/40"
-              style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+              style={{ fontFamily: 'var(--font-body)' }}
             >
               {factory?.name}
             </p>
@@ -133,7 +133,7 @@ export default async function DashboardPage() {
               type="text"
               placeholder={t('dashboard.searchPlaceholder', locale)}
               className="w-64 rounded-lg border border-primary/10 bg-background px-4 py-2 pr-10 text-sm text-primary placeholder:text-primary/30 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/30"
-              style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+              style={{ fontFamily: 'var(--font-body)' }}
             />
             <svg
               className="absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-primary/30"
@@ -199,14 +199,14 @@ export default async function DashboardPage() {
                   <div className="flex items-center justify-between border-b border-primary/5 px-4 py-3 md:px-6 md:py-4">
                     <h2
                       className="text-base font-bold text-primary md:text-lg"
-                      style={{ fontFamily: 'var(--font-heading), var(--font-heading-arabic)' }}
+                      style={{ fontFamily: 'var(--font-heading)' }}
                     >
                       {t('dashboard.productionLive.title', locale)}
                     </h2>
                     <a
                       href="/planning/orders"
                       className="text-xs text-primary/50 transition-colors hover:text-primary/70 md:text-sm"
-                      style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                      style={{ fontFamily: 'var(--font-body)' }}
                     >
                       {t('dashboard.productionLive.showAll', locale)}
                     </a>
@@ -219,25 +219,25 @@ export default async function DashboardPage() {
                         <tr className="border-b border-primary/5 bg-primary/[0.02]">
                           <th
                             className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-primary/50"
-                            style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                            style={{ fontFamily: 'var(--font-body)' }}
                           >
                             {t('dashboard.productionLive.orderId', locale)}
                           </th>
                           <th
                             className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-primary/50"
-                            style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                            style={{ fontFamily: 'var(--font-body)' }}
                           >
                             {t('dashboard.productionLive.product', locale)}
                           </th>
                           <th
                             className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-primary/50"
-                            style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                            style={{ fontFamily: 'var(--font-body)' }}
                           >
                             {t('dashboard.productionLive.status', locale)}
                           </th>
                           <th
                             className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-primary/50"
-                            style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                            style={{ fontFamily: 'var(--font-body)' }}
                           >
                             {t('dashboard.productionLive.actions', locale)}
                           </th>
@@ -249,7 +249,7 @@ export default async function DashboardPage() {
                             <td
                               colSpan={4}
                               className="px-6 py-12 text-center text-sm text-primary/30"
-                              style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                              style={{ fontFamily: 'var(--font-body)' }}
                             >
                               {t('dashboard.productionLive.empty', locale)}
                             </td>
@@ -267,12 +267,12 @@ export default async function DashboardPage() {
                                 </td>
                                 <td
                                   className="px-6 py-3.5 text-sm text-ink"
-                                  style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                                  style={{ fontFamily: 'var(--font-body)' }}
                                 >
                                   {order.product_name}
                                 </td>
                                 <td className="px-6 py-3.5">
-                                  <span className="inline-flex items-center gap-2 text-sm" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                                  <span className="inline-flex items-center gap-2 text-sm" style={{ fontFamily: 'var(--font-body)' }}>
                                     <span className={`h-2 w-2 rounded-full ${st.dot}`} />
                                     <span className={st.color}>{st.label}</span>
                                   </span>
@@ -298,7 +298,7 @@ export default async function DashboardPage() {
                   <div className="divide-y divide-primary/5 md:hidden">
                     {(pendingOrders ?? []).length === 0 ? (
                       <div className="px-4 py-12 text-center text-sm text-primary/30"
-                        style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                        style={{ fontFamily: 'var(--font-body)' }}
                       >
                         {t('dashboard.productionLive.empty', locale)}
                       </div>
@@ -314,14 +314,14 @@ export default async function DashboardPage() {
                               >
                                 WO-{order.id.slice(0, 4).toUpperCase()}
                               </span>
-                              <span className="inline-flex items-center gap-1.5 text-xs" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                              <span className="inline-flex items-center gap-1.5 text-xs" style={{ fontFamily: 'var(--font-body)' }}>
                                 <span className={`h-2 w-2 rounded-full ${st.dot}`} />
                                 <span className={st.color}>{st.label}</span>
                               </span>
                             </div>
                             <p
                               className="mt-1 text-sm text-ink"
-                              style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                              style={{ fontFamily: 'var(--font-body)' }}
                             >
                               {order.product_name}
                             </p>
@@ -338,7 +338,7 @@ export default async function DashboardPage() {
                   <div className="border-b border-primary/5 px-4 py-3 md:px-6 md:py-4">
                     <h2
                       className="text-base font-bold text-primary md:text-lg"
-                      style={{ fontFamily: 'var(--font-heading), var(--font-heading-arabic)' }}
+                      style={{ fontFamily: 'var(--font-heading)' }}
                     >
                       {t('dashboard.recentActivity.title', locale)}
                     </h2>
@@ -352,7 +352,7 @@ export default async function DashboardPage() {
                         <div key={order.id} className="px-4 py-3 md:px-6 md:py-4">
                           <p
                             className="text-sm font-semibold text-primary"
-                            style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                            style={{ fontFamily: 'var(--font-body)' }}
                           >
                             {order.status === 'completed'
                               ? `${t('dashboard.recentActivity.completedOrder', locale)} WO-${order.id.slice(0, 4).toUpperCase()}`
@@ -362,7 +362,7 @@ export default async function DashboardPage() {
                           </p>
                           <p
                             className="mt-1 text-xs text-primary/40"
-                            style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                            style={{ fontFamily: 'var(--font-body)' }}
                           >
                             {timeAgo} · {order.product_name}
                           </p>
@@ -371,7 +371,7 @@ export default async function DashboardPage() {
                     })}
                     {(pendingOrders ?? []).length === 0 && (
                       <div className="px-4 py-8 text-center text-sm text-primary/30 md:px-6"
-                        style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                        style={{ fontFamily: 'var(--font-body)' }}
                       >
                         {t('dashboard.recentActivity.empty', locale)}
                       </div>
@@ -386,14 +386,14 @@ export default async function DashboardPage() {
               <div className="flex items-center justify-between border-b border-primary/5 px-4 py-3 md:px-6 md:py-4">
                 <h2
                   className="text-base font-bold text-primary md:text-lg"
-                  style={{ fontFamily: 'var(--font-heading), var(--font-heading-arabic)' }}
+                  style={{ fontFamily: 'var(--font-heading)' }}
                 >
                   {t('dashboard.machines.title', locale)}
                 </h2>
                 <a
                   href="/maintenance"
                   className="text-xs text-primary/50 transition-colors hover:text-primary/70 md:text-sm"
-                  style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                  style={{ fontFamily: 'var(--font-body)' }}
                 >
                   {t('dashboard.machines.showAll', locale)}
                 </a>
@@ -406,25 +406,25 @@ export default async function DashboardPage() {
                     <tr className="border-b border-primary/5 bg-primary/[0.02]">
                       <th
                         className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-primary/50"
-                        style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                        style={{ fontFamily: 'var(--font-body)' }}
                       >
                         {t('dashboard.machines.name', locale)}
                       </th>
                       <th
                         className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-primary/50"
-                        style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                        style={{ fontFamily: 'var(--font-body)' }}
                       >
                         {t('dashboard.machines.lastMaintenance', locale)}
                       </th>
                       <th
                         className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-primary/50"
-                        style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                        style={{ fontFamily: 'var(--font-body)' }}
                       >
                         {t('dashboard.machines.nextMaintenance', locale)}
                       </th>
                       <th
                         className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-primary/50"
-                        style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                        style={{ fontFamily: 'var(--font-body)' }}
                       >
                         {t('dashboard.machines.status', locale)}
                       </th>
@@ -436,7 +436,7 @@ export default async function DashboardPage() {
                         <td
                           colSpan={4}
                           className="px-6 py-12 text-center text-sm text-primary/30"
-                          style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                          style={{ fontFamily: 'var(--font-body)' }}
                         >
                           {t('dashboard.machines.empty', locale)}
                         </td>
@@ -448,7 +448,7 @@ export default async function DashboardPage() {
                           <tr key={machine.id} className="transition-colors hover:bg-primary/[0.01]">
                             <td
                               className="px-6 py-3.5 text-sm font-medium text-primary"
-                              style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                              style={{ fontFamily: 'var(--font-body)' }}
                             >
                               {machine.name}
                             </td>
@@ -465,7 +465,7 @@ export default async function DashboardPage() {
                               {machine.next_maintenance_date ?? '—'}
                             </td>
                             <td className="px-6 py-3.5">
-                              <span className="inline-flex items-center gap-2 text-sm" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                              <span className="inline-flex items-center gap-2 text-sm" style={{ fontFamily: 'var(--font-body)' }}>
                                 <span className={`h-2 w-2 rounded-full ${st.dot}`} />
                                 <span className={st.color}>{st.label}</span>
                               </span>
@@ -482,7 +482,7 @@ export default async function DashboardPage() {
               <div className="divide-y divide-primary/5 md:hidden">
                 {machinesWithStatus.length === 0 ? (
                   <div className="px-4 py-12 text-center text-sm text-primary/30"
-                    style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                    style={{ fontFamily: 'var(--font-body)' }}
                   >
                     {t('dashboard.machines.empty', locale)}
                   </div>
@@ -494,11 +494,11 @@ export default async function DashboardPage() {
                         <div className="flex items-center justify-between">
                           <span
                             className="text-sm font-medium text-primary"
-                            style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                            style={{ fontFamily: 'var(--font-body)' }}
                           >
                             {machine.name}
                           </span>
-                          <span className="inline-flex items-center gap-1.5 text-xs" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                          <span className="inline-flex items-center gap-1.5 text-xs" style={{ fontFamily: 'var(--font-body)' }}>
                             <span className={`h-2 w-2 rounded-full ${st.dot}`} />
                             <span className={st.color}>{st.label}</span>
                           </span>
@@ -546,7 +546,7 @@ function StatCard({
         <div>
           <p
             className="text-xs font-medium text-primary/50 sm:text-sm"
-            style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+            style={{ fontFamily: 'var(--font-body)' }}
           >
             {title}
           </p>
@@ -558,7 +558,7 @@ function StatCard({
           </p>
           <p
             className="mt-2 text-xs text-primary/40 sm:text-sm"
-            style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+            style={{ fontFamily: 'var(--font-body)' }}
           >
             {subtitle}
           </p>

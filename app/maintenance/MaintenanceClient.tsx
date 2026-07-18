@@ -387,13 +387,13 @@ export default function MaintenanceClient({
           <div>
             <p
               className="text-sm font-semibold text-primary"
-              style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+              style={{ fontFamily: 'var(--font-body)' }}
             >
               {userName}
             </p>
             <p
               className="text-xs text-primary/40"
-              style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+              style={{ fontFamily: 'var(--font-body)' }}
             >
               {isOwner ? t('role.owner', locale) : t('role.worker', locale)}
             </p>
@@ -407,14 +407,14 @@ export default function MaintenanceClient({
           <div className="flex items-center justify-between">
             <h1
               className="text-xl font-bold text-primary md:text-2xl"
-              style={{ fontFamily: 'var(--font-heading), var(--font-heading-arabic)' }}
+              style={{ fontFamily: 'var(--font-heading)' }}
             >
               {t('machines.title', locale)}
             </h1>
             <button
               onClick={openAddForm}
               className="flex items-center gap-2 rounded-lg bg-[#1e293b] px-3 py-2 text-sm font-medium text-white transition-colors hover:bg-[#2d3a4f] md:px-4 md:py-2.5"
-              style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+              style={{ fontFamily: 'var(--font-body)' }}
             >
               <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
@@ -442,7 +442,7 @@ export default function MaintenanceClient({
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder={t('machines.searchPlaceholder', locale)}
                 className="w-full rounded-lg border border-primary/10 bg-white px-3 py-2 pr-10 text-sm text-primary placeholder:text-primary/30 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/30"
-                style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                style={{ fontFamily: 'var(--font-body)' }}
               />
             </div>
             <div className="flex gap-1.5 overflow-x-auto">
@@ -462,7 +462,7 @@ export default function MaintenanceClient({
                         ? 'bg-[#1e293b] text-white'
                         : 'border border-primary/10 text-primary/50 hover:bg-primary/5'
                     }`}
-                    style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                    style={{ fontFamily: 'var(--font-body)' }}
                   >
                     {labels[f]}
                   </button>
@@ -484,7 +484,7 @@ export default function MaintenanceClient({
               <div className="flex items-center justify-between border-b border-primary/5 px-4 py-3">
                 <h2
                   className="text-base font-bold text-primary"
-                  style={{ fontFamily: 'var(--font-heading), var(--font-heading-arabic)' }}
+                  style={{ fontFamily: 'var(--font-heading)' }}
                 >
                   {editingMachine ? t('machines.editMachine', locale) : t('machines.machineData', locale)}
                 </h2>
@@ -506,7 +506,7 @@ export default function MaintenanceClient({
                 )}
 
                 <div>
-                  <label className="mb-1 block text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                  <label className="mb-1 block text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body)' }}>
                     {t('machines.name', locale)}
                   </label>
                   <input
@@ -516,12 +516,12 @@ export default function MaintenanceClient({
                     onChange={handleChange}
                     required
                     className="w-full rounded-lg border border-primary/10 bg-background px-3 py-2 text-sm text-primary placeholder:text-primary/30 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/30"
-                    style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                    style={{ fontFamily: 'var(--font-body)' }}
                   />
                 </div>
 
                 <div>
-                  <label className="mb-1 block text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                  <label className="mb-1 block text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body)' }}>
                     {t('machines.location', locale)}
                   </label>
                   <input
@@ -530,12 +530,12 @@ export default function MaintenanceClient({
                     value={form.location}
                     onChange={handleChange}
                     className="w-full rounded-lg border border-primary/10 bg-background px-3 py-2 text-sm text-primary placeholder:text-primary/30 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/30"
-                    style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                    style={{ fontFamily: 'var(--font-body)' }}
                   />
                 </div>
 
                 <div>
-                  <label className="mb-1 block text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                  <label className="mb-1 block text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body)' }}>
                     {t('machines.notes', locale)}
                   </label>
                   <textarea
@@ -544,12 +544,12 @@ export default function MaintenanceClient({
                     onChange={handleChange}
                     rows={2}
                     className="w-full resize-none rounded-lg border border-primary/10 bg-background px-3 py-2 text-sm text-primary placeholder:text-primary/30 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/30"
-                    style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                    style={{ fontFamily: 'var(--font-body)' }}
                   />
                 </div>
 
                 <div>
-                  <label className="mb-1 block text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                  <label className="mb-1 block text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body)' }}>
                     {t('machines.maintenanceInterval', locale)}
                   </label>
                   <input
@@ -568,7 +568,7 @@ export default function MaintenanceClient({
                     type="submit"
                     disabled={loading}
                     className="flex-1 rounded-lg bg-[#1e293b] px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-[#2d3a4f] disabled:opacity-50"
-                    style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                    style={{ fontFamily: 'var(--font-body)' }}
                   >
                     {loading ? t('machines.submitSaving', locale) : t('machines.submitSave', locale)}
                   </button>
@@ -576,7 +576,7 @@ export default function MaintenanceClient({
                     type="button"
                     onClick={closeForm}
                     className="rounded-lg border border-primary/10 px-4 py-2.5 text-sm font-medium text-primary/60 transition-colors hover:bg-primary/5"
-                    style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                    style={{ fontFamily: 'var(--font-body)' }}
                   >
                     {t('common.cancel', locale)}
                   </button>
@@ -591,7 +591,7 @@ export default function MaintenanceClient({
               <div className="flex items-center justify-between border-b border-primary/5 px-4 py-3">
                 <h2
                   className="text-base font-bold text-primary"
-                  style={{ fontFamily: 'var(--font-heading), var(--font-heading-arabic)' }}
+                  style={{ fontFamily: 'var(--font-heading)' }}
                 >
                   {t('machines.maintenanceLogTitle', locale)} - {maintenanceMachine.name}
                 </h2>
@@ -609,7 +609,7 @@ export default function MaintenanceClient({
                 {error && <Alert type="error">{error}</Alert>}
 
                 <div>
-                  <label className="mb-1 block text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                  <label className="mb-1 block text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body)' }}>
                     {t('machines.maintenanceDate', locale)}
                   </label>
                   <input
@@ -624,7 +624,7 @@ export default function MaintenanceClient({
                 </div>
 
                 <div>
-                  <label className="mb-1 block text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                  <label className="mb-1 block text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body)' }}>
                     {t('machines.maintenanceNote', locale)}
                   </label>
                   <textarea
@@ -633,7 +633,7 @@ export default function MaintenanceClient({
                     onChange={(e) => setMaintenanceForm((prev) => ({ ...prev, note: e.target.value }))}
                     rows={3}
                     className="w-full resize-none rounded-lg border border-primary/10 bg-background px-3 py-2 text-sm text-primary placeholder:text-primary/30 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/30"
-                    style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                    style={{ fontFamily: 'var(--font-body)' }}
                   />
                 </div>
 
@@ -642,7 +642,7 @@ export default function MaintenanceClient({
                     type="submit"
                     disabled={maintenanceLoading}
                     className="flex-1 rounded-lg bg-[#1e293b] px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-[#2d3a4f] disabled:opacity-50"
-                    style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                    style={{ fontFamily: 'var(--font-body)' }}
                   >
                     {maintenanceLoading ? t('machines.submitSaving', locale) : t('machines.action.logMaintenanceNow', locale)}
                   </button>
@@ -650,7 +650,7 @@ export default function MaintenanceClient({
                     type="button"
                     onClick={closeMaintenanceLog}
                     className="rounded-lg border border-primary/10 px-4 py-2.5 text-sm font-medium text-primary/60 transition-colors hover:bg-primary/5"
-                    style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                    style={{ fontFamily: 'var(--font-body)' }}
                   >
                     {t('common.cancel', locale)}
                   </button>
@@ -662,7 +662,7 @@ export default function MaintenanceClient({
           {/* Mobile Cards */}
           <div className="space-y-3 md:hidden">
             {filteredMachines.length === 0 ? (
-              <div className="rounded-xl border border-primary/5 bg-white px-4 py-12 text-center text-sm text-primary/30" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+              <div className="rounded-xl border border-primary/5 bg-white px-4 py-12 text-center text-sm text-primary/30" style={{ fontFamily: 'var(--font-body)' }}>
                 {t('machines.empty', locale)}
               </div>
             ) : (
@@ -674,7 +674,7 @@ export default function MaintenanceClient({
                       <div className="flex-1">
                         <h3
                           className="text-base font-semibold text-primary"
-                          style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                          style={{ fontFamily: 'var(--font-body)' }}
                         >
                           {machine.name}
                         </h3>
@@ -684,7 +684,7 @@ export default function MaintenanceClient({
                         >
                           {getMachineIdDisplay(machine)}
                         </p>
-                        <div className="mt-2 space-y-1 text-sm text-ink/60" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                        <div className="mt-2 space-y-1 text-sm text-ink/60" style={{ fontFamily: 'var(--font-body)' }}>
                           <p>{t('machines.location', locale)}: {machine.location ?? '—'}</p>
                           {machine.notes && <p dir="auto" className="text-primary/40 text-xs">{t('machines.notes', locale)}: {machine.notes}</p>}
                           <p>{t('machines.lastMaintenance', locale)}: {machine.last_maintenance_date ?? '—'}</p>
@@ -703,7 +703,7 @@ export default function MaintenanceClient({
                           }}
                           disabled={!isOwner}
                           className={`inline-flex items-center gap-1.5 rounded-full ${statusCfg.bg} px-2.5 py-1 text-xs font-medium ${statusCfg.text} ${isOwner ? 'cursor-pointer hover:ring-2 hover:ring-accent/40' : ''} transition-all`}
-                          style={{ fontFamily: 'var(--font-body-arabic), var-(font-body)' }}
+                          style={{ fontFamily: 'var(--font-body)' }}
                         >
                           <span className={`h-1.5 w-1.5 rounded-full ${statusCfg.dot}`} />
                           {statusCfg.label}
@@ -714,14 +714,14 @@ export default function MaintenanceClient({
                       <button
                         onClick={() => openDetails(machine)}
                         className="flex-1 rounded-lg border border-primary/10 px-3 py-2 text-sm font-medium text-primary/60 transition-colors hover:bg-primary/5"
-                        style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                        style={{ fontFamily: 'var(--font-body)' }}
                       >
                         {t('machines.action.details', locale)}
                       </button>
                       <button
                         onClick={() => openMaintenanceLog(machine)}
                         className="flex-1 rounded-lg border border-accent/20 px-3 py-2 text-sm font-medium text-accent transition-colors hover:bg-accent/5"
-                        style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                        style={{ fontFamily: 'var(--font-body)' }}
                       >
                         {t('machines.action.logMaintenance', locale)}
                       </button>
@@ -729,7 +729,7 @@ export default function MaintenanceClient({
                         <button
                           onClick={() => openEditForm(machine)}
                           className="flex-1 rounded-lg border border-primary/10 px-3 py-2 text-sm font-medium text-primary/60 transition-colors hover:bg-primary/5"
-                          style={{ fontFamily: 'var-(font-body-arabic), var-(font-body)' }}
+                          style={{ fontFamily: 'var(--font-body)' }}
                         >
                           {t('machines.action.edit', locale)}
                         </button>
@@ -738,7 +738,7 @@ export default function MaintenanceClient({
                         <button
                           onClick={() => setDeleteConfirm(machine.id)}
                           className="flex items-center justify-center rounded-lg border border-red-200 px-2.5 py-2 text-sm font-medium text-red-500 transition-colors hover:bg-red-50"
-                          style={{ fontFamily: 'var-(font-body-arabic), var-(font-body)' }}
+                          style={{ fontFamily: 'var(--font-body)' }}
                         >
                           <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                             <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
@@ -759,28 +759,28 @@ export default function MaintenanceClient({
                 <table className="w-full">
                   <thead>
                     <tr className="border-b border-primary/5 bg-[#1e293b]">
-                      <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                      <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body)' }}>
                         {t('machines.table.machineId', locale)}
                       </th>
-                      <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                      <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body)' }}>
                         {t('machines.table.name', locale)}
                       </th>
-                      <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                      <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body)' }}>
                         {t('machines.table.location', locale)}
                       </th>
-                      <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                      <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body)' }}>
                         {t('machines.notes', locale)}
                       </th>
-                      <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                      <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body)' }}>
                         {t('machines.table.lastMaintenance', locale)}
                       </th>
-                      <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                      <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body)' }}>
                         {t('machines.table.nextScheduled', locale)}
                       </th>
-                      <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                      <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body)' }}>
                         {t('machines.table.status', locale)}
                       </th>
-                      <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                      <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body)' }}>
                         {t('machines.table.actions', locale)}
                       </th>
                     </tr>
@@ -788,7 +788,7 @@ export default function MaintenanceClient({
                   <tbody className="divide-y divide-primary/5">
                     {filteredMachines.length === 0 ? (
                       <tr>
-                        <td colSpan={8} className="px-6 py-12 text-center text-sm text-primary/30" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                        <td colSpan={8} className="px-6 py-12 text-center text-sm text-primary/30" style={{ fontFamily: 'var(--font-body)' }}>
                           {t('machines.empty', locale)}
                         </td>
                       </tr>
@@ -800,13 +800,13 @@ export default function MaintenanceClient({
                             <td className="px-6 py-3.5 text-sm text-ink/60" style={{ fontFamily: 'var(--font-mono)' }}>
                               {getMachineIdDisplay(machine)}
                             </td>
-                            <td className="px-6 py-3.5 text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                            <td className="px-6 py-3.5 text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body)' }}>
                               {machine.name}
                             </td>
-                            <td className="px-6 py-3.5 text-sm text-ink/60" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                            <td className="px-6 py-3.5 text-sm text-ink/60" style={{ fontFamily: 'var(--font-body)' }}>
                               {machine.location ?? '—'}
                             </td>
-                            <td className="px-6 py-3.5 text-sm text-ink/60 max-w-[200px]" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                            <td className="px-6 py-3.5 text-sm text-ink/60 max-w-[200px]" style={{ fontFamily: 'var(--font-body)' }}>
                               <p className="truncate" title={machine.notes ?? ''}>{machine.notes ?? '—'}</p>
                             </td>
                             <td className="px-6 py-3.5 text-sm text-ink/60" style={{ fontFamily: 'var(--font-mono)' }}>
@@ -827,7 +827,7 @@ export default function MaintenanceClient({
                                 }}
                                 disabled={!isOwner}
                                 className={`inline-flex items-center gap-1.5 rounded-full ${statusCfg.bg} px-2.5 py-1 text-xs font-medium ${statusCfg.text} ${isOwner ? 'cursor-pointer hover:ring-2 hover:ring-accent/40' : ''} transition-all`}
-                                style={{ fontFamily: 'var(--font-body-arabic), var-(font-body)' }}
+                                style={{ fontFamily: 'var(--font-body)' }}
                               >
                                 <span className={`h-1.5 w-1.5 rounded-full ${statusCfg.dot}`} />
                                 {statusCfg.label}
@@ -838,14 +838,14 @@ export default function MaintenanceClient({
                                 <button
                                   onClick={() => openDetails(machine)}
                                   className="rounded-lg border border-primary/10 px-2.5 py-1.5 text-xs font-medium text-primary/60 transition-colors hover:bg-primary/5"
-                                  style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                                  style={{ fontFamily: 'var(--font-body)' }}
                                 >
                                   {t('machines.action.details', locale)}
                                 </button>
                                 <button
                                   onClick={() => openMaintenanceLog(machine)}
                                   className="rounded-lg border border-accent/20 px-2.5 py-1.5 text-xs font-medium text-accent transition-colors hover:bg-accent/5"
-                                  style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                                  style={{ fontFamily: 'var(--font-body)' }}
                                 >
                                   {t('machines.action.logMaintenance', locale)}
                                 </button>
@@ -891,20 +891,20 @@ export default function MaintenanceClient({
                 <div className="border-b border-primary/5 px-4 py-3">
                   <h2
                     className="text-base font-bold text-primary"
-                    style={{ fontFamily: 'var(--font-heading), var(--font-heading-arabic)' }}
+                    style={{ fontFamily: 'var(--font-heading)' }}
                   >
                     {editingMachine ? t('machines.editMachine', locale) : t('machines.machineData', locale)}
                   </h2>
                 </div>
                 <form onSubmit={handleSubmit} className="space-y-4 p-4">
                   {error && (
-                    <div className="rounded-lg bg-red-50 p-3 text-sm text-red-600" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                    <div className="rounded-lg bg-red-50 p-3 text-sm text-red-600" style={{ fontFamily: 'var(--font-body)' }}>
                       {error}
                     </div>
                   )}
 
                   <div>
-                    <label className="mb-1 block text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                    <label className="mb-1 block text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body)' }}>
                       {t('machines.name', locale)}
                     </label>
                     <input
@@ -914,12 +914,12 @@ export default function MaintenanceClient({
                       onChange={handleChange}
                       required
                       className="w-full rounded-lg border border-primary/10 bg-background px-3 py-2 text-sm text-primary placeholder:text-primary/30 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/30"
-                      style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                      style={{ fontFamily: 'var(--font-body)' }}
                     />
                   </div>
 
                   <div>
-                    <label className="mb-1 block text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                    <label className="mb-1 block text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body)' }}>
                       {t('machines.location', locale)}
                     </label>
                     <input
@@ -928,12 +928,12 @@ export default function MaintenanceClient({
                       value={form.location}
                       onChange={handleChange}
                       className="w-full rounded-lg border border-primary/10 bg-background px-3 py-2 text-sm text-primary placeholder:text-primary/30 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/30"
-                      style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                      style={{ fontFamily: 'var(--font-body)' }}
                     />
                   </div>
 
                   <div>
-                    <label className="mb-1 block text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                    <label className="mb-1 block text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body)' }}>
                       {t('machines.notes', locale)}
                     </label>
                     <textarea
@@ -942,12 +942,12 @@ export default function MaintenanceClient({
                       onChange={handleChange}
                       rows={2}
                       className="w-full resize-none rounded-lg border border-primary/10 bg-background px-3 py-2 text-sm text-primary placeholder:text-primary/30 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/30"
-                      style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                      style={{ fontFamily: 'var(--font-body)' }}
                     />
                   </div>
 
                   <div>
-                    <label className="mb-1 block text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                    <label className="mb-1 block text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body)' }}>
                       {t('machines.maintenanceInterval', locale)}
                     </label>
                     <input
@@ -966,7 +966,7 @@ export default function MaintenanceClient({
                       type="submit"
                       disabled={loading}
                       className="flex-1 rounded-lg bg-[#1e293b] px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-[#2d3a4f] disabled:opacity-50"
-                      style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                      style={{ fontFamily: 'var(--font-body)' }}
                     >
                       {loading ? t('machines.submitSaving', locale) : t('machines.submitSave', locale)}
                     </button>
@@ -974,7 +974,7 @@ export default function MaintenanceClient({
                       type="button"
                       onClick={closeForm}
                       className="rounded-lg border border-primary/10 px-4 py-2.5 text-sm font-medium text-primary/60 transition-colors hover:bg-primary/5"
-                      style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                      style={{ fontFamily: 'var(--font-body)' }}
                     >
                       {t('common.cancel', locale)}
                     </button>
@@ -990,7 +990,7 @@ export default function MaintenanceClient({
               <div className="flex items-center justify-between border-b border-primary/5 px-4 py-3">
                 <h2
                   className="text-base font-bold text-primary"
-                  style={{ fontFamily: 'var(--font-heading), var(--font-heading-arabic)' }}
+                  style={{ fontFamily: 'var(--font-heading)' }}
                 >
                   {t('machines.action.details', locale)}
                 </h2>
@@ -1010,32 +1010,32 @@ export default function MaintenanceClient({
                   <div className="flex-1 overflow-y-auto p-4 space-y-5">
                     {/* Machine ID Badge */}
                     <div className="rounded-xl border border-primary/5 bg-primary/[0.01] p-4">
-                      <p className="text-xs text-primary/40 mb-1" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>{t('machines.machineId', locale)}</p>
+                      <p className="text-xs text-primary/40 mb-1" style={{ fontFamily: 'var(--font-body)' }}>{t('machines.machineId', locale)}</p>
                       <p className="text-sm font-mono font-semibold text-primary">{getMachineIdDisplay(detailsMachine)}</p>
                     </div>
 
                     {/* Basic Info */}
                     <div className="space-y-3">
-                      <h3 className="text-sm font-bold text-primary/60 uppercase tracking-wider" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                      <h3 className="text-sm font-bold text-primary/60 uppercase tracking-wider" style={{ fontFamily: 'var(--font-body)' }}>
                         {t('machines.basicInfo', locale)}
                       </h3>
                       <div className="rounded-xl border border-primary/5 bg-white p-4 space-y-3">
                         <div>
-                          <p className="text-xs text-primary/40" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>{t('machines.name', locale)}</p>
-                          <p className="text-sm font-medium text-primary mt-0.5" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>{detailsMachine.name}</p>
+                          <p className="text-xs text-primary/40" style={{ fontFamily: 'var(--font-body)' }}>{t('machines.name', locale)}</p>
+                          <p className="text-sm font-medium text-primary mt-0.5" style={{ fontFamily: 'var(--font-body)' }}>{detailsMachine.name}</p>
                         </div>
                         <div>
-                          <p className="text-xs text-primary/40" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>{t('machines.location', locale)}</p>
-                          <p className="text-sm text-primary mt-0.5" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>{detailsMachine.location ?? '—'}</p>
+                          <p className="text-xs text-primary/40" style={{ fontFamily: 'var(--font-body)' }}>{t('machines.location', locale)}</p>
+                          <p className="text-sm text-primary mt-0.5" style={{ fontFamily: 'var(--font-body)' }}>{detailsMachine.location ?? '—'}</p>
                         </div>
                         {detailsMachine.notes && (
                           <div>
-                            <p className="text-xs text-primary/40" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>{t('machines.notes', locale)}</p>
-                            <p className="text-sm text-primary mt-0.5" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>{detailsMachine.notes}</p>
+                            <p className="text-xs text-primary/40" style={{ fontFamily: 'var(--font-body)' }}>{t('machines.notes', locale)}</p>
+                            <p className="text-sm text-primary mt-0.5" style={{ fontFamily: 'var(--font-body)' }}>{detailsMachine.notes}</p>
                           </div>
                         )}
                         <div>
-                          <p className="text-xs text-primary/40" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>{t('machines.status', locale)}</p>
+                          <p className="text-xs text-primary/40" style={{ fontFamily: 'var(--font-body)' }}>{t('machines.status', locale)}</p>
                           <span className={`inline-flex items-center gap-1.5 rounded-full ${sc.bg} px-2.5 py-1 text-xs font-medium ${sc.text} mt-1`}>
                             <span className={`h-1.5 w-1.5 rounded-full ${sc.dot}`} />
                             {sc.label}
@@ -1046,20 +1046,20 @@ export default function MaintenanceClient({
 
                     {/* Maintenance Info */}
                     <div className="space-y-3">
-                      <h3 className="text-sm font-bold text-primary/60 uppercase tracking-wider" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                      <h3 className="text-sm font-bold text-primary/60 uppercase tracking-wider" style={{ fontFamily: 'var(--font-body)' }}>
                         {t('machines.maintenanceInfo', locale)}
                       </h3>
                       <div className="rounded-xl border border-primary/5 bg-white p-4 space-y-3">
                         <div>
-                          <p className="text-xs text-primary/40" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>{t('machines.lastMaintenance', locale)}</p>
+                          <p className="text-xs text-primary/40" style={{ fontFamily: 'var(--font-body)' }}>{t('machines.lastMaintenance', locale)}</p>
                           <p className="text-sm text-primary mt-0.5 font-mono">{detailsMachine.last_maintenance_date ?? '—'}</p>
                         </div>
                         <div>
-                          <p className="text-xs text-primary/40" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>{t('machines.nextScheduled', locale)}</p>
+                          <p className="text-xs text-primary/40" style={{ fontFamily: 'var(--font-body)' }}>{t('machines.nextScheduled', locale)}</p>
                           <p className="text-sm text-primary mt-0.5 font-mono">{detailsMachine.next_maintenance_date ?? '—'}</p>
                         </div>
                         <div>
-                          <p className="text-xs text-primary/40" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>{t('machines.maintenanceInterval', locale)}</p>
+                          <p className="text-xs text-primary/40" style={{ fontFamily: 'var(--font-body)' }}>{t('machines.maintenanceInterval', locale)}</p>
                           <p className="text-sm text-primary mt-0.5 font-mono">{detailsMachine.maintenance_interval_days} {t('common.days', locale)}</p>
                         </div>
                       </div>
@@ -1078,7 +1078,7 @@ export default function MaintenanceClient({
                 <div className="border-b border-primary/5 px-4 py-3 flex items-center justify-between">
                   <h2
                     className="text-base font-bold text-primary"
-                    style={{ fontFamily: 'var(--font-heading), var(--font-heading-arabic)' }}
+                    style={{ fontFamily: 'var(--font-heading)' }}
                   >
                     {t('machines.action.details', locale)}
                   </h2>
@@ -1098,32 +1098,32 @@ export default function MaintenanceClient({
                     <div className="p-4 space-y-5">
                       {/* Machine ID */}
                       <div className="rounded-lg border border-primary/5 bg-primary/[0.01] p-3">
-                        <p className="text-xs text-primary/40 mb-1" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>{t('machines.machineId', locale)}</p>
+                        <p className="text-xs text-primary/40 mb-1" style={{ fontFamily: 'var(--font-body)' }}>{t('machines.machineId', locale)}</p>
                         <p className="text-sm font-mono font-semibold text-primary">{getMachineIdDisplay(detailsMachine)}</p>
                       </div>
 
                       {/* Basic Info */}
                       <div className="space-y-3">
-                        <h3 className="text-xs font-bold text-primary/60 uppercase tracking-wider" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                        <h3 className="text-xs font-bold text-primary/60 uppercase tracking-wider" style={{ fontFamily: 'var(--font-body)' }}>
                           {t('machines.basicInfo', locale)}
                         </h3>
                         <div className="rounded-lg border border-primary/5 bg-white p-3 space-y-3">
                           <div>
-                            <p className="text-xs text-primary/40" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>{t('machines.name', locale)}</p>
-                            <p className="text-sm font-medium text-primary mt-0.5" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>{detailsMachine.name}</p>
+                            <p className="text-xs text-primary/40" style={{ fontFamily: 'var(--font-body)' }}>{t('machines.name', locale)}</p>
+                            <p className="text-sm font-medium text-primary mt-0.5" style={{ fontFamily: 'var(--font-body)' }}>{detailsMachine.name}</p>
                           </div>
                           <div>
-                            <p className="text-xs text-primary/40" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>{t('machines.location', locale)}</p>
-                            <p className="text-sm text-primary mt-0.5" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>{detailsMachine.location ?? '—'}</p>
+                            <p className="text-xs text-primary/40" style={{ fontFamily: 'var(--font-body)' }}>{t('machines.location', locale)}</p>
+                            <p className="text-sm text-primary mt-0.5" style={{ fontFamily: 'var(--font-body)' }}>{detailsMachine.location ?? '—'}</p>
                           </div>
                           {detailsMachine.notes && (
                             <div>
-                              <p className="text-xs text-primary/40" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>{t('machines.notes', locale)}</p>
-                              <p className="text-sm text-primary mt-0.5" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>{detailsMachine.notes}</p>
+                              <p className="text-xs text-primary/40" style={{ fontFamily: 'var(--font-body)' }}>{t('machines.notes', locale)}</p>
+                              <p className="text-sm text-primary mt-0.5" style={{ fontFamily: 'var(--font-body)' }}>{detailsMachine.notes}</p>
                             </div>
                           )}
                           <div>
-                            <p className="text-xs text-primary/40" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>{t('machines.status', locale)}</p>
+                            <p className="text-xs text-primary/40" style={{ fontFamily: 'var(--font-body)' }}>{t('machines.status', locale)}</p>
                             <span className={`inline-flex items-center gap-1.5 rounded-full ${sc.bg} px-2.5 py-1 text-xs font-medium ${sc.text} mt-1`}>
                               <span className={`h-1.5 w-1.5 rounded-full ${sc.dot}`} />
                               {sc.label}
@@ -1134,20 +1134,20 @@ export default function MaintenanceClient({
 
                       {/* Maintenance Info */}
                       <div className="space-y-3">
-                        <h3 className="text-xs font-bold text-primary/60 uppercase tracking-wider" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                        <h3 className="text-xs font-bold text-primary/60 uppercase tracking-wider" style={{ fontFamily: 'var(--font-body)' }}>
                           {t('machines.maintenanceInfo', locale)}
                         </h3>
                         <div className="rounded-lg border border-primary/5 bg-white p-3 space-y-3">
                           <div>
-                            <p className="text-xs text-primary/40" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>{t('machines.lastMaintenance', locale)}</p>
+                            <p className="text-xs text-primary/40" style={{ fontFamily: 'var(--font-body)' }}>{t('machines.lastMaintenance', locale)}</p>
                             <p className="text-sm text-primary mt-0.5 font-mono">{detailsMachine.last_maintenance_date ?? '—'}</p>
                           </div>
                           <div>
-                            <p className="text-xs text-primary/40" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>{t('machines.nextScheduled', locale)}</p>
+                            <p className="text-xs text-primary/40" style={{ fontFamily: 'var(--font-body)' }}>{t('machines.nextScheduled', locale)}</p>
                             <p className="text-sm text-primary mt-0.5 font-mono">{detailsMachine.next_maintenance_date ?? '—'}</p>
                           </div>
                           <div>
-                            <p className="text-xs text-primary/40" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>{t('machines.maintenanceInterval', locale)}</p>
+                            <p className="text-xs text-primary/40" style={{ fontFamily: 'var(--font-body)' }}>{t('machines.maintenanceInterval', locale)}</p>
                             <p className="text-sm text-primary mt-0.5 font-mono">{detailsMachine.maintenance_interval_days} {t('common.days', locale)}</p>
                           </div>
                         </div>
@@ -1167,26 +1167,26 @@ export default function MaintenanceClient({
                 <div className="border-b border-primary/5 px-4 py-3">
                   <h2
                     className="text-base font-bold text-primary"
-                    style={{ fontFamily: 'var(--font-heading), var(--font-heading-arabic)' }}
+                    style={{ fontFamily: 'var(--font-heading)' }}
                   >
                     {t('machines.maintenanceLogTitle', locale)}
                   </h2>
                   <p
                     className="mt-0.5 text-xs text-primary/40"
-                    style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                    style={{ fontFamily: 'var(--font-body)' }}
                   >
                     {maintenanceMachine.name}
                   </p>
                 </div>
                 <form onSubmit={handleMaintenanceSubmit} className="space-y-4 p-4">
                   {error && (
-                    <div className="rounded-lg bg-red-50 p-3 text-sm text-red-600" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                    <div className="rounded-lg bg-red-50 p-3 text-sm text-red-600" style={{ fontFamily: 'var(--font-body)' }}>
                       {error}
                     </div>
                   )}
 
                   <div>
-                    <label className="mb-1 block text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                    <label className="mb-1 block text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body)' }}>
                       {t('machines.maintenanceDate', locale)}
                     </label>
                     <input
@@ -1201,7 +1201,7 @@ export default function MaintenanceClient({
                   </div>
 
                   <div>
-                    <label className="mb-1 block text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                    <label className="mb-1 block text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body)' }}>
                       {t('machines.maintenanceNote', locale)}
                     </label>
                     <textarea
@@ -1210,7 +1210,7 @@ export default function MaintenanceClient({
                       onChange={(e) => setMaintenanceForm((prev) => ({ ...prev, note: e.target.value }))}
                       rows={3}
                       className="w-full resize-none rounded-lg border border-primary/10 bg-background px-3 py-2 text-sm text-primary placeholder:text-primary/30 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/30"
-                      style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                      style={{ fontFamily: 'var(--font-body)' }}
                     />
                   </div>
 
@@ -1219,7 +1219,7 @@ export default function MaintenanceClient({
                       type="submit"
                       disabled={maintenanceLoading}
                       className="flex-1 rounded-lg bg-[#1e293b] px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-[#2d3a4f] disabled:opacity-50"
-                      style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                      style={{ fontFamily: 'var(--font-body)' }}
                     >
                       {maintenanceLoading ? t('machines.submitSaving', locale) : t('machines.action.logMaintenanceNow', locale)}
                     </button>
@@ -1227,7 +1227,7 @@ export default function MaintenanceClient({
                       type="button"
                       onClick={closeMaintenanceLog}
                       className="rounded-lg border border-primary/10 px-4 py-2.5 text-sm font-medium text-primary/60 transition-colors hover:bg-primary/5"
-                      style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                      style={{ fontFamily: 'var(--font-body)' }}
                     >
                       {t('common.cancel', locale)}
                     </button>
@@ -1257,7 +1257,7 @@ export default function MaintenanceClient({
                       className={`flex w-full items-center gap-2 px-3 py-2 text-xs font-medium transition-colors hover:bg-primary/5 ${
                         s === machine.status ? 'bg-primary/[0.02]' : ''
                       }`}
-                      style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                      style={{ fontFamily: 'var(--font-body)' }}
                     >
                       <span className={`h-2 w-2 rounded-full ${sc.dot}`} />
                       <span className={sc.text}>{sc.label}</span>
@@ -1290,7 +1290,7 @@ export default function MaintenanceClient({
                       className={`flex w-full items-center gap-2 px-3 py-2 text-xs font-medium transition-colors hover:bg-primary/5 ${
                         s === machine.status ? 'bg-primary/[0.02]' : ''
                       }`}
-                      style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                      style={{ fontFamily: 'var(--font-body)' }}
                     >
                       <span className={`h-2 w-2 rounded-full ${sc.dot}`} />
                       <span className={sc.text}>{sc.label}</span>

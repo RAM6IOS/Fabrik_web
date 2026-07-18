@@ -58,7 +58,7 @@ export default function ForgotPasswordPage() {
           </div>
           <span
             className="text-lg font-bold text-primary"
-            style={{ fontFamily: 'var(--font-heading), var(--font-heading-arabic)' }}
+            style={{ fontFamily: 'var(--font-heading)' }}
           >
             {t('forgotPassword.brand', locale)}
           </span>
@@ -73,7 +73,7 @@ export default function ForgotPasswordPage() {
               <div className="mb-1 text-right">
                 <h1
                   className="text-xl font-bold text-primary"
-                  style={{ fontFamily: 'var(--font-heading), var(--font-heading-arabic)' }}
+                  style={{ fontFamily: 'var(--font-heading)' }}
                 >
                   {t('forgotPassword.title', locale)}
                 </h1>

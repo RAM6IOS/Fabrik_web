@@ -258,10 +258,10 @@ export default function ProductsClient({
             {userName.charAt(0)}
           </div>
           <div>
-            <p className="text-sm font-semibold text-primary" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+            <p className="text-sm font-semibold text-primary" style={{ fontFamily: 'var(--font-body)' }}>
               {userName}
             </p>
-            <p className="text-xs text-primary/40" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+            <p className="text-xs text-primary/40" style={{ fontFamily: 'var(--font-body)' }}>
               {isOwner ? t('role.owner', locale) : t('role.worker', locale)}
             </p>
           </div>
@@ -272,14 +272,14 @@ export default function ProductsClient({
         <div className="mx-auto max-w-6xl space-y-4 md:space-y-6">
           {/* Page Header */}
           <div className="flex items-center justify-between">
-            <h1 className="text-xl font-bold text-primary md:text-2xl" style={{ fontFamily: 'var(--font-heading), var(--font-heading-arabic)' }}>
+            <h1 className="text-xl font-bold text-primary md:text-2xl" style={{ fontFamily: 'var(--font-heading)' }}>
               {t('products.title', locale)}
             </h1>
             {isOwner && (
               <button
                 onClick={openAddForm}
                 className="flex items-center gap-2 rounded-lg bg-[#1e293b] px-3 py-2 text-sm font-medium text-white transition-colors hover:bg-[#2d3a4f] md:px-4 md:py-2.5"
-                style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                style={{ fontFamily: 'var(--font-body)' }}
               >
                 <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
@@ -294,7 +294,7 @@ export default function ProductsClient({
           {showForm && (
             <div className="md:hidden fixed inset-0 z-50 flex flex-col bg-white">
               <div className="flex items-center justify-between border-b border-primary/5 px-4 py-3">
-                <h2 className="text-base font-bold text-primary" style={{ fontFamily: 'var(--font-heading), var(--font-heading-arabic)' }}>
+                <h2 className="text-base font-bold text-primary" style={{ fontFamily: 'var(--font-heading)' }}>
                   {editingProduct ? t('products.editProduct', locale) : t('products.productData', locale)}
                 </h2>
                 <button type="button" onClick={closeForm} className="text-primary/40 hover:text-primary/60">
@@ -313,26 +313,26 @@ export default function ProductsClient({
 
                 {/* {t('products.basicInfo', locale)} */}
                 <div className="space-y-3">
-                  <h3 className="text-sm font-semibold text-primary" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                  <h3 className="text-sm font-semibold text-primary" style={{ fontFamily: 'var(--font-body)' }}>
                     {t('products.basicInfo', locale)}
                   </h3>
 
                   <div>
-                    <label className="mb-1 block text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>{t('products.name', locale)}</label>
-                    <input type="text" name="name" value={form.name} onChange={handleChange} required className="w-full rounded-lg border border-primary/10 bg-background px-3 py-2 text-sm text-primary placeholder:text-primary/30 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/30" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }} />
+                    <label className="mb-1 block text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body)' }}>{t('products.name', locale)}</label>
+                    <input type="text" name="name" value={form.name} onChange={handleChange} required className="w-full rounded-lg border border-primary/10 bg-background px-3 py-2 text-sm text-primary placeholder:text-primary/30 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/30" style={{ fontFamily: 'var(--font-body)' }} />
                   </div>
 
                   <div className="grid grid-cols-2 gap-3">
                     <div>
-                      <label className="mb-1 block text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>{t('products.unit', locale)}</label>
-                      <select name="unit" value={form.unit} onChange={handleChange} className="w-full rounded-lg border border-primary/10 bg-background px-3 py-2 text-sm text-primary focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/30" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                      <label className="mb-1 block text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body)' }}>{t('products.unit', locale)}</label>
+                      <select name="unit" value={form.unit} onChange={handleChange} className="w-full rounded-lg border border-primary/10 bg-background px-3 py-2 text-sm text-primary focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/30" style={{ fontFamily: 'var(--font-body)' }}>
                         {unitOptions.map((u) => (
                           <option key={u} value={u}>{u}</option>
                         ))}
                       </select>
                     </div>
                     <div>
-                      <label className="mb-1 block text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>{t('products.manufacturingTime', locale)}</label>
+                      <label className="mb-1 block text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body)' }}>{t('products.manufacturingTime', locale)}</label>
                       <input type="number" name="standard_production_time_hours" value={form.standard_production_time_hours} onChange={handleChange} min="0" step="0.5" className="w-full rounded-lg border border-primary/10 bg-background px-3 py-2 text-sm text-primary placeholder:text-primary/30 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/30" style={{ fontFamily: 'var(--font-mono)' }} />
                     </div>
                   </div>
@@ -341,16 +341,16 @@ export default function ProductsClient({
                 {/* {t('products.bom', locale)} */}
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
-                    <h3 className="text-sm font-semibold text-primary" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                    <h3 className="text-sm font-semibold text-primary" style={{ fontFamily: 'var(--font-body)' }}>
                       {t('products.bom', locale)}
                     </h3>
-                    <button type="button" onClick={addBomRow} className="text-xs text-accent hover:text-accent/80" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                    <button type="button" onClick={addBomRow} className="text-xs text-accent hover:text-accent/80" style={{ fontFamily: 'var(--font-body)' }}>
                       {t('products.addMaterial', locale)}
                     </button>
                   </div>
 
                   {bomRows.length === 0 ? (
-                    <p className="text-xs text-primary/40" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                    <p className="text-xs text-primary/40" style={{ fontFamily: 'var(--font-body)' }}>
                       {t('products.noMaterials', locale)}
                     </p>
                   ) : (
@@ -361,7 +361,7 @@ export default function ProductsClient({
                             value={row.raw_material_id}
                             onChange={(e) => handleBomChange(index, 'raw_material_id', e.target.value)}
                             className="flex-1 rounded-lg border border-primary/10 bg-background px-2 py-1.5 text-xs text-primary focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/30"
-                            style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                            style={{ fontFamily: 'var(--font-body)' }}
                           >
                             <option value="">{t('products.materialPlaceholder', locale)}</option>
                             {rawMaterials.map((m) => (
@@ -378,7 +378,7 @@ export default function ProductsClient({
                             className="w-20 rounded-lg border border-primary/10 bg-background px-2 py-1.5 text-xs text-primary placeholder:text-primary/30 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/30"
                             style={{ fontFamily: 'var(--font-mono)' }}
                           />
-                          <span className="flex items-center text-xs text-primary/40" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                          <span className="flex items-center text-xs text-primary/40" style={{ fontFamily: 'var(--font-body)' }}>
                             {row.unit}
                           </span>
                           <button type="button" onClick={() => removeBomRow(index)} className="text-red-400 hover:text-red-600">
@@ -393,10 +393,10 @@ export default function ProductsClient({
                 </div>
 
                 <div className="flex gap-3 pt-2">
-                  <button type="submit" disabled={loading} className="flex-1 rounded-lg bg-[#1e293b] px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-[#2d3a4f] disabled:opacity-50" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                  <button type="submit" disabled={loading} className="flex-1 rounded-lg bg-[#1e293b] px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-[#2d3a4f] disabled:opacity-50" style={{ fontFamily: 'var(--font-body)' }}>
                     {loading ? t('products.submitSaving', locale) : t('products.submitSave', locale)}
                   </button>
-                  <button type="button" onClick={closeForm} className="rounded-lg border border-primary/10 px-4 py-2.5 text-sm font-medium text-primary/60 transition-colors hover:bg-primary/5" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                  <button type="button" onClick={closeForm} className="rounded-lg border border-primary/10 px-4 py-2.5 text-sm font-medium text-primary/60 transition-colors hover:bg-primary/5" style={{ fontFamily: 'var(--font-body)' }}>
                     {t('common.cancel', locale)}
                   </button>
                 </div>
@@ -407,7 +407,7 @@ export default function ProductsClient({
           {/* Mobile Cards */}
           <div className="space-y-3 md:hidden">
             {products.length === 0 ? (
-              <div className="rounded-xl border border-primary/5 bg-white px-4 py-12 text-center text-sm text-primary/30" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+              <div className="rounded-xl border border-primary/5 bg-white px-4 py-12 text-center text-sm text-primary/30" style={{ fontFamily: 'var(--font-body)' }}>
                 {t('products.empty', locale)}
               </div>
             ) : (
@@ -415,10 +415,10 @@ export default function ProductsClient({
                 <div key={product.id} className="rounded-xl border border-primary/5 bg-white p-4">
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
-                      <h3 className="text-base font-semibold text-primary" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                      <h3 className="text-base font-semibold text-primary" style={{ fontFamily: 'var(--font-body)' }}>
                         {product.name}
                       </h3>
-                      <div className="mt-2 space-y-1 text-sm text-ink/60" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                      <div className="mt-2 space-y-1 text-sm text-ink/60" style={{ fontFamily: 'var(--font-body)' }}>
                         <p>{t('products.unitLabel', locale)} {product.unit}</p>
                         <p>{t('products.materialsCount', locale)} {product.bom_count}</p>
                         <p>{t('products.table.productionTime', locale)}: {product.standard_production_time_hours != null
@@ -430,10 +430,10 @@ export default function ProductsClient({
                   </div>
                   {isOwner && (
                     <div className="mt-3 flex gap-2 border-t border-primary/5 pt-3">
-                      <button onClick={() => openEditForm(product)} className="flex-1 rounded-lg border border-primary/10 px-3 py-2 text-sm font-medium text-primary/60 transition-colors hover:bg-primary/5" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                      <button onClick={() => openEditForm(product)} className="flex-1 rounded-lg border border-primary/10 px-3 py-2 text-sm font-medium text-primary/60 transition-colors hover:bg-primary/5" style={{ fontFamily: 'var(--font-body)' }}>
                         {t('common.edit', locale)}
                       </button>
-                      <button onClick={() => setDeleteConfirm(product)} className="flex-1 rounded-lg border border-red-200 px-3 py-2 text-sm font-medium text-red-600 transition-colors hover:bg-red-50" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                      <button onClick={() => setDeleteConfirm(product)} className="flex-1 rounded-lg border border-red-200 px-3 py-2 text-sm font-medium text-red-600 transition-colors hover:bg-red-50" style={{ fontFamily: 'var(--font-body)' }}>
                         {t('common.delete', locale)}
                       </button>
                     </div>
@@ -450,39 +450,39 @@ export default function ProductsClient({
                 <table className="w-full">
                   <thead>
                     <tr className="border-b border-primary/5 bg-[#1e293b]">
-                      <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>{t('products.table.name', locale)}</th>
-                      <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>{t('products.table.unit', locale)}</th>
-                      <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>{t('products.table.materialsCount', locale)}</th>
-                      <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>{t('products.table.totalCost', locale)}</th>
-                      <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>{t('products.table.productionTime', locale)}</th>
+                      <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body)' }}>{t('products.table.name', locale)}</th>
+                      <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body)' }}>{t('products.table.unit', locale)}</th>
+                      <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body)' }}>{t('products.table.materialsCount', locale)}</th>
+                      <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body)' }}>{t('products.table.totalCost', locale)}</th>
+                      <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body)' }}>{t('products.table.productionTime', locale)}</th>
                       {isOwner && (
-                        <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>{t('products.table.actions', locale)}</th>
+                        <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body)' }}>{t('products.table.actions', locale)}</th>
                       )}
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-primary/5">
                     {products.length === 0 ? (
                       <tr>
-                        <td colSpan={isOwner ? 6 : 5} className="px-6 py-12 text-center text-sm text-primary/30" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                        <td colSpan={isOwner ? 6 : 5} className="px-6 py-12 text-center text-sm text-primary/30" style={{ fontFamily: 'var(--font-body)' }}>
                           {t('products.empty', locale)}
                         </td>
                       </tr>
                     ) : (
                       products.map((product) => (
                         <tr key={product.id} className="transition-colors hover:bg-primary/[0.01]">
-                          <td className="px-6 py-3.5 text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                          <td className="px-6 py-3.5 text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body)' }}>
                             {product.name}
                           </td>
-                          <td className="px-6 py-3.5 text-sm text-ink/60" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                          <td className="px-6 py-3.5 text-sm text-ink/60" style={{ fontFamily: 'var(--font-body)' }}>
                             {product.unit}
                           </td>
                           <td className="px-6 py-3.5 text-sm text-ink/60" style={{ fontFamily: 'var(--font-mono)' }}>
                             {product.bom_count}
                           </td>
-                          <td className="px-6 py-3.5 text-sm text-ink/40" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                          <td className="px-6 py-3.5 text-sm text-ink/40" style={{ fontFamily: 'var(--font-body)' }}>
                             {t('products.costNotCalculated', locale)}
                           </td>
-                          <td className="px-6 py-3.5 text-sm text-ink/60" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                          <td className="px-6 py-3.5 text-sm text-ink/60" style={{ fontFamily: 'var(--font-body)' }}>
                             {product.standard_production_time_hours != null
                               ? `${product.standard_production_time_hours} ${locale === 'fr' ? 'h' : 'ساعة'}`
                               : '-'}
@@ -518,40 +518,40 @@ export default function ProductsClient({
               <div className="fixed inset-0 z-50 bg-black/40" onClick={closeForm} />
               <div className="fixed inset-y-0 right-0 z-50 w-96 overflow-y-auto border-l border-primary/5 bg-white shadow-xl">
                 <div className="border-b border-primary/5 px-4 py-3">
-                  <h2 className="text-base font-bold text-primary" style={{ fontFamily: 'var(--font-heading), var(--font-heading-arabic)' }}>
+                  <h2 className="text-base font-bold text-primary" style={{ fontFamily: 'var(--font-heading)' }}>
                     {editingProduct ? t('products.editProduct', locale) : t('products.productData', locale)}
                   </h2>
                 </div>
 
                 <form onSubmit={handleSubmit} className="p-4 space-y-4">
                   {error && (
-                    <div className="rounded-lg bg-red-50 p-3 text-sm text-red-600" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                    <div className="rounded-lg bg-red-50 p-3 text-sm text-red-600" style={{ fontFamily: 'var(--font-body)' }}>
                       {error}
                     </div>
                   )}
 
                   {/* {t('products.basicInfo', locale)} */}
                   <div className="space-y-3">
-                    <h3 className="text-sm font-semibold text-primary border-b border-primary/5 pb-2" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                    <h3 className="text-sm font-semibold text-primary border-b border-primary/5 pb-2" style={{ fontFamily: 'var(--font-body)' }}>
                       {t('products.basicInfo', locale)}
                     </h3>
 
                     <div>
-                      <label className="mb-1 block text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>{t('products.name', locale)}</label>
-                      <input type="text" name="name" value={form.name} onChange={handleChange} required className="w-full rounded-lg border border-primary/10 bg-background px-3 py-2 text-sm text-primary placeholder:text-primary/30 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/30" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }} />
+                      <label className="mb-1 block text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body)' }}>{t('products.name', locale)}</label>
+                      <input type="text" name="name" value={form.name} onChange={handleChange} required className="w-full rounded-lg border border-primary/10 bg-background px-3 py-2 text-sm text-primary placeholder:text-primary/30 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/30" style={{ fontFamily: 'var(--font-body)' }} />
                     </div>
 
                     <div className="grid grid-cols-2 gap-3">
                       <div>
-                        <label className="mb-1 block text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>{t('products.unit', locale)}</label>
-                        <select name="unit" value={form.unit} onChange={handleChange} className="w-full rounded-lg border border-primary/10 bg-background px-3 py-2 text-sm text-primary focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/30" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                        <label className="mb-1 block text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body)' }}>{t('products.unit', locale)}</label>
+                        <select name="unit" value={form.unit} onChange={handleChange} className="w-full rounded-lg border border-primary/10 bg-background px-3 py-2 text-sm text-primary focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/30" style={{ fontFamily: 'var(--font-body)' }}>
                           {unitOptions.map((u) => (
                             <option key={u} value={u}>{u}</option>
                           ))}
                         </select>
                       </div>
                       <div>
-                        <label className="mb-1 block text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>{t('products.manufacturingTime', locale)}</label>
+                        <label className="mb-1 block text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body)' }}>{t('products.manufacturingTime', locale)}</label>
                         <input type="number" name="standard_production_time_hours" value={form.standard_production_time_hours} onChange={handleChange} min="0" step="0.5" className="w-full rounded-lg border border-primary/10 bg-background px-3 py-2 text-sm text-primary placeholder:text-primary/30 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/30" style={{ fontFamily: 'var(--font-mono)' }} />
                       </div>
                     </div>
@@ -560,16 +560,16 @@ export default function ProductsClient({
                   {/* {t('products.bom', locale)} */}
                   <div className="space-y-3">
                     <div className="flex items-center justify-between border-b border-primary/5 pb-2">
-                      <h3 className="text-sm font-semibold text-primary" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                      <h3 className="text-sm font-semibold text-primary" style={{ fontFamily: 'var(--font-body)' }}>
                         {t('products.bom', locale)}
                       </h3>
-                      <button type="button" onClick={addBomRow} className="text-xs text-accent hover:text-accent/80" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                      <button type="button" onClick={addBomRow} className="text-xs text-accent hover:text-accent/80" style={{ fontFamily: 'var(--font-body)' }}>
                         {t('products.addMaterial', locale)}
                       </button>
                     </div>
 
                     {bomRows.length === 0 ? (
-                      <p className="text-xs text-primary/40" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                      <p className="text-xs text-primary/40" style={{ fontFamily: 'var(--font-body)' }}>
                         {t('products.noMaterials', locale)}
                       </p>
                     ) : (
@@ -580,7 +580,7 @@ export default function ProductsClient({
                               value={row.raw_material_id}
                               onChange={(e) => handleBomChange(index, 'raw_material_id', e.target.value)}
                               className="flex-1 rounded-lg border border-primary/10 bg-background px-2 py-1.5 text-xs text-primary focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/30"
-                              style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                              style={{ fontFamily: 'var(--font-body)' }}
                             >
                               <option value="">{t('products.materialPlaceholder', locale)}</option>
                               {rawMaterials.map((m) => (
@@ -597,7 +597,7 @@ export default function ProductsClient({
                               className="w-20 rounded-lg border border-primary/10 bg-background px-2 py-1.5 text-xs text-primary placeholder:text-primary/30 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/30"
                               style={{ fontFamily: 'var(--font-mono)' }}
                             />
-                            <span className="text-xs text-primary/40 w-12" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                            <span className="text-xs text-primary/40 w-12" style={{ fontFamily: 'var(--font-body)' }}>
                               {row.unit}
                             </span>
                             <button type="button" onClick={() => removeBomRow(index)} className="text-red-400 hover:text-red-600">
@@ -612,10 +612,10 @@ export default function ProductsClient({
                   </div>
 
                   <div className="flex gap-3 pt-2">
-                    <button type="submit" disabled={loading} className="flex-1 rounded-lg bg-[#1e293b] px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-[#2d3a4f] disabled:opacity-50" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                    <button type="submit" disabled={loading} className="flex-1 rounded-lg bg-[#1e293b] px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-[#2d3a4f] disabled:opacity-50" style={{ fontFamily: 'var(--font-body)' }}>
                       {loading ? t('products.submitSaving', locale) : t('products.submitSave', locale)}
                     </button>
-                    <button type="button" onClick={closeForm} className="rounded-lg border border-primary/10 px-4 py-2.5 text-sm font-medium text-primary/60 transition-colors hover:bg-primary/5" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                    <button type="button" onClick={closeForm} className="rounded-lg border border-primary/10 px-4 py-2.5 text-sm font-medium text-primary/60 transition-colors hover:bg-primary/5" style={{ fontFamily: 'var(--font-body)' }}>
                       {t('common.cancel', locale)}
                     </button>
                   </div>
@@ -630,11 +630,11 @@ export default function ProductsClient({
       {deleteConfirm && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
           <div className="w-full max-w-sm rounded-xl bg-white p-6 shadow-xl">
-            <h3 className="text-lg font-bold text-primary" style={{ fontFamily: 'var(--font-heading), var(--font-heading-arabic)' }}>
+            <h3 className="text-lg font-bold text-primary" style={{ fontFamily: 'var(--font-heading)' }}>
               {t('products.deleteConfirm', locale)}
             </h3>
-            <p className="mt-2 text-sm text-primary/60" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }} dangerouslySetInnerHTML={{ __html: t('products.deleteMessage', locale).replace('{name}', `<strong>${deleteConfirm.name}</strong>`) }} />
-            <p className="mt-1 text-xs text-red-500" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+            <p className="mt-2 text-sm text-primary/60" style={{ fontFamily: 'var(--font-body)' }} dangerouslySetInnerHTML={{ __html: t('products.deleteMessage', locale).replace('{name}', `<strong>${deleteConfirm.name}</strong>`) }} />
+            <p className="mt-1 text-xs text-red-500" style={{ fontFamily: 'var(--font-body)' }}>
               {t('products.deleteDescription', locale)}
             </p>
             <div className="mt-4 flex gap-3">
@@ -642,14 +642,14 @@ export default function ProductsClient({
                 onClick={handleDelete}
                 disabled={loading}
                 className="flex-1 rounded-lg bg-red-600 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-red-700 disabled:opacity-50"
-                style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                style={{ fontFamily: 'var(--font-body)' }}
               >
                 {loading ? t('products.deleting', locale) : t('products.yesDelete', locale)}
               </button>
               <button
                 onClick={() => setDeleteConfirm(null)}
                 className="flex-1 rounded-lg border border-primary/10 px-4 py-2.5 text-sm font-medium text-primary/60 transition-colors hover:bg-primary/5"
-                style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                style={{ fontFamily: 'var(--font-body)' }}
               >
                 {t('common.cancel', locale)}
               </button>

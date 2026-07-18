@@ -28,7 +28,7 @@ export default function ConfirmDialog({
       <div className="fixed inset-0 bg-black/40" onClick={onCancel} />
       <div
         className="relative mx-4 w-full max-w-sm rounded-xl border border-primary/5 bg-white p-6 shadow-xl"
-        style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+        style={{ fontFamily: 'var(--font-body)' }}
       >
         <h3 className="text-base font-bold text-primary">{title}</h3>
         <p className="mt-2 text-sm text-primary/60">{message}</p>

@@ -258,13 +258,13 @@ export default function CustomersClient({
           <div>
             <p
               className="text-sm font-semibold text-primary"
-              style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+              style={{ fontFamily: 'var(--font-body)' }}
             >
               {userName}
             </p>
             <p
               className="text-xs text-primary/40"
-              style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+              style={{ fontFamily: 'var(--font-body)' }}
             >
               {isOwner ? t('role.owner', locale) : t('role.worker', locale)}
             </p>
@@ -278,7 +278,7 @@ export default function CustomersClient({
           <div className="flex items-center justify-between">
             <h1
               className="text-xl font-bold text-primary md:text-2xl"
-              style={{ fontFamily: 'var(--font-heading), var(--font-heading-arabic)' }}
+              style={{ fontFamily: 'var(--font-heading)' }}
             >
               {t('customers.title', locale)}
             </h1>
@@ -286,7 +286,7 @@ export default function CustomersClient({
               <button
                 onClick={openAddForm}
                 className="flex items-center gap-2 rounded-lg bg-[#1e293b] px-3 py-2 text-sm font-medium text-white transition-colors hover:bg-[#2d3a4f] md:px-4 md:py-2.5"
-                style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                style={{ fontFamily: 'var(--font-body)' }}
               >
                 <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
@@ -314,7 +314,7 @@ export default function CustomersClient({
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder={t('customers.searchPlaceholder', locale)}
               className="w-full rounded-lg border border-primary/10 bg-white py-2.5 pr-10 pl-3 text-sm text-primary placeholder:text-primary/30 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/30"
-              style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+              style={{ fontFamily: 'var(--font-body)' }}
             />
           </div>
 
@@ -324,7 +324,7 @@ export default function CustomersClient({
               <div className="flex items-center justify-between border-b border-primary/5 px-4 py-3">
                 <h2
                   className="text-base font-bold text-primary"
-                  style={{ fontFamily: 'var(--font-heading), var(--font-heading-arabic)' }}
+                  style={{ fontFamily: 'var(--font-heading)' }}
                 >
                   {editingCustomer ? t('customers.editCustomer', locale) : t('customers.customerData', locale)}
                 </h2>
@@ -346,7 +346,7 @@ export default function CustomersClient({
                 )}
 
                 <div>
-                  <label className="mb-1 block text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                  <label className="mb-1 block text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body)' }}>
                     {t('customers.fullName', locale)}
                   </label>
                   <input
@@ -356,12 +356,12 @@ export default function CustomersClient({
                     onChange={handleChange}
                     required
                     className="w-full rounded-lg border border-primary/10 bg-background px-3 py-2 text-sm text-primary placeholder:text-primary/30 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/30"
-                    style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                    style={{ fontFamily: 'var(--font-body)' }}
                   />
                 </div>
 
                 <div>
-                  <label className="mb-1 block text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                  <label className="mb-1 block text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body)' }}>
                     {t('customers.phone', locale)}
                   </label>
                   <input
@@ -370,12 +370,12 @@ export default function CustomersClient({
                     value={form.phone}
                     onChange={handleChange}
                     className="w-full rounded-lg border border-primary/10 bg-background px-3 py-2 text-sm text-primary placeholder:text-primary/30 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/30"
-                    style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                    style={{ fontFamily: 'var(--font-body)' }}
                   />
                 </div>
 
                 <div>
-                  <label className="mb-1 block text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                  <label className="mb-1 block text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body)' }}>
                     {t('customers.email', locale)}
                   </label>
                   <input
@@ -384,12 +384,12 @@ export default function CustomersClient({
                     value={form.email}
                     onChange={handleChange}
                     className="w-full rounded-lg border border-primary/10 bg-background px-3 py-2 text-sm text-primary placeholder:text-primary/30 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/30"
-                    style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                    style={{ fontFamily: 'var(--font-body)' }}
                   />
                 </div>
 
                 <div>
-                  <label className="mb-1 block text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                  <label className="mb-1 block text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body)' }}>
                     {t('customers.address', locale)}
                   </label>
                   <input
@@ -398,12 +398,12 @@ export default function CustomersClient({
                     value={form.address}
                     onChange={handleChange}
                     className="w-full rounded-lg border border-primary/10 bg-background px-3 py-2 text-sm text-primary placeholder:text-primary/30 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/30"
-                    style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                    style={{ fontFamily: 'var(--font-body)' }}
                   />
                 </div>
 
                 <div>
-                  <label className="mb-1 block text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                  <label className="mb-1 block text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body)' }}>
                     {t('customers.notes', locale)}
                   </label>
                   <textarea
@@ -412,7 +412,7 @@ export default function CustomersClient({
                     onChange={handleChange}
                     rows={3}
                     className="w-full rounded-lg border border-primary/10 bg-background px-3 py-2 text-sm text-primary placeholder:text-primary/30 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/30 resize-none"
-                    style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                    style={{ fontFamily: 'var(--font-body)' }}
                   />
                 </div>
 
@@ -421,7 +421,7 @@ export default function CustomersClient({
                     type="submit"
                     disabled={loading}
                     className="flex-1 rounded-lg bg-[#1e293b] px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-[#2d3a4f] disabled:opacity-50"
-                    style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                    style={{ fontFamily: 'var(--font-body)' }}
                   >
                     {loading ? t('customers.submitSaving', locale) : t('customers.submitSave', locale)}
                   </button>
@@ -429,7 +429,7 @@ export default function CustomersClient({
                     type="button"
                     onClick={closeForm}
                     className="rounded-lg border border-primary/10 px-4 py-2.5 text-sm font-medium text-primary/60 transition-colors hover:bg-primary/5"
-                    style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                    style={{ fontFamily: 'var(--font-body)' }}
                   >
                     {t('common.cancel', locale)}
                   </button>
@@ -444,7 +444,7 @@ export default function CustomersClient({
               <div className="flex items-center justify-between border-b border-primary/5 px-4 py-3">
                 <h2
                   className="text-base font-bold text-primary"
-                  style={{ fontFamily: 'var(--font-heading), var(--font-heading-arabic)' }}
+                  style={{ fontFamily: 'var(--font-heading)' }}
                 >
                   {t('customers.customerDetails', locale)}
                 </h2>
@@ -467,11 +467,11 @@ export default function CustomersClient({
                     <div>
                       <h3
                         className="text-lg font-bold text-primary"
-                        style={{ fontFamily: 'var(--font-heading), var(--font-heading-arabic)' }}
+                        style={{ fontFamily: 'var(--font-heading)' }}
                       >
                         {viewingCustomer.full_name}
                       </h3>
-                      <p className="text-xs text-primary/40" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                      <p className="text-xs text-primary/40" style={{ fontFamily: 'var(--font-body)' }}>
                         {t('customers.registeredOn', locale)} {formatDate(viewingCustomer.created_at)}
                       </p>
                     </div>
@@ -479,10 +479,10 @@ export default function CustomersClient({
                 </div>
 
                 <div className="rounded-xl border border-primary/5 bg-white p-4 space-y-3">
-                  <h4 className="text-sm font-semibold text-primary" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                  <h4 className="text-sm font-semibold text-primary" style={{ fontFamily: 'var(--font-body)' }}>
                     {t('customers.contactInfo', locale)}
                   </h4>
-                  <div className="space-y-2 text-sm text-ink/60" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                  <div className="space-y-2 text-sm text-ink/60" style={{ fontFamily: 'var(--font-body)' }}>
                     <div className="flex items-center gap-2">
                       <svg className="h-4 w-4 text-primary/30" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
@@ -507,25 +507,25 @@ export default function CustomersClient({
 
                 {viewingCustomer.notes && (
                   <div className="rounded-xl border border-primary/5 bg-white p-4 space-y-2">
-                    <h4 className="text-sm font-semibold text-primary" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                    <h4 className="text-sm font-semibold text-primary" style={{ fontFamily: 'var(--font-body)' }}>
                       {t('customers.notesLabel', locale)}
                     </h4>
-                    <p className="text-sm text-ink/60" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                    <p className="text-sm text-ink/60" style={{ fontFamily: 'var(--font-body)' }}>
                       {viewingCustomer.notes}
                     </p>
                   </div>
                 )}
 
                 <div className="rounded-xl border border-primary/5 bg-white p-4 space-y-3">
-                  <h4 className="text-sm font-semibold text-primary" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                  <h4 className="text-sm font-semibold text-primary" style={{ fontFamily: 'var(--font-body)' }}>
                     {t('customers.customerOrders', locale)}
                   </h4>
                   {loadingOrders ? (
-                    <p className="text-sm text-primary/40" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                    <p className="text-sm text-primary/40" style={{ fontFamily: 'var(--font-body)' }}>
                       {t('common.loading', locale)}
                     </p>
                   ) : customerOrders.length === 0 ? (
-                    <p className="text-sm text-primary/40" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                    <p className="text-sm text-primary/40" style={{ fontFamily: 'var(--font-body)' }}>
                       {t('customers.noOrders', locale)}
                     </p>
                   ) : (
@@ -536,16 +536,16 @@ export default function CustomersClient({
                             <span className="text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-mono)' }}>
                               #{order.id.slice(0, 8).toUpperCase()}
                             </span>
-                            <span className="text-xs text-primary/40" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                            <span className="text-xs text-primary/40" style={{ fontFamily: 'var(--font-body)' }}>
                               {order.product_name ?? '—'}
                             </span>
                           </div>
-                          <div className="mt-1 flex items-center justify-between text-xs text-ink/60" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                          <div className="mt-1 flex items-center justify-between text-xs text-ink/60" style={{ fontFamily: 'var(--font-body)' }}>
                             <span>{t('customers.orderQuantity', locale)}: {order.quantity}</span>
                             <span>{t('customers.orderStatus', locale)}: {order.status}</span>
                           </div>
                           {order.due_date && (
-                            <p className="mt-1 text-xs text-primary/40" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                            <p className="mt-1 text-xs text-primary/40" style={{ fontFamily: 'var(--font-body)' }}>
                               {t('customers.orderDueDate', locale)}: {formatDate(order.due_date)}
                             </p>
                           )}
@@ -561,7 +561,7 @@ export default function CustomersClient({
           {/* Mobile Cards */}
           <div className="space-y-3 md:hidden">
             {filteredCustomers.length === 0 ? (
-              <div className="rounded-xl border border-primary/5 bg-white px-4 py-12 text-center text-sm text-primary/30" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+              <div className="rounded-xl border border-primary/5 bg-white px-4 py-12 text-center text-sm text-primary/30" style={{ fontFamily: 'var(--font-body)' }}>
                 {searchQuery ? t('customers.noResults', locale) : t('customers.empty', locale)}
               </div>
             ) : (
@@ -575,11 +575,11 @@ export default function CustomersClient({
                       <div className="flex-1 min-w-0">
                         <h3
                           className="text-base font-semibold text-primary truncate"
-                          style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                          style={{ fontFamily: 'var(--font-body)' }}
                         >
                           {customer.full_name}
                         </h3>
-                        <div className="mt-1 space-y-0.5 text-sm text-ink/60" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                        <div className="mt-1 space-y-0.5 text-sm text-ink/60" style={{ fontFamily: 'var(--font-body)' }}>
                           <p>{customer.phone ?? '—'}</p>
                           <p className="text-xs text-primary/30">{customer.order_count} {t('customers.orders', locale)}</p>
                         </div>
@@ -591,21 +591,21 @@ export default function CustomersClient({
                       <button
                         onClick={() => openDetails(customer)}
                         className="flex-1 rounded-lg border border-primary/10 px-3 py-2 text-sm font-medium text-primary/60 transition-colors hover:bg-primary/5"
-                        style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                        style={{ fontFamily: 'var(--font-body)' }}
                       >
                         {t('customers.details', locale)}
                       </button>
                       <button
                         onClick={() => openEditForm(customer)}
                         className="flex-1 rounded-lg border border-primary/10 px-3 py-2 text-sm font-medium text-primary/60 transition-colors hover:bg-primary/5"
-                        style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                        style={{ fontFamily: 'var(--font-body)' }}
                       >
                         {t('common.edit', locale)}
                       </button>
                       <button
                         onClick={() => setDeleteTarget(customer)}
                         className="flex-1 rounded-lg border border-red-100 px-3 py-2 text-sm font-medium text-red-500 transition-colors hover:bg-red-50"
-                        style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                        style={{ fontFamily: 'var(--font-body)' }}
                       >
                         {t('common.delete', locale)}
                       </button>
@@ -623,23 +623,23 @@ export default function CustomersClient({
                 <table className="w-full">
                   <thead>
                     <tr className="border-b border-primary/5 bg-[#1e293b]">
-                      <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                      <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body)' }}>
                         {t('customers.table.name', locale)}
                       </th>
-                      <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                      <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body)' }}>
                         {t('customers.table.phone', locale)}
                       </th>
-                      <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                      <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body)' }}>
                         {t('customers.table.email', locale)}
                       </th>
-                      <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                      <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body)' }}>
                         {t('customers.table.orders', locale)}
                       </th>
-                      <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                      <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body)' }}>
                         {t('customers.table.registered', locale)}
                       </th>
                       {isOwner && (
-                        <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                        <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body)' }}>
                           {t('customers.table.actions', locale)}
                         </th>
                       )}
@@ -648,7 +648,7 @@ export default function CustomersClient({
                   <tbody className="divide-y divide-primary/5">
                     {filteredCustomers.length === 0 ? (
                       <tr>
-                        <td colSpan={isOwner ? 6 : 5} className="px-6 py-12 text-center text-sm text-primary/30" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                        <td colSpan={isOwner ? 6 : 5} className="px-6 py-12 text-center text-sm text-primary/30" style={{ fontFamily: 'var(--font-body)' }}>
                           {searchQuery ? t('customers.noResults', locale) : t('customers.empty', locale)}
                         </td>
                       </tr>
@@ -660,21 +660,21 @@ export default function CustomersClient({
                               <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xs font-bold text-primary">
                                 {customer.full_name.charAt(0)}
                               </div>
-                              <span className="text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                              <span className="text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body)' }}>
                                 {customer.full_name}
                               </span>
                             </div>
                           </td>
-                          <td className="px-6 py-3.5 text-sm text-ink/60" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                          <td className="px-6 py-3.5 text-sm text-ink/60" style={{ fontFamily: 'var(--font-body)' }}>
                             {customer.phone ?? '—'}
                           </td>
-                          <td className="px-6 py-3.5 text-sm text-ink/60" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                          <td className="px-6 py-3.5 text-sm text-ink/60" style={{ fontFamily: 'var(--font-body)' }}>
                             {customer.email ?? '—'}
                           </td>
-                          <td className="px-6 py-3.5 text-sm text-ink/60" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                          <td className="px-6 py-3.5 text-sm text-ink/60" style={{ fontFamily: 'var(--font-body)' }}>
                             {customer.order_count}
                           </td>
-                          <td className="px-6 py-3.5 text-sm text-ink/60" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                          <td className="px-6 py-3.5 text-sm text-ink/60" style={{ fontFamily: 'var(--font-body)' }}>
                             {formatDate(customer.created_at)}
                           </td>
                           {isOwner && (
@@ -728,20 +728,20 @@ export default function CustomersClient({
                 <div className="border-b border-primary/5 px-4 py-3">
                   <h2
                     className="text-base font-bold text-primary"
-                    style={{ fontFamily: 'var(--font-heading), var(--font-heading-arabic)' }}
+                    style={{ fontFamily: 'var(--font-heading)' }}
                   >
                     {editingCustomer ? t('customers.editCustomer', locale) : t('customers.customerData', locale)}
                   </h2>
                 </div>
                 <form onSubmit={handleSubmit} className="p-4 space-y-4">
                   {error && (
-                    <div className="rounded-lg bg-red-50 p-3 text-sm text-red-600" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                    <div className="rounded-lg bg-red-50 p-3 text-sm text-red-600" style={{ fontFamily: 'var(--font-body)' }}>
                       {error}
                     </div>
                   )}
 
                   <div>
-                    <label className="mb-1 block text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                    <label className="mb-1 block text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body)' }}>
                       {t('customers.fullName', locale)}
                     </label>
                     <input
@@ -751,12 +751,12 @@ export default function CustomersClient({
                       onChange={handleChange}
                       required
                       className="w-full rounded-lg border border-primary/10 bg-background px-3 py-2 text-sm text-primary placeholder:text-primary/30 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/30"
-                      style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                      style={{ fontFamily: 'var(--font-body)' }}
                     />
                   </div>
 
                   <div>
-                    <label className="mb-1 block text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                    <label className="mb-1 block text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body)' }}>
                       {t('customers.phone', locale)}
                     </label>
                     <input
@@ -765,12 +765,12 @@ export default function CustomersClient({
                       value={form.phone}
                       onChange={handleChange}
                       className="w-full rounded-lg border border-primary/10 bg-background px-3 py-2 text-sm text-primary placeholder:text-primary/30 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/30"
-                      style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                      style={{ fontFamily: 'var(--font-body)' }}
                     />
                   </div>
 
                   <div>
-                    <label className="mb-1 block text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                    <label className="mb-1 block text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body)' }}>
                       {t('customers.email', locale)}
                     </label>
                     <input
@@ -779,12 +779,12 @@ export default function CustomersClient({
                       value={form.email}
                       onChange={handleChange}
                       className="w-full rounded-lg border border-primary/10 bg-background px-3 py-2 text-sm text-primary placeholder:text-primary/30 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/30"
-                      style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                      style={{ fontFamily: 'var(--font-body)' }}
                     />
                   </div>
 
                   <div>
-                    <label className="mb-1 block text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                    <label className="mb-1 block text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body)' }}>
                       {t('customers.address', locale)}
                     </label>
                     <input
@@ -793,12 +793,12 @@ export default function CustomersClient({
                       value={form.address}
                       onChange={handleChange}
                       className="w-full rounded-lg border border-primary/10 bg-background px-3 py-2 text-sm text-primary placeholder:text-primary/30 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/30"
-                      style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                      style={{ fontFamily: 'var(--font-body)' }}
                     />
                   </div>
 
                   <div>
-                    <label className="mb-1 block text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                    <label className="mb-1 block text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body)' }}>
                       {t('customers.notes', locale)}
                     </label>
                     <textarea
@@ -807,7 +807,7 @@ export default function CustomersClient({
                       onChange={handleChange}
                       rows={3}
                       className="w-full rounded-lg border border-primary/10 bg-background px-3 py-2 text-sm text-primary placeholder:text-primary/30 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/30 resize-none"
-                      style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                      style={{ fontFamily: 'var(--font-body)' }}
                     />
                   </div>
 
@@ -816,7 +816,7 @@ export default function CustomersClient({
                       type="submit"
                       disabled={loading}
                       className="flex-1 rounded-lg bg-[#1e293b] px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-[#2d3a4f] disabled:opacity-50"
-                      style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                      style={{ fontFamily: 'var(--font-body)' }}
                     >
                       {loading ? t('customers.submitSaving', locale) : t('customers.submitSave', locale)}
                     </button>
@@ -824,7 +824,7 @@ export default function CustomersClient({
                       type="button"
                       onClick={closeForm}
                       className="rounded-lg border border-primary/10 px-4 py-2.5 text-sm font-medium text-primary/60 transition-colors hover:bg-primary/5"
-                      style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                      style={{ fontFamily: 'var(--font-body)' }}
                     >
                       {t('common.cancel', locale)}
                     </button>
@@ -842,7 +842,7 @@ export default function CustomersClient({
                 <div className="border-b border-primary/5 px-4 py-3 flex items-center justify-between">
                   <h2
                     className="text-base font-bold text-primary"
-                    style={{ fontFamily: 'var(--font-heading), var(--font-heading-arabic)' }}
+                    style={{ fontFamily: 'var(--font-heading)' }}
                   >
                     {t('customers.customerDetails', locale)}
                   </h2>
@@ -864,11 +864,11 @@ export default function CustomersClient({
                     <div>
                       <h3
                         className="text-lg font-bold text-primary"
-                        style={{ fontFamily: 'var(--font-heading), var(--font-heading-arabic)' }}
+                        style={{ fontFamily: 'var(--font-heading)' }}
                       >
                         {viewingCustomer.full_name}
                       </h3>
-                      <p className="text-xs text-primary/40" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                      <p className="text-xs text-primary/40" style={{ fontFamily: 'var(--font-body)' }}>
                         {t('customers.registeredOn', locale)} {formatDate(viewingCustomer.created_at)}
                       </p>
                     </div>
@@ -876,10 +876,10 @@ export default function CustomersClient({
 
                   {/* Contact Info */}
                   <div className="rounded-xl border border-primary/5 bg-background/50 p-4 space-y-3">
-                    <h4 className="text-sm font-semibold text-primary" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                    <h4 className="text-sm font-semibold text-primary" style={{ fontFamily: 'var(--font-body)' }}>
                       {t('customers.contactInfo', locale)}
                     </h4>
-                    <div className="space-y-2.5 text-sm text-ink/60" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                    <div className="space-y-2.5 text-sm text-ink/60" style={{ fontFamily: 'var(--font-body)' }}>
                       <div className="flex items-center gap-2">
                         <svg className="h-4 w-4 shrink-0 text-primary/30" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                           <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
@@ -905,10 +905,10 @@ export default function CustomersClient({
                   {/* Notes */}
                   {viewingCustomer.notes && (
                     <div className="rounded-xl border border-primary/5 bg-background/50 p-4 space-y-2">
-                      <h4 className="text-sm font-semibold text-primary" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                      <h4 className="text-sm font-semibold text-primary" style={{ fontFamily: 'var(--font-body)' }}>
                         {t('customers.notesLabel', locale)}
                       </h4>
-                      <p className="text-sm text-ink/60 whitespace-pre-wrap" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                      <p className="text-sm text-ink/60 whitespace-pre-wrap" style={{ fontFamily: 'var(--font-body)' }}>
                         {viewingCustomer.notes}
                       </p>
                     </div>
@@ -916,15 +916,15 @@ export default function CustomersClient({
 
                   {/* Customer Orders */}
                   <div className="rounded-xl border border-primary/5 bg-background/50 p-4 space-y-3">
-                    <h4 className="text-sm font-semibold text-primary" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                    <h4 className="text-sm font-semibold text-primary" style={{ fontFamily: 'var(--font-body)' }}>
                       {t('customers.customerOrders', locale)}
                     </h4>
                     {loadingOrders ? (
-                      <p className="text-sm text-primary/40" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                      <p className="text-sm text-primary/40" style={{ fontFamily: 'var(--font-body)' }}>
                         {t('common.loading', locale)}
                       </p>
                     ) : customerOrders.length === 0 ? (
-                      <p className="text-sm text-primary/40" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                      <p className="text-sm text-primary/40" style={{ fontFamily: 'var(--font-body)' }}>
                         {t('customers.noOrders', locale)}
                       </p>
                     ) : (
@@ -935,16 +935,16 @@ export default function CustomersClient({
                               <span className="text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-mono)' }}>
                                 #{order.id.slice(0, 8).toUpperCase()}
                               </span>
-                              <span className="text-xs text-primary/40" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                              <span className="text-xs text-primary/40" style={{ fontFamily: 'var(--font-body)' }}>
                                 {order.product_name ?? '—'}
                               </span>
                             </div>
-                            <div className="mt-1 flex items-center justify-between text-xs text-ink/60" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                            <div className="mt-1 flex items-center justify-between text-xs text-ink/60" style={{ fontFamily: 'var(--font-body)' }}>
                               <span>{t('customers.orderQuantity', locale)}: {order.quantity}</span>
                               <span>{t('customers.orderStatus', locale)}: {order.status}</span>
                             </div>
                             {order.due_date && (
-                              <p className="mt-1 text-xs text-primary/40" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                              <p className="mt-1 text-xs text-primary/40" style={{ fontFamily: 'var(--font-body)' }}>
                                 {t('customers.orderDueDate', locale)}: {formatDate(order.due_date)}
                               </p>
                             )}

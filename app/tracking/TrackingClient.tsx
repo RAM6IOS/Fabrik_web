@@ -133,10 +133,10 @@ export default function TrackingClient({
             {userName.charAt(0)}
           </div>
           <div>
-            <p className="text-sm font-semibold text-primary" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+            <p className="text-sm font-semibold text-primary" style={{ fontFamily: 'var(--font-body)' }}>
               {userName}
             </p>
-            <p className="text-xs text-primary/40" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+            <p className="text-xs text-primary/40" style={{ fontFamily: 'var(--font-body)' }}>
               {isOwner ? t('role.owner', locale) : t('role.worker', locale)}
             </p>
           </div>
@@ -147,10 +147,10 @@ export default function TrackingClient({
         <div className="mx-auto max-w-6xl space-y-4 md:space-y-6">
           {/* Page Header */}
           <div>
-            <h1 className="text-xl font-bold text-primary md:text-2xl" style={{ fontFamily: 'var(--font-heading), var(--font-heading-arabic)' }}>
+            <h1 className="text-xl font-bold text-primary md:text-2xl" style={{ fontFamily: 'var(--font-heading)' }}>
               {t('tracking.title', locale)}
             </h1>
-            <p className="mt-1 text-sm text-primary/50" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+            <p className="mt-1 text-sm text-primary/50" style={{ fontFamily: 'var(--font-body)' }}>
               {t('tracking.subtitle', locale)}
             </p>
           </div>
@@ -164,7 +164,7 @@ export default function TrackingClient({
                   ? 'bg-[#1e293b] text-white'
                   : 'bg-primary/5 text-primary/60 hover:bg-primary/10'
               }`}
-              style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+              style={{ fontFamily: 'var(--font-body)' }}
             >
               {locale === 'ar' ? 'الكل' : 'Tout'}
             </button>
@@ -179,7 +179,7 @@ export default function TrackingClient({
                       ? 'bg-[#1e293b] text-white'
                       : 'bg-primary/5 text-primary/60 hover:bg-primary/10'
                   }`}
-                  style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                  style={{ fontFamily: 'var(--font-body)' }}
                 >
                   <span className={`h-2 w-2 rounded-full ${config.dot}`} />
                   {config.label}
@@ -198,7 +198,7 @@ export default function TrackingClient({
           {/* Mobile Cards */}
           <div className="space-y-3 md:hidden">
             {filteredWorkOrders.length === 0 ? (
-              <div className="rounded-xl border border-primary/5 bg-white px-4 py-12 text-center text-sm text-primary/30" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+              <div className="rounded-xl border border-primary/5 bg-white px-4 py-12 text-center text-sm text-primary/30" style={{ fontFamily: 'var(--font-body)' }}>
                 {t('tracking.empty', locale)}
               </div>
             ) : (
@@ -206,10 +206,10 @@ export default function TrackingClient({
                 <div key={wo.id} className="rounded-xl border border-primary/5 bg-white p-4">
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
-                      <h3 className="text-base font-semibold text-primary" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                      <h3 className="text-base font-semibold text-primary" style={{ fontFamily: 'var(--font-body)' }}>
                         {wo.product_name}
                       </h3>
-                        <div className="mt-2 space-y-1 text-sm text-ink/60" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                        <div className="mt-2 space-y-1 text-sm text-ink/60" style={{ fontFamily: 'var(--font-body)' }}>
                           <p>{t('tracking.table.quantity', locale)}: {wo.quantity}</p>
                           {wo.formatted_order_id && (
                             <p style={{ fontFamily: 'var(--font-mono)' }}>
@@ -231,7 +231,7 @@ export default function TrackingClient({
                         onChange={(e) => updateStatus(wo.id, e.target.value)}
                         disabled={updatingId === wo.id || wo.status === 'completed'}
                         className="w-full rounded-lg border border-primary/10 bg-background px-3 py-2 text-sm text-primary focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/30 disabled:opacity-50"
-                        style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                        style={{ fontFamily: 'var(--font-body)' }}
                       >
                         {getAvailableStatuses(wo.status).map((status) => {
                           const config = statusConfig[status];
@@ -253,25 +253,25 @@ export default function TrackingClient({
                 <table className="w-full">
                   <thead>
                     <tr className="border-b border-primary/5 bg-[#1e293b]">
-                      <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>{t('tracking.table.product', locale)}</th>
-                      <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>{t('tracking.table.quantity', locale)}</th>
-                      <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>{t('tracking.table.status', locale)}</th>
-                      <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>{t('tracking.table.plannedStart', locale)}</th>
-                      <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>{t('tracking.table.plannedEnd', locale)}</th>
-                      <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>{t('tracking.table.orderNumber', locale)}</th>
+                      <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body)' }}>{t('tracking.table.product', locale)}</th>
+                      <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body)' }}>{t('tracking.table.quantity', locale)}</th>
+                      <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body)' }}>{t('tracking.table.status', locale)}</th>
+                      <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body)' }}>{t('tracking.table.plannedStart', locale)}</th>
+                      <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body)' }}>{t('tracking.table.plannedEnd', locale)}</th>
+                      <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body)' }}>{t('tracking.table.orderNumber', locale)}</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-primary/5">
                     {filteredWorkOrders.length === 0 ? (
                       <tr>
-                        <td colSpan={6} className="px-6 py-12 text-center text-sm text-primary/30" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                        <td colSpan={6} className="px-6 py-12 text-center text-sm text-primary/30" style={{ fontFamily: 'var(--font-body)' }}>
                           {t('tracking.empty', locale)}
                         </td>
                       </tr>
                     ) : (
                       filteredWorkOrders.map((wo) => (
                           <tr key={wo.id} className="transition-colors hover:bg-primary/[0.01]">
-                            <td className="px-6 py-3.5 text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                            <td className="px-6 py-3.5 text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body)' }}>
                               {wo.product_name}
                             </td>
                             <td className="px-6 py-3.5 text-sm text-ink/60" style={{ fontFamily: 'var(--font-mono)' }}>
@@ -283,7 +283,7 @@ export default function TrackingClient({
                                 onChange={(e) => updateStatus(wo.id, e.target.value)}
                                 disabled={updatingId === wo.id || wo.status === 'completed'}
                                 className="rounded-lg border border-primary/10 bg-background px-2 py-1.5 text-sm text-primary focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/30 disabled:opacity-50"
-                                style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                                style={{ fontFamily: 'var(--font-body)' }}
                               >
                                 {getAvailableStatuses(wo.status).map((status) => {
                                   const config = statusConfig[status];

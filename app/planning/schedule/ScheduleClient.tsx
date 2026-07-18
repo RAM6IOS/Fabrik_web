@@ -83,10 +83,10 @@ export default function ScheduleClient({
             {userName.charAt(0)}
           </div>
           <div>
-            <p className="text-sm font-semibold text-primary" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+            <p className="text-sm font-semibold text-primary" style={{ fontFamily: 'var(--font-body)' }}>
               {userName}
             </p>
-            <p className="text-xs text-primary/40" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+            <p className="text-xs text-primary/40" style={{ fontFamily: 'var(--font-body)' }}>
               {isOwner ? t('role.owner', locale) : t('role.worker', locale)}
             </p>
           </div>
@@ -97,14 +97,14 @@ export default function ScheduleClient({
         <div className="mx-auto max-w-6xl space-y-4 md:space-y-6">
           {/* Page Header */}
           <div className="flex items-center justify-between">
-            <h1 className="text-xl font-bold text-primary md:text-2xl" style={{ fontFamily: 'var(--font-heading), var(--font-heading-arabic)' }}>
+            <h1 className="text-xl font-bold text-primary md:text-2xl" style={{ fontFamily: 'var(--font-heading)' }}>
                {t('schedule.title', locale)}
             </h1>
           </div>
 
           {/* Section Title */}
           <div className="border-b border-primary/5 pb-3">
-            <h2 className="text-sm font-medium text-primary/60" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+            <h2 className="text-sm font-medium text-primary/60" style={{ fontFamily: 'var(--font-body)' }}>
                {t('schedule.suggestedOrders', locale)}
               {purchaseSuggestions.length > 0 && (
                 <span className="mr-2 inline-flex h-5 w-5 items-center justify-center rounded-full bg-accent/10 text-xs text-accent">
@@ -117,7 +117,7 @@ export default function ScheduleClient({
           {/* Mobile Cards */}
           <div className="space-y-3 md:hidden">
             {purchaseSuggestions.length === 0 ? (
-              <div className="rounded-xl border border-primary/5 bg-white px-4 py-12 text-center text-sm text-primary/30" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+              <div className="rounded-xl border border-primary/5 bg-white px-4 py-12 text-center text-sm text-primary/30" style={{ fontFamily: 'var(--font-body)' }}>
                           {t('schedule.noOrders', locale)}
               </div>
             ) : (
@@ -126,16 +126,16 @@ export default function ScheduleClient({
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
                       <div className="flex items-center gap-2">
-                        <h3 className="text-base font-semibold text-primary" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                        <h3 className="text-base font-semibold text-primary" style={{ fontFamily: 'var(--font-body)' }}>
                           {s.raw_material_name}
                         </h3>
                         {s.is_urgent && (
-                          <span className="inline-flex items-center rounded-full bg-red-50 px-2 py-0.5 text-xs font-medium text-red-600" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                          <span className="inline-flex items-center rounded-full bg-red-50 px-2 py-0.5 text-xs font-medium text-red-600" style={{ fontFamily: 'var(--font-body)' }}>
                                 {t('schedule.urgent', locale)}
                           </span>
                         )}
                       </div>
-                      <div className="mt-2 space-y-1 text-sm text-ink/60" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                      <div className="mt-2 space-y-1 text-sm text-ink/60" style={{ fontFamily: 'var(--font-body)' }}>
                         <p>{t('schedule.requiredQuantity', locale)} {s.net_need} {s.unit}</p>
                         <p>{t('schedule.currentStock', locale)} {s.current_balance} {s.unit}</p>
                         <p>{t('schedule.supplierLabel', locale)} {s.supplier_name}</p>
@@ -148,14 +148,14 @@ export default function ScheduleClient({
                       <button
                         onClick={() => approvePurchase(s)}
                         className="flex-1 rounded-lg bg-[#1e293b] px-3 py-2 text-sm font-medium text-white transition-colors hover:bg-[#2d3a4f]"
-                        style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                        style={{ fontFamily: 'var(--font-body)' }}
                       >
                         {t('common.approve', locale)}
                       </button>
                       <button
                         onClick={() => dismissPurchase(s.raw_material_id)}
                         className="flex-1 rounded-lg border border-primary/10 px-3 py-2 text-sm font-medium text-primary/60 transition-colors hover:bg-primary/5"
-                        style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                        style={{ fontFamily: 'var(--font-body)' }}
                       >
                         {t('common.postpone', locale)}
                       </button>
@@ -173,29 +173,29 @@ export default function ScheduleClient({
                 <table className="w-full">
                   <thead>
                     <tr className="border-b border-primary/5 bg-[#1e293b]">
-                      <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>{t('schedule.table.material', locale)}</th>
-                      <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>{t('schedule.table.requiredQuantity', locale)}</th>
-                      <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>{t('schedule.table.stock', locale)}</th>
-                      <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>{t('schedule.table.supplier', locale)}</th>
-                      <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>{t('schedule.table.supplyDuration', locale)}</th>
-                      <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>{t('schedule.table.orderDate', locale)}</th>
-                      <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>{t('schedule.table.status', locale)}</th>
+                      <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body)' }}>{t('schedule.table.material', locale)}</th>
+                      <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body)' }}>{t('schedule.table.requiredQuantity', locale)}</th>
+                      <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body)' }}>{t('schedule.table.stock', locale)}</th>
+                      <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body)' }}>{t('schedule.table.supplier', locale)}</th>
+                      <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body)' }}>{t('schedule.table.supplyDuration', locale)}</th>
+                      <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body)' }}>{t('schedule.table.orderDate', locale)}</th>
+                      <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body)' }}>{t('schedule.table.status', locale)}</th>
                       {isOwner && (
-                        <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>{t('schedule.table.actions', locale)}</th>
+                        <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-white" style={{ fontFamily: 'var(--font-body)' }}>{t('schedule.table.actions', locale)}</th>
                       )}
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-primary/5">
                     {purchaseSuggestions.length === 0 ? (
                       <tr>
-                        <td colSpan={isOwner ? 8 : 7} className="px-6 py-12 text-center text-sm text-primary/30" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                        <td colSpan={isOwner ? 8 : 7} className="px-6 py-12 text-center text-sm text-primary/30" style={{ fontFamily: 'var(--font-body)' }}>
                 {t('schedule.noOrders', locale)}
                         </td>
                       </tr>
                     ) : (
                       purchaseSuggestions.map((s) => (
                         <tr key={s.raw_material_id} className="transition-colors hover:bg-primary/[0.01]">
-                          <td className="px-6 py-3.5 text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                          <td className="px-6 py-3.5 text-sm font-medium text-primary" style={{ fontFamily: 'var(--font-body)' }}>
                             {s.raw_material_name}
                           </td>
                           <td className="px-6 py-3.5 text-sm text-ink/60" style={{ fontFamily: 'var(--font-mono)' }}>
@@ -204,7 +204,7 @@ export default function ScheduleClient({
                           <td className="px-6 py-3.5 text-sm text-ink/60" style={{ fontFamily: 'var(--font-mono)' }}>
                             {s.current_balance} {s.unit}
                           </td>
-                          <td className="px-6 py-3.5 text-sm text-ink/60" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                          <td className="px-6 py-3.5 text-sm text-ink/60" style={{ fontFamily: 'var(--font-body)' }}>
                             {s.supplier_name}
                           </td>
                           <td className="px-6 py-3.5 text-sm text-ink/60" style={{ fontFamily: 'var(--font-mono)' }}>
@@ -215,12 +215,12 @@ export default function ScheduleClient({
                           </td>
                           <td className="px-6 py-3.5">
                             {s.is_urgent ? (
-                              <span className="inline-flex items-center gap-1.5 rounded-full bg-red-50 px-2 py-0.5 text-xs font-medium text-red-600" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>
+                              <span className="inline-flex items-center gap-1.5 rounded-full bg-red-50 px-2 py-0.5 text-xs font-medium text-red-600" style={{ fontFamily: 'var(--font-body)' }}>
                                 <span className="h-1.5 w-1.5 rounded-full bg-red-500" />
                             {t('schedule.urgent', locale)}
                               </span>
                             ) : (
-                              <span className="text-sm text-primary/30" style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}>—</span>
+                              <span className="text-sm text-primary/30" style={{ fontFamily: 'var(--font-body)' }}>—</span>
                             )}
                           </td>
                           {isOwner && (
@@ -229,14 +229,14 @@ export default function ScheduleClient({
                                 <button
                                   onClick={() => approvePurchase(s)}
                                   className="rounded-lg bg-[#1e293b] px-3 py-1.5 text-xs font-medium text-white transition-colors hover:bg-[#2d3a4f]"
-                                  style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                                  style={{ fontFamily: 'var(--font-body)' }}
                                 >
                                    {t('common.approve', locale)}
                                  </button>
                                  <button
                                    onClick={() => dismissPurchase(s.raw_material_id)}
                                    className="rounded-lg border border-primary/10 px-3 py-1.5 text-xs font-medium text-primary/60 transition-colors hover:bg-primary/5"
-                                   style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                                   style={{ fontFamily: 'var(--font-body)' }}
                                  >
                                    {t('common.postpone', locale)}
                                 </button>

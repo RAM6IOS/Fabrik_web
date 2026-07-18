@@ -47,7 +47,7 @@ function ShellContent({ children }: { children: React.ReactNode }) {
           </button>
           <span
             className="mr-3 text-lg font-bold text-primary"
-            style={{ fontFamily: 'var(--font-heading), var(--font-heading-arabic)' }}
+            style={{ fontFamily: 'var(--font-heading)' }}
           >
             قنص
           </span>

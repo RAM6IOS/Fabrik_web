@@ -51,7 +51,7 @@ export default function AppLayout({ children, pageTitle }: AppLayoutProps) {
           {pageTitle && (
             <span
               className="mr-3 text-lg font-bold text-primary"
-              style={{ fontFamily: 'var(--font-heading), var(--font-heading-arabic)' }}
+              style={{ fontFamily: 'var(--font-heading)' }}
             >
               {pageTitle}
             </span>

@@ -26,7 +26,7 @@ function Header({ locale }: { locale: LocaleCode }) {
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <div
           className="text-xl font-bold text-primary"
-          style={{ fontFamily: 'var(--font-heading), var(--font-heading-arabic)' }}
+          style={{ fontFamily: 'var(--font-heading)' }}
         >
           {t('landing.brand', locale)}
         </div>
@@ -80,7 +80,7 @@ function HeroSection({ locale }: { locale: LocaleCode }) {
         <div className="mx-auto max-w-3xl text-center">
           <h1
             className="text-4xl font-bold tracking-tight text-primary sm:text-5xl lg:text-6xl"
-            style={{ fontFamily: 'var(--font-heading), var(--font-heading-arabic)' }}
+            style={{ fontFamily: 'var(--font-heading)' }}
           >
             {t('landing.hero.headline', locale)}
           </h1>
@@ -210,7 +210,7 @@ function FeaturesSection({ locale }: { locale: LocaleCode }) {
       <div className="mx-auto max-w-6xl">
         <h2
           className="mb-14 text-center text-3xl font-bold text-primary sm:text-4xl"
-          style={{ fontFamily: 'var(--font-heading), var(--font-heading-arabic)' }}
+          style={{ fontFamily: 'var(--font-heading)' }}
         >
           {t('landing.why.title', locale)}
         </h2>
@@ -246,7 +246,7 @@ function OfflineSection({ locale }: { locale: LocaleCode }) {
               </svg>
               <h2
                 className="text-3xl font-bold text-white sm:text-4xl"
-                style={{ fontFamily: 'var(--font-heading), var(--font-heading-arabic)' }}
+                style={{ fontFamily: 'var(--font-heading)' }}
               >
                 {t('landing.offline.title', locale)}
               </h2>
@@ -284,7 +284,7 @@ function CTASection({ locale }: { locale: LocaleCode }) {
         <div className="rounded-2xl border border-primary/10 bg-white p-8 text-center sm:p-12 lg:p-16">
           <h2
             className="mb-3 text-3xl font-bold text-primary sm:text-4xl"
-            style={{ fontFamily: 'var(--font-heading), var(--font-heading-arabic)' }}
+            style={{ fontFamily: 'var(--font-heading)' }}
           >
             {t('landing.cta.title', locale)}
           </h2>
@@ -318,7 +318,7 @@ function Footer({ locale }: { locale: LocaleCode }) {
         <div className="flex items-center gap-4">
           <span
             className="text-lg font-bold text-primary"
-            style={{ fontFamily: 'var(--font-heading), var(--font-heading-arabic)' }}
+            style={{ fontFamily: 'var(--font-heading)' }}
           >
             {t('landing.footer.brand', locale)}
           </span>

@@ -1,34 +1,20 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, Cairo, IBM_Plex_Sans, IBM_Plex_Sans_Arabic, IBM_Plex_Mono } from "next/font/google";
+import { Cairo, IBM_Plex_Sans_Arabic, IBM_Plex_Mono } from "next/font/google";
 import { cookies } from 'next/headers';
 import { COOKIE_NAME, DEFAULT_LOCALE, getDir, isValidLocale } from '@/lib/i18n/config';
 import LocaleInit from '@/lib/i18n/locale-init';
 import "./globals.css";
 
-const headingFont = Space_Grotesk({
+const headingFont = Cairo({
   variable: "--font-heading",
-  subsets: ["latin"],
+  subsets: ["arabic", "latin"],
   display: "swap",
   weight: ["700"],
 });
 
-const headingArabicFont = Cairo({
-  variable: "--font-heading-arabic",
-  subsets: ["arabic"],
-  display: "swap",
-  weight: ["700"],
-});
-
-const bodyFont = IBM_Plex_Sans({
+const bodyFont = IBM_Plex_Sans_Arabic({
   variable: "--font-body",
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  display: "swap",
-});
-
-const bodyArabicFont = IBM_Plex_Sans_Arabic({
-  variable: "--font-body-arabic",
-  subsets: ["arabic"],
+  subsets: ["arabic", "latin"],
   weight: ["400", "500", "600"],
   display: "swap",
 });
@@ -59,7 +45,7 @@ export default async function RootLayout({
     <html
       lang={locale}
       dir={dir}
-      className={`${headingFont.variable} ${headingArabicFont.variable} ${bodyFont.variable} ${bodyArabicFont.variable} ${monoFont.variable} h-full`}
+      className={`${headingFont.variable} ${bodyFont.variable} ${monoFont.variable} h-full`}
     >
       <head>
         <LocaleInit />

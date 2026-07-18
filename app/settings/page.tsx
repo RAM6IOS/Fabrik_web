@@ -269,13 +269,13 @@ export default function SettingsPage() {
           <div>
             <p
               className="text-sm font-semibold text-primary"
-              style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+              style={{ fontFamily: 'var(--font-body)' }}
             >
               {fullName}
             </p>
             <p
               className="text-xs text-primary/40"
-              style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+              style={{ fontFamily: 'var(--font-body)' }}
             >
               {factoryName}
             </p>
@@ -287,7 +287,7 @@ export default function SettingsPage() {
               type="text"
               placeholder={t('common.searchPlaceholder', locale)}
               className="w-64 rounded-lg border border-primary/10 bg-background px-4 py-2 pr-10 text-sm text-primary placeholder:text-primary/30 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/30"
-              style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+              style={{ fontFamily: 'var(--font-body)' }}
             />
             <svg
               className="absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-primary/30"

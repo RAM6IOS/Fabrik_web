@@ -131,7 +131,7 @@ export default function Sidebar({ userName = 'أحمد المحمدي', userRole
           </div>
           <span
             className="text-xl font-bold tracking-tight"
-            style={{ fontFamily: 'var(--font-heading), var(--font-heading-arabic)' }}
+            style={{ fontFamily: 'var(--font-heading)' }}
           >
             {t('sidebar.brand', locale)}
           </span>
@@ -163,13 +163,13 @@ export default function Sidebar({ userName = 'أحمد المحمدي', userRole
         <div className="min-w-0">
           <p
             className="truncate text-sm font-semibold text-white"
-            style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+            style={{ fontFamily: 'var(--font-body)' }}
           >
             {userName}
           </p>
           <p
             className="truncate text-xs text-white/50"
-            style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+            style={{ fontFamily: 'var(--font-body)' }}
           >
             {userRole}
           </p>
@@ -195,7 +195,7 @@ export default function Sidebar({ userName = 'أحمد المحمدي', userRole
                           ? 'bg-white/10 text-white'
                           : 'text-white/60 hover:bg-white/5 hover:text-white/80'
                       }`}
-                      style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                      style={{ fontFamily: 'var(--font-body)' }}
                     >
                       <span className={active ? 'text-accent' : ''}>{item.icon}</span>
                       <span className="flex-1 text-right">{item.label}</span>
@@ -223,7 +223,7 @@ export default function Sidebar({ userName = 'أحمد المحمدي', userRole
                                     ? 'bg-white/10 text-white'
                                     : 'text-white/50 hover:bg-white/5 hover:text-white/70'
                                 }`}
-                                style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                                style={{ fontFamily: 'var(--font-body)' }}
                               >
                                 {subItem.label}
                               </Link>
@@ -242,7 +242,7 @@ export default function Sidebar({ userName = 'أحمد المحمدي', userRole
                         ? 'bg-white/10 text-white'
                         : 'text-white/60 hover:bg-white/5 hover:text-white/80'
                     }`}
-                    style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+                    style={{ fontFamily: 'var(--font-body)' }}
                   >
                     <span className={active ? 'text-accent' : ''}>{item.icon}</span>
                     <span>{item.label}</span>
@@ -261,7 +261,7 @@ export default function Sidebar({ userName = 'أحمد المحمدي', userRole
             <a
               href="#"
               className="flex items-center gap-3 rounded-lg px-4 py-2.5 text-sm font-medium text-white/60 transition-colors hover:bg-white/5 hover:text-white/80"
-              style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+              style={{ fontFamily: 'var(--font-body)' }}
             >
               <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
@@ -273,7 +273,7 @@ export default function Sidebar({ userName = 'أحمد المحمدي', userRole
             <button
               onClick={handleLogout}
               className="flex w-full items-center gap-3 rounded-lg px-4 py-2.5 text-sm font-medium text-white/60 transition-colors hover:bg-white/5 hover:text-white/80"
-              style={{ fontFamily: 'var(--font-body-arabic), var(--font-body)' }}
+              style={{ fontFamily: 'var(--font-body)' }}
             >
               <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
