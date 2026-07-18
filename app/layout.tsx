@@ -9,32 +9,34 @@ const headingFont = Space_Grotesk({
   variable: "--font-heading",
   subsets: ["latin"],
   display: "swap",
+  weight: ["700"],
 });
 
 const headingArabicFont = Cairo({
   variable: "--font-heading-arabic",
   subsets: ["arabic"],
   display: "swap",
+  weight: ["700"],
 });
 
 const bodyFont = IBM_Plex_Sans({
   variable: "--font-body",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "500", "600"],
   display: "swap",
 });
 
 const bodyArabicFont = IBM_Plex_Sans_Arabic({
   variable: "--font-body-arabic",
   subsets: ["arabic"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "500", "600"],
   display: "swap",
 });
 
 const monoFont = IBM_Plex_Mono({
   variable: "--font-mono",
   subsets: ["latin"],
-  weight: ["400", "500"],
+  weight: ["400"],
   display: "swap",
 });
 

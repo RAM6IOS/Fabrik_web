@@ -39,14 +39,14 @@ export async function proxy(request: NextRequest) {
   if (!user && !isPublicRoute) {
     const url = request.nextUrl.clone();
     url.pathname = '/login';
-    return NextResponse.redirect(url);
+    return NextResponse.rewrite(url);
   }
 
   // Redirect authenticated users away from public routes
   if (user && isPublicRoute && !request.nextUrl.pathname.startsWith('/api/')) {
     const url = request.nextUrl.clone();
     url.pathname = '/dashboard';
-    return NextResponse.redirect(url);
+    return NextResponse.rewrite(url);
   }
 
   return supabaseResponse;
